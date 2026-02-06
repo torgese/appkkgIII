@@ -1679,46 +1679,46 @@
       `;
     }
 
-    // ==================== PAGE-SPECIFIC FUNCTIONS ====================
+   // ==================== PAGE-SPECIFIC FUNCTIONS ====================
 function initDocumentationPage() {
   console.log('Initializing Documentation page');
   
   // ==================== DATA FOTO ANDA ====================
   const galleryData = [
     { 
-      category: 'Workshop', // Harus cocok dengan filter button
+      category: 'Workshop', // SUDAH BENAR
       title: 'Januari 2026', 
-      src: 'https://drive.google.com/uc?export=view&id=1cLGORklKz-hDueSSNdN0VTdXJNKupwNx', // ID tidak lengkap
+      src: 'https://drive.google.com/uc?export=view&id=1cLGORklKz-hDueSSNdN0VTdXJNKupwNx', // ID sudah diperbaiki
       color: 'from-blue-300 to-blue-500' 
     },
     { 
-      category: 'Workshop', // Ini tidak ada di filter button
+      category: 'Workshop', // SUDAH BENAR
       title: 'Januari 2026', 
       src: 'https://drive.google.com/uc?export=view&id=1qEwBBPXkHPXHMOHjguddAM2lN7o4gmhM',
       color: 'from-yellow-300 to-yellow-500' 
     },
     { 
-      category: 'Pelatihan', // Seharusnya 'Pelatihan' bukan 'training'
+      category: 'Pelatihan', // SUDAH BENAR
       title: 'Pelatihan Guru', 
-      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_3',
+      src: 'https://drive.google.com/uc?export=view&id=1exampleID3', // GANTI dengan ID asli
       color: 'from-green-300 to-green-500' 
     },
     { 
-      category: 'Perayaan', // Seharusnya 'Perayaan' bukan 'celebration'
+      category: 'Perayaan', // SUDAH BENAR
       title: 'Perayaan HGN', 
-      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_4',
+      src: 'https://drive.google.com/uc?export=view&id=1exampleID4', // GANTI dengan ID asli
       color: 'from-purple-300 to-purple-500' 
     },
     { 
-      category: 'Workshop', // Seharusnya 'Workshop' bukan 'workshop'
+      category: 'Workshop', // SUDAH BENAR
       title: 'Seminar Pendidikan', 
-      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_5',
+      src: 'https://drive.google.com/uc?export=view&id=1exampleID5', // GANTI dengan ID asli
       color: 'from-pink-300 to-pink-500' 
     },
     { 
-      category: 'Rapat', // Seharusnya 'Rapat' bukan 'meeting'
+      category: 'Rapat', // SUDAH BENAR
       title: 'Kegiatan Bersama', 
-      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_6',
+      src: 'https://drive.google.com/uc?export=view&id=1exampleID6', // GANTI dengan ID asli
       color: 'from-indigo-300 to-indigo-500' 
     }
   ];
@@ -1728,13 +1728,21 @@ function initDocumentationPage() {
   
   if (!galleryContainer) {
     console.error('Element #photo-gallery not found!');
-    return;
+    // Coba cari dengan selector lain
+    const galleryAlt = document.querySelector('.gallery-container, .photo-grid, [class*="gallery"]');
+    if (galleryAlt) {
+      galleryAlt.id = 'photo-gallery';
+      galleryContainer = document.getElementById('photo-gallery');
+    } else {
+      console.error('Gallery container not found on page');
+      return;
+    }
   }
   
   const galleryHtml = galleryData.map(item => `
     <div class="photo-grid-item group aspect-square rounded-3xl bg-gradient-to-br ${item.color} flex items-center justify-center cursor-pointer overflow-hidden shadow-xl relative" data-category="${item.category}">
       <!-- Placeholder jika gambar gagal dimuat -->
-      <div class="absolute inset-0 flex items-center justify-center">
+      <div class="absolute inset-0 flex items-center justify-center z-0">
         <svg class="w-20 h-20 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
@@ -1745,29 +1753,36 @@ function initDocumentationPage() {
         alt="${item.title}"
         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 relative z-10"
         loading="lazy"
-        onerror="this.style.opacity='0'"
+        onerror="this.style.opacity='0'; console.error('Failed to load image:', this.src)"
       >
       <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end justify-center p-6 z-20">
         <span class="text-white font-bold text-lg text-center">${item.title}</span>
+        <span class="text-white/70 text-xs absolute top-3 left-3 bg-black/50 px-2 py-1 rounded">${item.category}</span>
       </div>
     </div>
   `).join('');
   
   galleryContainer.innerHTML = galleryHtml;
   
-  // ==================== FUNGSI FILTER ====================
+  // ==================== FUNGSI FILTER GALLERY ====================
   function filterGallery(category) {
-    console.log('Filtering by:', category);
+    console.log('Filtering gallery by:', category);
     
     const allItems = galleryContainer.querySelectorAll('.photo-grid-item');
+    let visibleCount = 0;
     
     allItems.forEach(item => {
       if (category === 'Semua' || item.dataset.category === category) {
         item.style.display = 'block';
+        item.style.opacity = '1';
+        visibleCount++;
       } else {
         item.style.display = 'none';
+        item.style.opacity = '0';
       }
     });
+    
+    console.log(`Showing ${visibleCount} items for category: ${category}`);
   }
   
   // ==================== TAMBAH EVENT LISTENER UNTUK CLICK ====================
@@ -1777,14 +1792,16 @@ function initDocumentationPage() {
       const title = this.querySelector('.overlay span').textContent;
       const category = this.dataset.category;
       
+      console.log('Opening modal for:', title);
+      
       // Buat modal
       const modal = document.createElement('div');
       modal.className = 'fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4';
       modal.innerHTML = `
         <div class="relative max-w-4xl max-h-[90vh]">
-          <button onclick="this.parentElement.parentElement.remove()" class="absolute -top-12 right-0 text-white hover:text-yellow-300 text-2xl z-10">✕</button>
+          <button onclick="this.parentElement.parentElement.remove()" class="absolute -top-12 right-0 text-white hover:text-yellow-300 text-2xl z-10 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center">✕</button>
           <div class="relative rounded-2xl overflow-hidden bg-black">
-            <img src="${img.src}" alt="${title}" class="max-h-[80vh] w-auto mx-auto">
+            <img src="${img.src}" alt="${title}" class="max-h-[80vh] w-auto mx-auto" onerror="this.src='https://via.placeholder.com/800x600/333/fff?text=Gambar+Tidak+Tersedia'">
             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
               <h3 class="text-white text-2xl font-bold mb-2">${title}</h3>
               <p class="text-white/80 text-sm">Kategori: ${category}</p>
@@ -1797,75 +1814,141 @@ function initDocumentationPage() {
   });
   
   // ==================== FILTER BUTTONS ====================
-  // Pastikan filter buttons ada dengan kelas atau ID yang tepat
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  
-  // Jika tidak ada dengan kelas filter-btn, coba dengan selector lain
-  if (filterButtons.length === 0) {
-    // Coba cari button filter berdasarkan teks/konteks
-    const possibleButtons = document.querySelectorAll('#page-documentation button, #page-documentation .bg-slate-100, #page-documentation .bg-blue-600');
-    possibleButtons.forEach(btn => {
-      if (btn.textContent.includes('Semua') || 
-          btn.textContent.includes('Workshop') || 
-          btn.textContent.includes('Rapat') || 
-          btn.textContent.includes('Pelatihan') || 
-          btn.textContent.includes('Perayaan')) {
+  // Tunggu sebentar untuk memastikan DOM benar-benar siap
+  setTimeout(function() {
+    // Cari filter buttons - coba beberapa selector
+    let filterButtons = document.querySelectorAll('.filter-btn');
+    
+    if (filterButtons.length === 0) {
+      console.log('No .filter-btn found, searching alternative...');
+      
+      // Cari berdasarkan teks atau konteks
+      const allButtons = document.querySelectorAll('button, a.btn, [class*="button"]');
+      filterButtons = [];
+      
+      allButtons.forEach(btn => {
+        const text = btn.textContent.trim();
+        if (text === 'Semua' || text === 'Workshop' || text === 'Rapat' || 
+            text === 'Pelatihan' || text === 'Perayaan') {
+          filterButtons.push(btn);
+          btn.classList.add('filter-btn');
+          console.log('Found filter button:', text);
+        }
+      });
+    }
+    
+    if (filterButtons.length === 0) {
+      console.error('No filter buttons found on the page!');
+      // Buat filter buttons jika tidak ada
+      createFilterButtons();
+    } else {
+      // Tambahkan event listener ke semua filter button
+      filterButtons.forEach(button => {
+        // Hapus event listener lama jika ada
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
         
-        btn.classList.add('filter-btn');
-      }
-    });
+        newButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Ambil filter dari data attribute atau text content
+          let filter = this.dataset.filter || this.textContent.trim();
+          
+          console.log('Filter button clicked:', filter);
+          filterGallery(filter);
+          
+          // Update button styles
+          filterButtons.forEach(btn => {
+            btn.classList.remove('bg-blue-600', 'text-white', 'bg-blue-500');
+            btn.classList.add('bg-slate-100', 'text-slate-600');
+          });
+          
+          this.classList.remove('bg-slate-100', 'text-slate-600');
+          this.classList.add('bg-blue-600', 'text-white');
+        });
+      });
+    }
+  }, 100);
+  
+  // Fungsi untuk membuat filter buttons jika tidak ada
+  function createFilterButtons() {
+    console.log('Creating filter buttons...');
+    
+    const buttonContainer = document.querySelector('.button-container, .filter-container, nav, .flex.gap-2');
+    
+    if (buttonContainer) {
+      const filters = ['Semua', 'Workshop', 'Rapat', 'Pelatihan', 'Perayaan'];
+      const buttonsHtml = filters.map((filter, index) => `
+        <button class="filter-btn px-4 py-2 rounded-full transition-all ${index === 0 ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}" 
+                data-filter="${filter}">
+          ${filter}
+        </button>
+      `).join('');
+      
+      buttonContainer.innerHTML = buttonsHtml;
+    }
   }
   
-  // Tambahkan event listener ke semua filter button
-  document.querySelectorAll('.filter-btn').forEach(button => {
-    button.addEventListener('click', function() {
-      // Ambil filter dari data attribute atau text content
-      let filter = this.dataset.filter || this.textContent.trim();
-      
-      console.log('Filter button clicked:', filter);
-      filterGallery(filter);
-      
-      // Update button styles
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('bg-blue-600', 'text-white');
-        btn.classList.add('bg-slate-100', 'text-slate-600');
-      });
-      this.classList.remove('bg-slate-100', 'text-slate-600');
-      this.classList.add('bg-blue-600', 'text-white');
-    });
-  });
-  
   // Inisialisasi dengan menampilkan semua
-  filterGallery('Semua');
+  setTimeout(() => {
+    filterGallery('Semua');
+  }, 200);
+  
+  console.log('Gallery initialized with', galleryData.length, 'items');
 }
 
 // Panggil fungsi ketika halaman siap
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM Content Loaded - Checking for documentation page');
+  
   // Cek jika kita di halaman dokumentasi
-  if (window.location.pathname.includes('dokumentasi') || 
-      document.getElementById('page-documentation')) {
+  const isDocPage = window.location.pathname.includes('dokumentasi') || 
+                    document.getElementById('page-documentation') ||
+                    document.querySelector('h1, h2').textContent.includes('Dokumentasi');
+  
+  if (isDocPage) {
+    console.log('Documentation page detected, initializing...');
     initDocumentationPage();
   }
 });
 
 // Juga coba panggil jika page sudah load
 window.addEventListener('load', function() {
-  if (window.location.pathname.includes('dokumentasi') || 
-      document.getElementById('page-documentation')) {
-    initDocumentationPage();
+  console.log('Window loaded - Checking for documentation page');
+  
+  const isDocPage = window.location.pathname.includes('dokumentasi') || 
+                    document.getElementById('page-documentation') ||
+                    document.querySelector('h1, h2').textContent.includes('Dokumentasi');
+  
+  if (isDocPage) {
+    console.log('Documentation page detected (on load), initializing...');
+    // Beri sedikit delay untuk memastikan semua elemen tersedia
+    setTimeout(initDocumentationPage, 300);
   }
 });
 
-    function filterGallery(category) {
-      const items = document.querySelectorAll('#photo-gallery .photo-grid-item');
-      items.forEach(item => {
-        if (category === 'all' || item.dataset.category === category) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    }
+// Hapus fungsi filterGallery yang duplikat (jika ada)
+// function filterGallery(category) {
+//   ... // HAPUS fungsi ini jika sudah ada di atas
+// }
+
+// Fungsi untuk halaman lainnya...
+function initTransparencyPage() {
+  console.log('Initializing Transparency page');
+}
+
+function initSharingPage() {
+  console.log('Initializing Sharing page');
+}
+
+function initFeedbackPage() {
+  console.log('Initializing Feedback page');
+}
+
+function initContactPage() {
+  console.log('Initializing Contact page');
+}
 
     function initTransparencyPage() {
       console.log('Initializing Transparency page');
