@@ -1681,57 +1681,150 @@
 
     // ==================== PAGE-SPECIFIC FUNCTIONS ====================
     function initDocumentationPage() {
-      console.log('Initializing Documentation page');
-      
-      // Generate photo gallery
-      const galleryData = [
-        { category: 'workshop', title: 'Workshop 2024', color: 'from-blue-300 to-blue-500' },
-        { category: 'meeting', title: 'Rapat Koordinasi', color: 'from-yellow-300 to-yellow-500' },
-        { category: 'training', title: 'Pelatihan Guru', color: 'from-green-300 to-green-500' },
-        { category: 'celebration', title: 'Perayaan HGN', color: 'from-purple-300 to-purple-500' },
-        { category: 'workshop', title: 'Seminar Pendidikan', color: 'from-pink-300 to-pink-500' },
-        { category: 'meeting', title: 'Kegiatan Bersama', color: 'from-indigo-300 to-indigo-500' },
-        { category: 'training', title: 'Praktikum IPA', color: 'from-teal-300 to-teal-500' },
-        { category: 'celebration', title: 'Sharing Session', color: 'from-orange-300 to-orange-500' },
-        { category: 'workshop', title: 'Workshop Digital', color: 'from-red-300 to-red-500' },
-        { category: 'training', title: 'Pelatihan Media', color: 'from-emerald-300 to-emerald-500' },
-        { category: 'meeting', title: 'Rapat Tahunan', color: 'from-amber-300 to-amber-500' },
-        { category: 'celebration', title: 'HUT KKG', color: 'from-violet-300 to-violet-500' }
-      ];
-      
-      const galleryHtml = galleryData.map(item => `
-        <div class="photo-grid-item group aspect-square rounded-3xl bg-gradient-to-br ${item.color} flex items-center justify-center cursor-pointer overflow-hidden shadow-xl relative" data-category="${item.category}">
-          <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end justify-center p-6">
-            <span class="text-white font-bold text-lg text-center">${item.title}</span>
-          </div>
-          <svg class="w-20 h-20 text-white/80" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-        </div>
-      `).join('');
-      
-      const galleryContainer = document.getElementById('photo-gallery');
-      if (galleryContainer) {
-        galleryContainer.innerHTML = galleryHtml;
-      }
-      
-      // Initialize filter buttons
-      const filterButtons = document.querySelectorAll('#page-documentation .bg-slate-100, #page-documentation .bg-blue-600');
-      filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const filter = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-          filterGallery(filter);
-          
-          // Update button styles
-          filterButtons.forEach(btn => {
-            btn.classList.remove('bg-blue-600', 'text-white');
-            btn.classList.add('bg-slate-100', 'text-slate-600');
-          });
-          this.classList.remove('bg-slate-100', 'text-slate-600');
-          this.classList.add('bg-blue-600', 'text-white');
-        });
-      });
+  console.log('Initializing Documentation page');
+  
+  // ==================== DATA FOTO ANDA ====================
+  // GANTI link berikut dengan link foto Anda dari Google Drive
+  const galleryData = [
+    { 
+      category: 'Rapat', 
+      title: 'Januari 2026', 
+      src: 'https://drive.google.com/uc?export=view&id=1cLGORklKz',
+      color: 'from-blue-300 to-blue-500' 
+    },
+    { 
+      category: 'Pertemuan Rutin', 
+      title: 'Januari 2026', 
+      src: 'https://drive.google.com/uc?export=view&id=1qEwBBPXkHPXHMOHjguddAM2lN7o4gmhM',
+      color: 'from-yellow-300 to-yellow-500' 
+    },
+    { 
+      category: 'training', 
+      title: 'Pelatihan Guru', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_3',
+      color: 'from-green-300 to-green-500' 
+    },
+    { 
+      category: 'celebration', 
+      title: 'Perayaan HGN', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_4',
+      color: 'from-purple-300 to-purple-500' 
+    },
+    { 
+      category: 'workshop', 
+      title: 'Seminar Pendidikan', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_5',
+      color: 'from-pink-300 to-pink-500' 
+    },
+    { 
+      category: 'meeting', 
+      title: 'Kegiatan Bersama', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_6',
+      color: 'from-indigo-300 to-indigo-500' 
+    },
+    { 
+      category: 'training', 
+      title: 'Praktikum IPA', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_7',
+      color: 'from-teal-300 to-teal-500' 
+    },
+    { 
+      category: 'celebration', 
+      title: 'Sharing Session', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_8',
+      color: 'from-orange-300 to-orange-500' 
+    },
+    { 
+      category: 'workshop', 
+      title: 'Workshop Digital', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_9',
+      color: 'from-red-300 to-red-500' 
+    },
+    { 
+      category: 'training', 
+      title: 'Pelatihan Media', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_10',
+      color: 'from-emerald-300 to-emerald-500' 
+    },
+    { 
+      category: 'meeting', 
+      title: 'Rapat Tahunan', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_11',
+      color: 'from-amber-300 to-amber-500' 
+    },
+    { 
+      category: 'celebration', 
+      title: 'HUT KKG', 
+      src: 'https://drive.google.com/uc?export=view&id=FILE_ID_12',
+      color: 'from-violet-300 to-violet-500' 
     }
+  ];
+  
+  // ==================== BUAT GALLERY ====================
+  const galleryHtml = galleryData.map(item => `
+    <div class="photo-grid-item group aspect-square rounded-3xl bg-gradient-to-br ${item.color} flex items-center justify-center cursor-pointer overflow-hidden shadow-xl relative" data-category="${item.category}">
+      <!-- Foto -->
+      <img 
+        src="${item.src}" 
+        alt="${item.title}"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        loading="lazy"
+        onerror="this.style.display='none'; this.parentElement.innerHTML='<svg class=\\'w-20 h-20 text-white/80\\' fill=\\'none\\' stroke=\\'currentColor\\' viewBox=\\'0 0 24 24\\'><path stroke-linecap=\\'round\\' stroke-linejoin=\\'round\\' stroke-width=\\'1.5\\' d=\\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\\'/></svg>'"
+      >
+      <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end justify-center p-6">
+        <span class="text-white font-bold text-lg text-center">${item.title}</span>
+      </div>
+    </div>
+  `).join('');
+  
+  const galleryContainer = document.getElementById('photo-gallery');
+  if (galleryContainer) {
+    galleryContainer.innerHTML = galleryHtml;
+    
+    // Tambahkan klik untuk preview besar
+    galleryContainer.querySelectorAll('.photo-grid-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const img = this.querySelector('img');
+        const title = this.querySelector('.overlay span').textContent;
+        const category = this.dataset.category;
+        
+        // Buat modal sederhana
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4';
+        modal.innerHTML = `
+          <div class="relative max-w-4xl max-h-[90vh]">
+            <button onclick="this.parentElement.parentElement.remove()" class="absolute -top-12 right-0 text-white hover:text-yellow-300 text-2xl z-10">✕</button>
+            <div class="relative rounded-2xl overflow-hidden bg-black">
+              <img src="${img.src}" alt="${title}" class="max-h-[80vh] w-auto mx-auto">
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                <h3 class="text-white text-2xl font-bold mb-2">${title}</h3>
+                <p class="text-white/80 text-sm">Kategori: ${category}</p>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      });
+    });
+  }
+  
+  // ==================== FILTER BUTTONS ====================
+  const filterButtons = document.querySelectorAll('#page-documentation .bg-slate-100, #page-documentation .bg-blue-600');
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const filter = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+      filterGallery(filter);
+      
+      // Update button styles
+      filterButtons.forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-600');
+      });
+      this.classList.remove('bg-slate-100', 'text-slate-600');
+      this.classList.add('bg-blue-600', 'text-white');
+    });
+  });
+}
 
     function filterGallery(category) {
       const items = document.querySelectorAll('#photo-gallery .photo-grid-item');
