@@ -1685,350 +1685,219 @@ function getDocumentationPage() {
       `;
     }
 
-   // ==================== PAGE-SPECIFIC FUNCTIONS ====================
-function initDocumentationPage() {
-    console.log('Initializing Documentation page');
-    
-    // DATA FOTO - PASTIKAN ID DRIVE ANDA BENAR!
-    const galleryData = [
-        { 
-            category: 'workshop', 
-            title: 'Januari 2026 - Sosialisasi Aplikasi KKG', 
-            src: 'https://drive.google.com/uc?export=view&id=1cLGORklKz-hDueSSNdN0VTdXJNKupwNx',
-            color: 'from-blue-300 to-blue-500',
-            alt: 'Kegiatan Sosialisasi Aplikasi KKG 3'
-        },
-        { 
-            category: 'workshop', 
-            title: 'Januari 2026 - Materi Refleksi Assesmen', 
-            src: 'https://drive.google.com/uc?export=view&id=1qEwBBPXkHPXHMOHjguddAM2lN7o4gmhM',
-            color: 'from-yellow-300 to-yellow-500',
-            alt: 'Materi Refleksi Assesmen'
-        },
-        { 
-            category: 'training', 
-            title: 'Pelatihan Pengembangan Guru', 
-            src: 'https://drive.google.com/uc?export=view&id=YOUR_TRAINING_PHOTO_ID',
-            color: 'from-green-300 to-green-500',
-            alt: 'Pelatihan Guru'
-        }
-    ];
-    
-    // Tunggu DOM siap
-    setTimeout(() => {
-        const galleryContainer = document.getElementById('photo-gallery');
-        const loadingMessage = document.getElementById('loading-message');
+    // ==================== PAGE-SPECIFIC FUNCTIONS ====================
+    function initDocumentationPage() {
+        console.log('Initializing Documentation page');
         
-        if (!galleryContainer) {
-            console.error('Gallery container not found!');
-            return;
-        }
+        // DATA FOTO - Disesuaikan dengan ID drive Anda
+        const galleryData = [
+            { 
+                category: 'workshop', 
+                title: 'Januari 2026 - Sosialisasi Aplikasi KKG', 
+                src: 'https://drive.google.com/uc?export=view&id=1cLGORklKz-hDueSSNdN0VTdXJNKupwNx',
+                alt: 'Kegiatan Sosialisasi Aplikasi KKG 3'
+            },
+            { 
+                category: 'workshop', 
+                title: 'Januari 2026 - Materi Refleksi Assesmen', 
+                src: 'https://drive.google.com/uc?export=view&id=1qEwBBPXkHPXHMOHjguddAM2lN7o4gmhM',
+                alt: 'Materi Refleksi Assesmen'
+            },
+            { 
+                category: 'training', 
+                title: 'Pelatihan Pengembangan Guru', 
+                src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                alt: 'Pelatihan Guru'
+            },
+            { 
+                category: 'meeting', 
+                title: 'Rapat Koordinasi Bulanan', 
+                src: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                alt: 'Rapat Koordinasi'
+            },
+            { 
+                category: 'celebration', 
+                title: 'Perayaan Hari Guru Nasional', 
+                src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                alt: 'Perayaan HGN'
+            },
+            { 
+                category: 'workshop', 
+                title: 'Workshop Digital Learning', 
+                src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                alt: 'Workshop Digital'
+            },
+            { 
+                category: 'training', 
+                title: 'Seminar Pendidikan Karakter', 
+                src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                alt: 'Seminar Pendidikan Karakter'
+            },
+            { 
+                category: 'meeting', 
+                title: 'Diskusi Kurikulum', 
+                src: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                alt: 'Diskusi Kurikulum'
+            }
+        ];
         
-        // Sembunyikan loading message
-        if (loadingMessage) {
-            loadingMessage.style.display = 'none';
-        }
-        
-        // Buat HTML untuk setiap gambar
-        let galleryHTML = '';
-        
-        galleryData.forEach((item) => {
-            galleryHTML += `
-            <div class="photo-grid-item aspect-square rounded-3xl overflow-hidden shadow-xl relative group cursor-pointer hover:shadow-2xl transition-all duration-300" 
-                 data-category="${item.category}"
-                 onclick="openImageModal('${item.src}', '${item.title}')">
+        // Tunggu DOM siap
+        setTimeout(() => {
+            const galleryContainer = document.getElementById('photo-gallery');
+            const loadingMessage = document.getElementById('loading-message');
+            
+            if (!galleryContainer) {
+                console.error('Gallery container not found!');
+                return;
+            }
+            
+            // Sembunyikan loading message
+            if (loadingMessage) {
+                loadingMessage.style.display = 'none';
+            }
+            
+            // Buat HTML untuk setiap gambar
+            let galleryHTML = '';
+            
+            galleryData.forEach((item) => {
+                const categoryColors = {
+                    'workshop': 'from-blue-500 to-blue-600',
+                    'meeting': 'from-yellow-500 to-yellow-600',
+                    'training': 'from-green-500 to-green-600',
+                    'celebration': 'from-purple-500 to-purple-600'
+                };
                 
-                <!-- Gambar utama -->
-                <img src="${item.src}" 
-                     alt="${item.alt}"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                     loading="lazy"
-                     onerror="this.onerror=null; this.src='https://via.placeholder.com/500x500/3B82F6/FFFFFF?text=KKG+Gugus+III';">
-                
-                <!-- Overlay info -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <div>
-                        <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full mb-2">${item.category.toUpperCase()}</span>
-                        <h3 class="text-white font-bold text-lg">${item.title}</h3>
+                galleryHTML += `
+                <div class="photo-grid-item aspect-square rounded-3xl overflow-hidden shadow-xl relative group cursor-pointer hover:shadow-2xl transition-all duration-300" 
+                     data-category="${item.category}"
+                     onclick="openImageModal('${item.src}', '${item.title}')">
+                    
+                    <!-- Gambar utama -->
+                    <img src="${item.src}" 
+                         alt="${item.alt}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         loading="lazy"
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/500x500/3B82F6/FFFFFF?text=KKG+Gugus+III';">
+                    
+                    <!-- Overlay info -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full mb-2">${item.category.toUpperCase()}</span>
+                            <h3 class="text-white font-bold text-lg">${item.title}</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Badge kategori -->
+                    <div class="absolute top-4 left-4">
+                        <span class="px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-bold rounded-full">${item.category}</span>
                     </div>
                 </div>
-                
-                <!-- Badge kategori -->
-                <div class="absolute top-4 left-4">
-                    <span class="px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-bold rounded-full">${item.category}</span>
-                </div>
-            </div>
-            `;
-        });
-        
-        // Masukkan ke gallery
-        galleryContainer.innerHTML = galleryHTML;
-        
-        // Tampilkan semua gambar pertama kali
-        filterGallery('all');
-        
-        console.log('Gallery loaded with', galleryData.length, 'images');
-        
-    }, 500);
-}
-  
-  // ==================== TAMBAH EVENT LISTENER UNTUK CLICK ====================
-  galleryContainer.querySelectorAll('.photo-grid-item').forEach(item => {
-    item.addEventListener('click', function() {
-      const img = this.querySelector('img');
-      const title = this.querySelector('.overlay span').textContent;
-      const category = this.dataset.category;
-      
-      console.log('Opening modal for:', title);
-      
-      // Buat modal
-      const modal = document.createElement('div');
-      modal.className = 'fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4';
-      modal.innerHTML = `
-        <div class="relative max-w-4xl max-h-[90vh]">
-          <button onclick="this.parentElement.parentElement.remove()" class="absolute -top-12 right-0 text-white hover:text-yellow-300 text-2xl z-10 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center">✕</button>
-          <div class="relative rounded-2xl overflow-hidden bg-black">
-            <img src="${img.src}" alt="${title}" class="max-h-[80vh] w-auto mx-auto" onerror="this.src='https://via.placeholder.com/800x600/333/fff?text=Gambar+Tidak+Tersedia'">
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-              <h3 class="text-white text-2xl font-bold mb-2">${title}</h3>
-              <p class="text-white/80 text-sm">Kategori: ${category}</p>
-            </div>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(modal);
-    });
-  });
-  
-  // ==================== FILTER BUTTONS ====================
-  // Tunggu sebentar untuk memastikan DOM benar-benar siap
-  setTimeout(function() {
-    // Cari filter buttons - coba beberapa selector
-    let filterButtons = document.querySelectorAll('.filter-btn');
-    
-    if (filterButtons.length === 0) {
-      console.log('No .filter-btn found, searching alternative...');
-      
-      // Cari berdasarkan teks atau konteks
-      const allButtons = document.querySelectorAll('button, a.btn, [class*="button"]');
-      filterButtons = [];
-      
-      allButtons.forEach(btn => {
-        const text = btn.textContent.trim();
-        if (text === 'Semua' || text === 'Workshop' || text === 'Rapat' || 
-            text === 'Pelatihan' || text === 'Perayaan') {
-          filterButtons.push(btn);
-          btn.classList.add('filter-btn');
-          console.log('Found filter button:', text);
-        }
-      });
-    }
-    
-    if (filterButtons.length === 0) {
-      console.error('No filter buttons found on the page!');
-      // Buat filter buttons jika tidak ada
-      createFilterButtons();
-    } else {
-      // Tambahkan event listener ke semua filter button
-      filterButtons.forEach(button => {
-        // Hapus event listener lama jika ada
-        const newButton = button.cloneNode(true);
-        button.parentNode.replaceChild(newButton, button);
-        
-        newButton.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          // Ambil filter dari data attribute atau text content
-          let filter = this.dataset.filter || this.textContent.trim();
-          
-          console.log('Filter button clicked:', filter);
-          filterGallery(filter);
-          
-          // Update button styles
-          filterButtons.forEach(btn => {
-            btn.classList.remove('bg-blue-600', 'text-white', 'bg-blue-500');
-            btn.classList.add('bg-slate-100', 'text-slate-600');
-          });
-          
-          this.classList.remove('bg-slate-100', 'text-slate-600');
-          this.classList.add('bg-blue-600', 'text-white');
-        });
-      });
-    }
-  }, 100);
-  // Fungsi filter gambar
-function filterGallery(category) {
-    const galleryItems = document.querySelectorAll('.photo-grid-item');
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    
-    // Update active button
-    filterButtons.forEach(btn => {
-        btn.classList.remove('active', 'bg-blue-600', 'text-white');
-        btn.classList.add('bg-slate-100', 'text-slate-600');
-        
-        const btnCategory = btn.textContent.toLowerCase();
-        if (category === 'all' && btn.textContent === 'Semua') {
-            btn.classList.remove('bg-slate-100', 'text-slate-600');
-            btn.classList.add('bg-blue-600', 'text-white', 'active');
-        } else if (btnCategory === category) {
-            btn.classList.remove('bg-slate-100', 'text-slate-600');
-            btn.classList.add('bg-blue-600', 'text-white', 'active');
-        }
-    });
-    
-    // Filter gambar
-    galleryItems.forEach(item => {
-        if (category === 'all' || item.dataset.category === category) {
-            item.style.display = 'block';
-            setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'scale(1)';
-            }, 50);
-        } else {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-                item.style.display = 'none';
-            }, 300);
-        }
-    });
-}
-
-// Fungsi untuk modal gambar
-function openImageModal(src, title) {
-    // Hapus modal sebelumnya jika ada
-    const existingModal = document.getElementById('image-modal');
-    if (existingModal) {
-        existingModal.remove();
-    }
-    
-    // Buat modal baru
-    const modalHTML = `
-    <div id="image-modal" class="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center p-4">
-        <div class="relative max-w-6xl w-full max-h-[90vh]">
-            <!-- Tombol tutup -->
-            <button onclick="closeImageModal()" 
-                    class="absolute -top-12 right-0 text-white hover:text-yellow-300 text-3xl z-10 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110 hover:bg-black/70">
-                ✕
-            </button>
+                `;
+            });
             
-            <!-- Container gambar -->
-            <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
-                <!-- Gambar -->
-                <img src="${src}" 
-                     alt="${title}"
-                     class="max-h-[80vh] w-auto mx-auto object-contain"
-                     onerror="this.src='https://via.placeholder.com/800x600/1E40AF/FFFFFF?text=Gambar+KKG+Gugus+III'">
+            // Masukkan ke gallery
+            galleryContainer.innerHTML = galleryHTML;
+            
+            // Tampilkan semua gambar pertama kali
+            filterGallery('all');
+            
+            console.log('Gallery loaded with', galleryData.length, 'images');
+            
+        }, 500);
+    }
+
+    // Fungsi untuk filter gallery
+    function filterGallery(category) {
+        const galleryItems = document.querySelectorAll('.photo-grid-item');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        // Update active button
+        filterButtons.forEach(btn => {
+            btn.classList.remove('active', 'bg-blue-600', 'text-white');
+            btn.classList.add('bg-slate-100', 'text-slate-600');
+            
+            const btnCategory = btn.textContent.toLowerCase();
+            if (category === 'all' && btn.textContent === 'Semua') {
+                btn.classList.remove('bg-slate-100', 'text-slate-600');
+                btn.classList.add('bg-blue-600', 'text-white', 'active');
+            } else if (btnCategory === category) {
+                btn.classList.remove('bg-slate-100', 'text-slate-600');
+                btn.classList.add('bg-blue-600', 'text-white', 'active');
+            }
+        });
+        
+        // Filter gambar
+        galleryItems.forEach(item => {
+            if (category === 'all' || item.dataset.category === category) {
+                item.style.display = 'block';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'scale(1)';
+                }, 50);
+            } else {
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    item.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    // Fungsi untuk modal gambar
+    function openImageModal(src, title) {
+        // Hapus modal sebelumnya jika ada
+        const existingModal = document.getElementById('image-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Buat modal baru
+        const modalHTML = `
+        <div id="image-modal" class="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center p-4">
+            <div class="relative max-w-6xl w-full max-h-[90vh]">
+                <!-- Tombol tutup -->
+                <button onclick="closeImageModal()" 
+                        class="absolute -top-12 right-0 text-white hover:text-yellow-300 text-3xl z-10 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110 hover:bg-black/70">
+                    ✕
+                </button>
                 
-                <!-- Info gambar -->
-                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
-                    <h3 class="text-white text-2xl font-bold mb-2">${title}</h3>
-                    <p class="text-white/80 text-sm">KKG Gugus III - Kelompok Kerja Guru</p>
+                <!-- Container gambar -->
+                <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
+                    <!-- Gambar -->
+                    <img src="${src}" 
+                         alt="${title}"
+                         class="max-h-[80vh] w-auto mx-auto object-contain"
+                         onerror="this.src='https://via.placeholder.com/800x600/1E40AF/FFFFFF?text=Gambar+KKG+Gugus+III'">
+                    
+                    <!-- Info gambar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
+                        <h3 class="text-white text-2xl font-bold mb-2">${title}</h3>
+                        <p class="text-white/80 text-sm">KKG Gugus III - Kelompok Kerja Guru</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    `;
-    
-    // Tambahkan ke body
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-    
-    // Blok scroll body
-    document.body.style.overflow = 'hidden';
-}
-
-// Fungsi tutup modal
-function closeImageModal() {
-    const modal = document.getElementById('image-modal');
-    if (modal) {
-        modal.remove();
-        document.body.style.overflow = 'auto';
+        `;
+        
+        // Tambahkan ke body
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        // Blok scroll body
+        document.body.style.overflow = 'hidden';
     }
-}
-  
-  // Fungsi untuk membuat filter buttons jika tidak ada
-  function createFilterButtons() {
-    console.log('Creating filter buttons...');
-    
-    const buttonContainer = document.querySelector('.button-container, .filter-container, nav, .flex.gap-2');
-    
-    if (buttonContainer) {
-      const filters = ['Semua', 'Workshop', 'Rapat', 'Pelatihan', 'Perayaan'];
-      const buttonsHtml = filters.map((filter, index) => `
-        <button class="filter-btn px-4 py-2 rounded-full transition-all ${index === 0 ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}" 
-                data-filter="${filter}">
-          ${filter}
-        </button>
-      `).join('');
-      
-      buttonContainer.innerHTML = buttonsHtml;
+
+    // Fungsi tutup modal
+    function closeImageModal() {
+        const modal = document.getElementById('image-modal');
+        if (modal) {
+            modal.remove();
+            document.body.style.overflow = 'auto';
+        }
     }
-  }
-  
-  // Inisialisasi dengan menampilkan semua
-  setTimeout(() => {
-    filterGallery('Semua');
-  }, 200);
-  
-  console.log('Gallery initialized with', galleryData.length, 'items');
-}
-
-// Panggil fungsi ketika halaman siap
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM Content Loaded - Checking for documentation page');
-  
-  // Cek jika kita di halaman dokumentasi
-  const isDocPage = window.location.pathname.includes('dokumentasi') || 
-                    document.getElementById('page-documentation') ||
-                    document.querySelector('h1, h2').textContent.includes('Dokumentasi');
-  
-  if (isDocPage) {
-    console.log('Documentation page detected, initializing...');
-    initDocumentationPage();
-  }
-});
-
-// Juga coba panggil jika page sudah load
-window.addEventListener('load', function() {
-  console.log('Window loaded - Checking for documentation page');
-  
-  const isDocPage = window.location.pathname.includes('dokumentasi') || 
-                    document.getElementById('page-documentation') ||
-                    document.querySelector('h1, h2').textContent.includes('Dokumentasi');
-  
-  if (isDocPage) {
-    console.log('Documentation page detected (on load), initializing...');
-    // Beri sedikit delay untuk memastikan semua elemen tersedia
-    setTimeout(initDocumentationPage, 300);
-  }
-});
-
-// Hapus fungsi filterGallery yang duplikat (jika ada)
-// function filterGallery(category) {
-//   ... // HAPUS fungsi ini jika sudah ada di atas
-// }
-
-// Fungsi untuk halaman lainnya...
-function initTransparencyPage() {
-  console.log('Initializing Transparency page');
-}
-
-function initSharingPage() {
-  console.log('Initializing Sharing page');
-}
-
-function initFeedbackPage() {
-  console.log('Initializing Feedback page');
-}
-
-function initContactPage() {
-  console.log('Initializing Contact page');
-}
 
     function initTransparencyPage() {
       console.log('Initializing Transparency page');
-      // Additional initialization if needed
     }
 
     function initSharingPage() {
@@ -2038,12 +1907,10 @@ function initContactPage() {
 
     function initFeedbackPage() {
       console.log('Initializing Feedback page');
-      // Additional initialization if needed
     }
 
     function initContactPage() {
       console.log('Initializing Contact page');
-      // Additional initialization if needed
     }
 
     // ==================== SHARING PAGE FUNCTIONS ====================
@@ -2169,22 +2036,6 @@ function initContactPage() {
     function openMaps() {
       const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Sekretariat+KKG+Gugus+III";
       window.open(mapsUrl, '_blank');
-    }
-
-    // ==================== FORM SUBMISSION FUNCTIONS ====================
-    function submitContact() {
-      const form = document.getElementById('contact-form');
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-      
-      if (!data.nama || !data.email || !data.subjek || !data.pesan) {
-        alert('Harap lengkapi semua field yang wajib diisi!');
-        return;
-      }
-      
-      // Simulate form submission
-      alert('Terima kasih telah menghubungi kami! Pesan Anda telah berhasil dikirim dan akan kami balas secepatnya.');
-      form.reset();
     }
 
   </script>
