@@ -956,38 +956,44 @@
     }
 
     // ==================== DOCUMENTATION PAGE ====================
-    function getDocumentationPage() {
-      return `
+function getDocumentationPage() {
+    return `
         <!-- ==================== DOCUMENTATION PAGE ==================== -->
         <div id="page-documentation" class="page">
-          <div class="pt-24 lg:pt-32 pb-16">
-            <!-- Header -->
-            <div class="bg-gradient-to-r from-green-600 via-green-500 to-green-600 py-20">
-              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Dokumentasi Kegiatan</h1>
-                <p class="text-xl text-green-100 max-w-2xl mx-auto">Galeri foto dari berbagai kegiatan KKG Gugus III</p>
-              </div>
+            <div class="pt-24 lg:pt-32 pb-16">
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-green-600 via-green-500 to-green-600 py-20">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Dokumentasi Kegiatan</h1>
+                        <p class="text-xl text-green-100 max-w-2xl mx-auto">Galeri foto dari berbagai kegiatan KKG Gugus III</p>
+                    </div>
+                </div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap justify-center gap-4 mb-16" id="filter-buttons">
+                        <button class="px-6 py-3 bg-blue-600 text-white rounded-full font-bold transition-all shadow-lg text-sm filter-btn active" onclick="filterGallery('all')">Semua</button>
+                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('workshop')">Workshop</button>
+                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('meeting')">Rapat</button>
+                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('training')">Pelatihan</button>
+                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('celebration')">Perayaan</button>
+                    </div>
+                    
+                    <!-- Photo Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="photo-gallery">
+                        <!-- Photos will be loaded here by JavaScript -->
+                    </div>
+                    
+                    <!-- Loading Message -->
+                    <div id="loading-message" class="text-center py-12">
+                        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+                        <p class="text-slate-600">Memuat gambar...</p>
+                    </div>
+                </div>
             </div>
-            
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-              <!-- Filter Tabs -->
-              <div class="flex flex-wrap justify-center gap-4 mb-16">
-                <button class="px-6 py-3 bg-blue-600 text-white rounded-full font-bold transition-all shadow-lg text-sm" onclick="filterGallery('all')">Semua</button>
-                <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm" onclick="filterGallery('workshop')">Workshop</button>
-                <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm" onclick="filterGallery('meeting')">Rapat</button>
-                <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm" onclick="filterGallery('training')">Pelatihan</button>
-                <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm" onclick="filterGallery('celebration')">Perayaan</button>
-              </div>
-              
-              <!-- Photo Grid -->
-              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="photo-gallery">
-                <!-- Photos will be loaded here -->
-              </div>
-            </div>
-          </div>
         </div>
-      `;
-    }
+    `;
+}
 
     // ==================== TRANSPARENCY PAGE ====================
     function getTransparencyPage() {
@@ -1681,109 +1687,90 @@
 
    // ==================== PAGE-SPECIFIC FUNCTIONS ====================
 function initDocumentationPage() {
-  console.log('Initializing Documentation page');
-  
-  // ==================== DATA FOTO ANDA ====================
-  const galleryData = [
-    { 
-      category: 'Workshop', // SUDAH BENAR
-      title: 'Januari 2026', 
-      src: 'https://drive.google.com/uc?export=view&id=1cLGORklKz-hDueSSNdN0VTdXJNKupwNx', // ID sudah diperbaiki
-      color: 'from-blue-300 to-blue-500' 
-    },
-    { 
-      category: 'Workshop', // SUDAH BENAR
-      title: 'Januari 2026', 
-      src: 'https://drive.google.com/uc?export=view&id=1qEwBBPXkHPXHMOHjguddAM2lN7o4gmhM',
-      color: 'from-yellow-300 to-yellow-500' 
-    },
-    { 
-      category: 'Pelatihan', // SUDAH BENAR
-      title: 'Pelatihan Guru', 
-      src: 'https://drive.google.com/uc?export=view&id=1exampleID3', // GANTI dengan ID asli
-      color: 'from-green-300 to-green-500' 
-    },
-    { 
-      category: 'Perayaan', // SUDAH BENAR
-      title: 'Perayaan HGN', 
-      src: 'https://drive.google.com/uc?export=view&id=1exampleID4', // GANTI dengan ID asli
-      color: 'from-purple-300 to-purple-500' 
-    },
-    { 
-      category: 'Workshop', // SUDAH BENAR
-      title: 'Seminar Pendidikan', 
-      src: 'https://drive.google.com/uc?export=view&id=1exampleID5', // GANTI dengan ID asli
-      color: 'from-pink-300 to-pink-500' 
-    },
-    { 
-      category: 'Rapat', // SUDAH BENAR
-      title: 'Kegiatan Bersama', 
-      src: 'https://drive.google.com/uc?export=view&id=1exampleID6', // GANTI dengan ID asli
-      color: 'from-indigo-300 to-indigo-500' 
-    }
-  ];
-  
-  // ==================== BUAT GALLERY ====================
-  const galleryContainer = document.getElementById('photo-gallery');
-  
-  if (!galleryContainer) {
-    console.error('Element #photo-gallery not found!');
-    // Coba cari dengan selector lain
-    const galleryAlt = document.querySelector('.gallery-container, .photo-grid, [class*="gallery"]');
-    if (galleryAlt) {
-      galleryAlt.id = 'photo-gallery';
-      galleryContainer = document.getElementById('photo-gallery');
-    } else {
-      console.error('Gallery container not found on page');
-      return;
-    }
-  }
-  
-  const galleryHtml = galleryData.map(item => `
-    <div class="photo-grid-item group aspect-square rounded-3xl bg-gradient-to-br ${item.color} flex items-center justify-center cursor-pointer overflow-hidden shadow-xl relative" data-category="${item.category}">
-      <!-- Placeholder jika gambar gagal dimuat -->
-      <div class="absolute inset-0 flex items-center justify-center z-0">
-        <svg class="w-20 h-20 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
-      </div>
-      <!-- Foto -->
-      <img 
-        src="${item.src}" 
-        alt="${item.title}"
-        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 relative z-10"
-        loading="lazy"
-        onerror="this.style.opacity='0'; console.error('Failed to load image:', this.src)"
-      >
-      <div class="overlay absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end justify-center p-6 z-20">
-        <span class="text-white font-bold text-lg text-center">${item.title}</span>
-        <span class="text-white/70 text-xs absolute top-3 left-3 bg-black/50 px-2 py-1 rounded">${item.category}</span>
-      </div>
-    </div>
-  `).join('');
-  
-  galleryContainer.innerHTML = galleryHtml;
-  
-  // ==================== FUNGSI FILTER GALLERY ====================
-  function filterGallery(category) {
-    console.log('Filtering gallery by:', category);
+    console.log('Initializing Documentation page');
     
-    const allItems = galleryContainer.querySelectorAll('.photo-grid-item');
-    let visibleCount = 0;
+    // DATA FOTO - PASTIKAN ID DRIVE ANDA BENAR!
+    const galleryData = [
+        { 
+            category: 'workshop', 
+            title: 'Januari 2026 - Sosialisasi Aplikasi KKG', 
+            src: 'https://drive.google.com/uc?export=view&id=1cLGORklKz-hDueSSNdN0VTdXJNKupwNx',
+            color: 'from-blue-300 to-blue-500',
+            alt: 'Kegiatan Sosialisasi Aplikasi KKG 3'
+        },
+        { 
+            category: 'workshop', 
+            title: 'Januari 2026 - Materi Refleksi Assesmen', 
+            src: 'https://drive.google.com/uc?export=view&id=1qEwBBPXkHPXHMOHjguddAM2lN7o4gmhM',
+            color: 'from-yellow-300 to-yellow-500',
+            alt: 'Materi Refleksi Assesmen'
+        },
+        { 
+            category: 'training', 
+            title: 'Pelatihan Pengembangan Guru', 
+            src: 'https://drive.google.com/uc?export=view&id=YOUR_TRAINING_PHOTO_ID',
+            color: 'from-green-300 to-green-500',
+            alt: 'Pelatihan Guru'
+        }
+    ];
     
-    allItems.forEach(item => {
-      if (category === 'Semua' || item.dataset.category === category) {
-        item.style.display = 'block';
-        item.style.opacity = '1';
-        visibleCount++;
-      } else {
-        item.style.display = 'none';
-        item.style.opacity = '0';
-      }
-    });
-    
-    console.log(`Showing ${visibleCount} items for category: ${category}`);
-  }
+    // Tunggu DOM siap
+    setTimeout(() => {
+        const galleryContainer = document.getElementById('photo-gallery');
+        const loadingMessage = document.getElementById('loading-message');
+        
+        if (!galleryContainer) {
+            console.error('Gallery container not found!');
+            return;
+        }
+        
+        // Sembunyikan loading message
+        if (loadingMessage) {
+            loadingMessage.style.display = 'none';
+        }
+        
+        // Buat HTML untuk setiap gambar
+        let galleryHTML = '';
+        
+        galleryData.forEach((item) => {
+            galleryHTML += `
+            <div class="photo-grid-item aspect-square rounded-3xl overflow-hidden shadow-xl relative group cursor-pointer hover:shadow-2xl transition-all duration-300" 
+                 data-category="${item.category}"
+                 onclick="openImageModal('${item.src}', '${item.title}')">
+                
+                <!-- Gambar utama -->
+                <img src="${item.src}" 
+                     alt="${item.alt}"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                     loading="lazy"
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/500x500/3B82F6/FFFFFF?text=KKG+Gugus+III';">
+                
+                <!-- Overlay info -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full mb-2">${item.category.toUpperCase()}</span>
+                        <h3 class="text-white font-bold text-lg">${item.title}</h3>
+                    </div>
+                </div>
+                
+                <!-- Badge kategori -->
+                <div class="absolute top-4 left-4">
+                    <span class="px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-bold rounded-full">${item.category}</span>
+                </div>
+            </div>
+            `;
+        });
+        
+        // Masukkan ke gallery
+        galleryContainer.innerHTML = galleryHTML;
+        
+        // Tampilkan semua gambar pertama kali
+        filterGallery('all');
+        
+        console.log('Gallery loaded with', galleryData.length, 'images');
+        
+    }, 500);
+}
   
   // ==================== TAMBAH EVENT LISTENER UNTUK CLICK ====================
   galleryContainer.querySelectorAll('.photo-grid-item').forEach(item => {
@@ -1870,6 +1857,95 @@ function initDocumentationPage() {
       });
     }
   }, 100);
+  // Fungsi filter gambar
+function filterGallery(category) {
+    const galleryItems = document.querySelectorAll('.photo-grid-item');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    // Update active button
+    filterButtons.forEach(btn => {
+        btn.classList.remove('active', 'bg-blue-600', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-600');
+        
+        const btnCategory = btn.textContent.toLowerCase();
+        if (category === 'all' && btn.textContent === 'Semua') {
+            btn.classList.remove('bg-slate-100', 'text-slate-600');
+            btn.classList.add('bg-blue-600', 'text-white', 'active');
+        } else if (btnCategory === category) {
+            btn.classList.remove('bg-slate-100', 'text-slate-600');
+            btn.classList.add('bg-blue-600', 'text-white', 'active');
+        }
+    });
+    
+    // Filter gambar
+    galleryItems.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+            item.style.display = 'block';
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+            }, 50);
+        } else {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                item.style.display = 'none';
+            }, 300);
+        }
+    });
+}
+
+// Fungsi untuk modal gambar
+function openImageModal(src, title) {
+    // Hapus modal sebelumnya jika ada
+    const existingModal = document.getElementById('image-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Buat modal baru
+    const modalHTML = `
+    <div id="image-modal" class="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center p-4">
+        <div class="relative max-w-6xl w-full max-h-[90vh]">
+            <!-- Tombol tutup -->
+            <button onclick="closeImageModal()" 
+                    class="absolute -top-12 right-0 text-white hover:text-yellow-300 text-3xl z-10 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110 hover:bg-black/70">
+                ✕
+            </button>
+            
+            <!-- Container gambar -->
+            <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
+                <!-- Gambar -->
+                <img src="${src}" 
+                     alt="${title}"
+                     class="max-h-[80vh] w-auto mx-auto object-contain"
+                     onerror="this.src='https://via.placeholder.com/800x600/1E40AF/FFFFFF?text=Gambar+KKG+Gugus+III'">
+                
+                <!-- Info gambar -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
+                    <h3 class="text-white text-2xl font-bold mb-2">${title}</h3>
+                    <p class="text-white/80 text-sm">KKG Gugus III - Kelompok Kerja Guru</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+    
+    // Tambahkan ke body
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Blok scroll body
+    document.body.style.overflow = 'hidden';
+}
+
+// Fungsi tutup modal
+function closeImageModal() {
+    const modal = document.getElementById('image-modal');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = 'auto';
+    }
+}
   
   // Fungsi untuk membuat filter buttons jika tidak ada
   function createFilterButtons() {
