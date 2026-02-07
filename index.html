@@ -1689,7 +1689,7 @@ function getDocumentationPage() {
     function initDocumentationPage() {
         console.log('Initializing Documentation page');
         
-        // DATA FOTO - Disesuaikan dengan ID drive Anda
+        // DATA FOTO - Disesuaikan dengan link Google Drive Anda
         const galleryData = [
             { 
                 category: 'workshop', 
@@ -1760,13 +1760,6 @@ function getDocumentationPage() {
             let galleryHTML = '';
             
             galleryData.forEach((item) => {
-                const categoryColors = {
-                    'workshop': 'from-blue-500 to-blue-600',
-                    'meeting': 'from-yellow-500 to-yellow-600',
-                    'training': 'from-green-500 to-green-600',
-                    'celebration': 'from-purple-500 to-purple-600'
-                };
-                
                 galleryHTML += `
                 <div class="photo-grid-item aspect-square rounded-3xl overflow-hidden shadow-xl relative group cursor-pointer hover:shadow-2xl transition-all duration-300" 
                      data-category="${item.category}"
