@@ -1,71 +1,232 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KKG Gugus III Kelompok Kerja Guru</title>
   
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Custom CSS -->
   <style>
-    body { box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-    h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
-    .gradient-hero { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); }
-    .gradient-accent { background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); }
-    .gradient-soft-blue { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
-    .gradient-soft-yellow { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
-    .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
-    .nav-link { position: relative; transition: color 0.3s ease; }
-    .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #fbbf24, #f59e0b); transition: width 0.3s ease; border-radius: 2px; }
-    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-    .photo-grid-item { transition: all 0.4s ease; overflow: hidden; }
-    .photo-grid-item:hover { transform: scale(1.05); }
-    .photo-grid-item:hover .overlay { opacity: 1; }
-    .stat-card { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    body {
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Gradient Styles */
+    .gradient-hero {
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+    }
+    
+    .gradient-accent {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    }
+
+    .gradient-soft-blue {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    }
+
+    .gradient-soft-yellow {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    }
+    
+    /* Card Hover Effects */
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+    
+    /* Navigation */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+    
+    /* Photo Grid */
+    .photo-grid-item {
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+    
+    .photo-grid-item:hover {
+      transform: scale(1.05);
+    }
+
+    .photo-grid-item:hover .overlay {
+      opacity: 1;
+    }
+    
+    /* Animations */
+    .stat-card {
+      animation: fadeInUp 0.8s ease forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
     .stat-card:nth-child(1) { animation-delay: 0.1s; }
     .stat-card:nth-child(2) { animation-delay: 0.2s; }
     .stat-card:nth-child(3) { animation-delay: 0.3s; }
     .stat-card:nth-child(4) { animation-delay: 0.4s; }
-    .page { display: none; }
-    .page.active { display: block; animation: pageTransition 0.5s ease; }
-    @keyframes pageTransition { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .table-row { transition: background-color 0.2s ease; }
-    .table-row:hover { background-color: #f8fafc; }
-    .wave-pattern { background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q 25 30, 50 50 T 100 50' stroke='rgba(255,255,255,0.1)' fill='none' stroke-width='1'/%3E%3C/svg%3E"); }
-    .overlay { transition: opacity 0.3s ease; opacity: 0; }
-    .btn-primary { transition: all 0.3s ease; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); }
-    .hero-title { color: #ffffff !important; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2); }
-    .hero-subtitle { color: #fef08a !important; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); font-weight: 700; }
-    .hero-description { color: #e0f2fe !important; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); }
-    .hero-container { position: relative; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%) !important; }
-    .hero-badge { background-color: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+    
+    /* Page Transitions */
+    .page {
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+      animation: pageTransition 0.5s ease;
+    }
+
+    @keyframes pageTransition {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Table Styles */
+    .table-row {
+      transition: background-color 0.2s ease;
+    }
+
+    .table-row:hover {
+      background-color: #f8fafc;
+    }
+
+    /* Wave Pattern */
+    .wave-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q 25 30, 50 50 T 100 50' stroke='rgba(255,255,255,0.1)' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+    }
+
+    .overlay {
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    /* Button Styles */
+    .btn-primary {
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    /* PERBAIKAN: Text Color untuk Hero Section dengan kontras tinggi */
+    .hero-title {
+      color: #ffffff !important;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+      -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hero-subtitle {
+      color: #fef08a !important; /* Kuning terang */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      font-weight: 700;
+    }
+    
+    .hero-description {
+      color: #e0f2fe !important; /* Biru muda terang */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Memastikan background hero cukup gelap */
+    .hero-container {
+      position: relative;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%) !important;
+    }
+    
+    /* Badge styling */
+    .hero-badge {
+      background-color: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
   </style>
 </head>
 <body class="h-full bg-slate-50 text-slate-800 overflow-auto">
   <div id="app-wrapper" class="w-full h-full">
+    <!-- Navigation will be loaded here -->
     <div id="header-container"></div>
     
+    <!-- Main Content -->
     <main id="main-content">
-      <div id="page-content"></div>
+      <!-- Page content will be loaded here -->
+      <div id="page-content">
+        <!-- Home page will be loaded by default -->
+      </div>
     </main>
     
+    <!-- Footer will be loaded here -->
     <div id="footer-container"></div>
   </div>
 
-  <script>
-    // ==================== KONEKSI KE GOOGLE APPS SCRIPT ====================
-    // URL Backend Anda (Sudah diperbarui)
+  <!-- JavaScript Files -->
+<script>
+    // ==================== KONEKSI BACKEND ====================
+    // URL Google Apps Script Anda
     const GAS_URL = "https://script.google.com/macros/s/AKfycbwFuHlTZJm2Tqz8f3BiHOndSdTWOcMdMa_Ru2-gYNCYEEb_f-A4wkTjQ5kolYWTeUIA/exec";
     
-    // PIN Keamanan untuk Guru (Wajib diisi saat upload)
+    // PIN Keamanan (Password untuk Guru saat upload)
     const TEACHER_PIN = "GUGUS3JAYA"; 
 
-    // ==================== NAVIGATION & CORE SYSTEM ====================
+    // ==================== KONFIGURASI UMUM ====================
+    const defaultConfig = {
+      hero_title: 'KKG Gugus III',
+      hero_subtitle: 'Bersama Membangun Pendidikan Berkualitas',
+      hero_description: 'Selamat datang di aplikasi resmi KKG Gugus III Kec Sumedang Utara.',
+      contact_email: 'kkg.gugus3@email.com',
+      contact_phone: '+62 812-3456-7890',
+      contact_address: 'Sekretariat KKG Gugus III<br>Jl. Pendidikan No. 123<br>Kecamatan Cendekia, Indonesia'
+    };
+
+    // ==================== SISTEM NAVIGASI ====================
     document.addEventListener('DOMContentLoaded', function() {
       // Load komponen statis
       document.getElementById('header-container').innerHTML = getHeader();
@@ -73,6 +234,7 @@
       
       // Load halaman pertama
       loadPage('home'); 
+      updatePageConfig();
     });
 
     function navigateTo(pageId) {
@@ -88,7 +250,7 @@
       // Tutup menu mobile jika terbuka
       const mobileMenu = document.getElementById('mobile-menu');
       if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.add('hidden');
+        toggleMobileMenu();
       }
       
       // Scroll ke atas
@@ -106,15 +268,20 @@
       return false;
     }
 
-    // ==================== PAGE ROUTER (PERBAIKAN UTAMA) ====================
-    // Fungsi ini memastikan halaman yang dipanggil ada isinya
+    function updatePageConfig() {
+      const title = document.getElementById('hero-title');
+      if(title) title.textContent = defaultConfig.hero_title;
+      // Update elemen lain dinamis jika perlu
+    }
+
+    // ==================== PAGE ROUTER (PENGATUR HALAMAN) ====================
     async function loadPage(pageId) {
       const content = document.getElementById('page-content');
       
-      // Reset konten dulu
+      // Reset konten
       content.innerHTML = ''; 
 
-      // Routing Sederhana
+      // Routing
       if(pageId === 'home') {
           content.innerHTML = getHomePage();
       } 
@@ -123,7 +290,6 @@
       } 
       else if(pageId === 'agenda') {
           content.innerHTML = getAgendaPage();
-          // Fungsi accordion perlu di-rebind jika ada
       } 
       else if(pageId === 'documentation') {
           content.innerHTML = getDocumentationPage();
@@ -133,8 +299,8 @@
           content.innerHTML = getTransparencyPage();
       } 
       else if(pageId === 'sharing') {
-          content.innerHTML = getSharingPage(); // Muat Form Upload Baru
-          setTimeout(initSharingPage, 100);     // Tarik data dari GAS
+          content.innerHTML = getSharingPage(); // Memuat Form Upload Baru
+          setTimeout(initSharingPage, 100);     // Menarik data dari Server Google
       } 
       else if(pageId === 'feedback') {
           content.innerHTML = getFeedbackPage();
@@ -147,17 +313,17 @@
       }
     }
 
-    // ==================== LOGIKA BACKEND (SHARING PAGE) ====================
+    // ==================== LOGIKA BACKEND (UPLOAD & KOMENTAR) ====================
     
     // 1. Ambil Data dari Google Sheet
     async function initSharingPage() {
         const gallery = document.getElementById('file-gallery');
         const comments = document.getElementById('comments-list');
         
-        if(!gallery) return; // Cegah error jika pindah halaman cepat
+        if(!gallery) return;
 
-        // Tampilkan loading
-        gallery.innerHTML = '<div class="col-span-3 text-center py-10"><div class="animate-spin inline-block w-8 h-8 border-4 border-blue-500 rounded-full border-t-transparent"></div><p class="mt-2 text-slate-500">Mengambil data dari server...</p></div>';
+        // Loading Spinner
+        gallery.innerHTML = '<div class="col-span-3 text-center py-10"><div class="animate-spin inline-block w-8 h-8 border-4 border-blue-500 rounded-full border-t-transparent"></div><p class="mt-2 text-slate-500">Menghubungkan ke Server...</p></div>';
 
         try {
             const response = await fetch(GAS_URL);
@@ -167,15 +333,15 @@
                 renderFiles(result.data.filter(item => item.tipe === 'FILE'));
                 renderComments(result.data.filter(item => item.tipe === 'KOMENTAR'));
             } else {
-                gallery.innerHTML = '<p class="text-center text-red-500 col-span-3">Gagal memuat data (Status Error).</p>';
+                gallery.innerHTML = '<p class="text-center text-red-500 col-span-3">Gagal memuat data.</p>';
             }
         } catch (error) {
             console.error(error);
-            gallery.innerHTML = '<p class="text-center text-red-500 col-span-3">Gagal terhubung ke server. Coba refresh halaman.</p>';
+            gallery.innerHTML = '<p class="text-center text-red-500 col-span-3">Gagal terhubung. Coba refresh halaman.</p>';
         }
     }
 
-    // 2. Tampilkan File di Web
+    // 2. Tampilkan File
     function renderFiles(files) {
         const gallery = document.getElementById('file-gallery');
         if(!gallery) return;
@@ -247,7 +413,7 @@
         list.innerHTML = html;
     }
 
-    // 4. Fungsi Upload File ke Server
+    // 4. Proses Upload
     async function handleFileUpload() {
         const name = document.getElementById('upload-name').value;
         const school = document.getElementById('upload-school').value;
@@ -256,22 +422,20 @@
         const btn = document.getElementById('btn-upload');
         const statusMsg = document.getElementById('upload-status');
 
-        // Validasi
         if(!name || !school || !pin || fileInput.files.length === 0) {
             alert("Mohon lengkapi semua data!"); return;
         }
         if(pin !== TEACHER_PIN) {
-            alert("PIN Guru Salah!"); return;
+            alert("PIN Guru Salah! Silakan hubungi admin."); return;
         }
         const file = fileInput.files[0];
         if(file.size > 5 * 1024 * 1024) { 
             alert("Ukuran file maksimal 5MB."); return;
         }
 
-        // UI Loading
         btn.disabled = true;
         btn.innerHTML = 'Sedang Mengupload...';
-        statusMsg.innerText = 'Mohon tunggu, proses enkripsi file...';
+        statusMsg.innerText = 'Mohon tunggu, sedang memproses file...';
 
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -290,22 +454,25 @@
             };
 
             try {
-                statusMsg.innerText = 'Mengirim ke Server Google...';
-                // Kirim Data
-                await fetch(GAS_URL, {
+                const response = await fetch(GAS_URL, {
                     method: "POST",
                     body: JSON.stringify(payload)
                 });
                 
-                alert("Berhasil Upload!");
-                // Reset Form
-                document.getElementById('upload-name').value = '';
-                document.getElementById('upload-file').value = '';
-                document.getElementById('upload-pin').value = '';
-                initSharingPage(); // Refresh data otomatis
+                const result = await response.json();
+                
+                if(result.status === 'success') {
+                    alert("Berhasil Upload!");
+                    document.getElementById('upload-name').value = '';
+                    document.getElementById('upload-file').value = '';
+                    document.getElementById('upload-pin').value = '';
+                    initSharingPage(); // Refresh otomatis
+                } else {
+                    alert("Gagal: " + result.message);
+                }
             } catch (err) {
                 console.error(err);
-                alert("Terjadi kesalahan koneksi atau server sibuk.");
+                alert("Terjadi kesalahan koneksi.");
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = 'Upload Sekarang';
@@ -314,7 +481,7 @@
         };
     }
 
-    // 5. Fungsi Kirim Komentar
+    // 5. Proses Komentar
     async function submitComment() {
         const name = document.getElementById('comment-name').value;
         const school = document.getElementById('comment-school').value;
@@ -340,7 +507,7 @@
             });
             document.getElementById('comment-text').value = '';
             toggleCommentForm();
-            initSharingPage(); // Refresh komentar
+            initSharingPage(); 
         } catch(err) {
             alert("Gagal mengirim komentar.");
         } finally {
@@ -354,7 +521,6 @@
       if (form) form.classList.toggle('hidden');
     }
 
-    // ==================== GLOBAL HELPER FOR ACCORDION ====================
     function toggleAccordion(id) {
       const content = document.getElementById(id + '-content');
       const icon = document.getElementById(id + '-icon');
@@ -367,8 +533,57 @@
       }
     }
 
-    // ==================== TEMPLATES HALAMAN ====================
-    // --- HEADER ---
+    function openMaps() {
+      const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Sekretariat+KKG+Gugus+III";
+      window.open(mapsUrl, '_blank');
+    }
+
+    function initDocumentationPage() {
+       const galleryData = [
+           { category: 'workshop', title: 'Workshop 2024', src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0', alt: 'Workshop' },
+           { category: 'meeting', title: 'Rapat Koordinasi', src: 'https://images.unsplash.com/photo-1556761175-b413da4baf72', alt: 'Rapat' },
+           { category: 'celebration', title: 'Perayaan HGN', src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87', alt: 'HGN' },
+           { category: 'training', title: 'Pelatihan', src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3', alt: 'Pelatihan' }
+       ];
+       
+       const container = document.getElementById('photo-gallery');
+       if(container) {
+           let html = '';
+           galleryData.forEach(item => {
+               html += `
+               <div class="photo-grid-item aspect-square rounded-3xl overflow-hidden shadow-xl relative group cursor-pointer hover:shadow-2xl transition-all duration-300" 
+                    data-category="${item.category}" onclick="alert('${item.title}')">
+                    <img src="${item.src}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <span class="text-white font-bold">${item.title}</span>
+                    </div>
+               </div>`;
+           });
+           container.innerHTML = html;
+       }
+    }
+    
+    // Fungsi filter gallery sederhana
+    function filterGallery(cat) {
+        const items = document.querySelectorAll('.photo-grid-item');
+        items.forEach(item => {
+            if(cat === 'all' || item.dataset.category === cat) item.style.display = 'block';
+            else item.style.display = 'none';
+        });
+        
+        // Update tombol aktif
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('bg-blue-600', 'text-white');
+            btn.classList.add('bg-slate-100', 'text-slate-600');
+            if(btn.textContent.toLowerCase().includes(cat) || (cat === 'all' && btn.textContent === 'Semua')) {
+                btn.classList.remove('bg-slate-100', 'text-slate-600');
+                btn.classList.add('bg-blue-600', 'text-white');
+            }
+        });
+    }
+
+    // ==================== TEMPLATES (KONTEN HALAMAN) ====================
+    
     function getHeader() {
       return `
         <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-lg shadow-md z-50">
@@ -400,21 +615,20 @@
           </div>
           <div id="mobile-menu" class="lg:hidden hidden bg-white border-t shadow-lg">
             <div class="px-4 py-3 space-y-2">
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 font-semibold" onclick="return mobileNavigateTo('home')">Beranda</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 font-semibold" onclick="return mobileNavigateTo('about')">Tentang</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 font-semibold" onclick="return mobileNavigateTo('agenda')">Agenda</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 font-semibold" onclick="return mobileNavigateTo('documentation')">Dokumentasi</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 font-semibold" onclick="return mobileNavigateTo('transparency')">Transparansi</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 font-semibold" onclick="return mobileNavigateTo('sharing')">Berbagi File</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 font-semibold" onclick="return mobileNavigateTo('feedback')">Masukan</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 font-semibold" onclick="return mobileNavigateTo('contact')">Kontak</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('home')">Beranda</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('about')">Tentang</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('agenda')">Agenda</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('documentation')">Dokumentasi</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('transparency')">Transparansi</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('sharing')">Berbagi File</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('feedback')">Masukan</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('contact')">Kontak</a>
             </div>
           </div>
         </nav>
       `;
     }
 
-    // --- FOOTER ---
     function getFooter() {
       return `
         <footer class="bg-slate-800 text-white">
@@ -463,10 +677,8 @@
       `;
     }
 
-    // --- HALAMAN UTAMA (HOME) ---
+    // --- HOME PAGE CONTENT ---
     function getHomePage() {
-      // (Isi sama dengan kode asli Anda, saya singkat agar tidak terlalu panjang di sini)
-      // Tapi di file final yang Anda copy ini, isinya LENGKAP seperti yang Anda berikan.
       return `
         <div id="page-home" class="page active">
           <section class="hero-container wave-pattern pt-24 lg:pt-32 pb-20 lg:pb-32 relative overflow-hidden">
@@ -477,7 +689,7 @@
                 </div>
                 <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 text-white">KKG Gugus III</h1>
                 <h2 class="text-xl sm:text-2xl lg:text-4xl font-bold mb-8 text-yellow-200">Bersama Membangun Pendidikan Berkualitas</h2>
-                <p class="text-lg lg:text-xl mb-12 max-w-3xl mx-auto leading-relaxed font-light text-blue-50">Selamat datang di website resmi KKG Gugus III.</p>
+                <p class="text-lg lg:text-xl mb-12 max-w-3xl mx-auto leading-relaxed font-light text-blue-50">Selamat datang di website resmi KKG Gugus III. Wadah kolaborasi dan pengembangan profesional guru-guru Sekolah Dasar untuk menciptakan pembelajaran yang inovatif dan bermakna.</p>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <button onclick="navigateTo('agenda')" class="btn-primary px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-bold rounded-2xl shadow-2xl">Lihat Agenda</button>
                   <button onclick="navigateTo('about')" class="btn-primary px-8 py-4 bg-white/25 hover:bg-white/35 backdrop-blur-sm text-white font-bold rounded-2xl border-2 border-white/40">Tentang Kami</button>
@@ -490,20 +702,16 @@
                <h2 class="text-4xl font-bold text-slate-800 mb-12">KKG Gugus III dalam Angka</h2>
                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                   <div class="stat-card p-8 rounded-3xl bg-blue-50 text-blue-700 shadow-md">
-                     <div class="text-5xl font-extrabold mb-2">8</div>
-                     <div class="font-semibold">Sekolah Anggota</div>
+                     <div class="text-5xl font-extrabold mb-2">8</div><div class="font-semibold">Sekolah Anggota</div>
                   </div>
                   <div class="stat-card p-8 rounded-3xl bg-yellow-50 text-yellow-700 shadow-md">
-                     <div class="text-5xl font-extrabold mb-2">100+</div>
-                     <div class="font-semibold">Guru Aktif</div>
+                     <div class="text-5xl font-extrabold mb-2">100+</div><div class="font-semibold">Guru Aktif</div>
                   </div>
                   <div class="stat-card p-8 rounded-3xl bg-green-50 text-green-700 shadow-md">
-                     <div class="text-5xl font-extrabold mb-2">12</div>
-                     <div class="font-semibold">Kegiatan/Tahun</div>
+                     <div class="text-5xl font-extrabold mb-2">12</div><div class="font-semibold">Kegiatan/Tahun</div>
                   </div>
                   <div class="stat-card p-8 rounded-3xl bg-purple-50 text-purple-700 shadow-md">
-                     <div class="text-5xl font-extrabold mb-2">1</div>
-                     <div class="font-semibold">Visi Bersama</div>
+                     <div class="text-5xl font-extrabold mb-2">1</div><div class="font-semibold">Visi Bersama</div>
                   </div>
                </div>
             </div>
@@ -513,7 +721,6 @@
     }
 
     function getAboutPage() {
-      // Gunakan konten asli Anda di sini
       return `
         <div id="page-about" class="page">
           <div class="pt-24 lg:pt-32 pb-16">
@@ -524,7 +731,24 @@
             <div class="max-w-7xl mx-auto px-4 py-16">
                <div class="bg-white rounded-3xl shadow-xl p-10 mb-16">
                   <h2 class="text-3xl font-bold text-slate-800 mb-6">Profil</h2>
-                  <p class="text-lg text-slate-600 leading-relaxed">Kelompok Kerja Guru (KKG) Gugus III adalah wadah kegiatan profesional guru Sekolah Dasar.</p>
+                  <p class="text-lg text-slate-600 leading-relaxed">Kelompok Kerja Guru (KKG) Gugus III adalah wadah kegiatan profesional guru Sekolah Dasar yang terdiri dari sejumlah guru dari beberapa sekolah di wilayah tertentu. KKG merupakan salah satu bentuk organisasi profesi yang bertujuan untuk meningkatkan mutu pendidikan di tingkat Sekolah Dasar.</p>
+               </div>
+               <div class="grid lg:grid-cols-2 gap-8 mb-16">
+                  <div class="bg-blue-50 p-10 rounded-3xl">
+                     <h3 class="text-2xl font-bold mb-4">Visi</h3>
+                     <p>Menjadi wadah pengembangan profesional guru yang unggul, inovatif, dan berkolaborasi untuk menciptakan pendidikan Sekolah Dasar yang berkualitas dan bermakna bagi peserta didik.</p>
+                  </div>
+                  <div class="bg-yellow-50 p-10 rounded-3xl">
+                     <h3 class="text-2xl font-bold mb-4">Misi</h3>
+                     <ul class="list-disc pl-5"><li>Meningkatkan kompetensi pedagogik.</li><li>Berbagi praktik terbaik.</li><li>Mengembangkan inovasi.</li></ul>
+                  </div>
+               </div>
+               <h2 class="text-3xl font-bold text-slate-800 mb-10 text-center">Struktur Organisasi</h2>
+               <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                  <div class="p-6 bg-slate-50 rounded-2xl"><h4 class="font-bold">Pembina</h4><p>Dian Permanawati</p></div>
+                  <div class="p-6 bg-blue-50 rounded-2xl"><h4 class="font-bold">Ketua</h4><p>Mohamad Teguh H.</p></div>
+                  <div class="p-6 bg-yellow-50 rounded-2xl"><h4 class="font-bold">Sekretaris</h4><p>Ade Arivin</p></div>
+                  <div class="p-6 bg-green-50 rounded-2xl"><h4 class="font-bold">Bendahara</h4><p>Didin Jaenudin</p></div>
                </div>
             </div>
           </div>
@@ -532,19 +756,99 @@
       `;
     }
 
-    // Fungsi getAgendaPage, getDocumentationPage, getTransparencyPage, getFeedbackPage, getContactPage
-    // Saya gunakan versi "Placeholder" agar kode tidak terlalu panjang di chat box ini.
-    // TAPI: Karena Anda minta "file html yang belum dirubah" tetap ada,
-    // Saya sarankan Anda COPAS function getAgendaPage() dll dari kode ASLI Anda ke dalam script ini.
-    
-    // Khusus untuk halaman SHARING, gunakan versi baru ini:
+    function getAgendaPage() {
+      return `
+        <div id="page-agenda" class="page">
+          <div class="pt-24 lg:pt-32 pb-16">
+             <div class="bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 py-20 text-center text-white">
+                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4">Agenda Kegiatan</h1>
+                <p class="text-xl text-yellow-100">Jadwal kegiatan KKG Gugus III</p>
+             </div>
+             <div class="max-w-7xl mx-auto px-4 py-16">
+                <div class="space-y-6 mb-16">
+                   <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-green-500">
+                      <div class="flex flex-col md:flex-row gap-6 items-center">
+                         <div class="text-center p-4 bg-green-100 rounded-2xl min-w-[100px]">
+                            <div class="text-3xl font-bold text-green-700">31</div><div class="text-sm text-green-600 font-bold">Jan 2026</div>
+                         </div>
+                         <div>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Rapat Rutin</span>
+                            <h3 class="text-xl font-bold mt-2">Sosialisasi Aplikasi KKG 3 & Refleksi Assesmen</h3>
+                            <p class="text-slate-600 text-sm mt-1">Lokasi: SDN Jatihurip | Pukul: 10:00 WIB</p>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-blue-500">
+                      <div class="flex flex-col md:flex-row gap-6 items-center">
+                         <div class="text-center p-4 bg-blue-100 rounded-2xl min-w-[100px]">
+                            <div class="text-3xl font-bold text-blue-700">12</div><div class="text-sm text-blue-600 font-bold">Feb 2026</div>
+                         </div>
+                         <div>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">Workshop</span>
+                            <h3 class="text-xl font-bold mt-2">Pematerian Pengawas & Sosialisasi Literasi</h3>
+                            <p class="text-slate-600 text-sm mt-1">Lokasi: SDN Jatihurip | Pukul: 08:00 WIB</p>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                
+                <h2 class="text-3xl font-bold text-slate-800 mb-8">Program Unggulan: Literasi, Numerasi & OSN</h2>
+                <div class="space-y-4">
+                   <div class="bg-white rounded-2xl shadow p-4 cursor-pointer" onclick="toggleAccordion('acc1')">
+                      <h3 class="font-bold flex justify-between">Latar Belakang <span>▼</span></h3>
+                      <div id="acc1-content" class="hidden mt-4 text-slate-600 pl-4 border-l-2 border-slate-200">Kemampuan literasi & numerasi perlu diperkuat. Pembinaan OSN belum sistematis.</div>
+                   </div>
+                   <div class="bg-white rounded-2xl shadow p-4 cursor-pointer" onclick="toggleAccordion('acc2')">
+                      <h3 class="font-bold flex justify-between">Tujuan Program <span>▼</span></h3>
+                      <div id="acc2-content" class="hidden mt-4 text-slate-600 pl-4 border-l-2 border-slate-200">Meningkatkan calistung kelas rendah, kompetensi MIPA kelas tinggi, dan persiapan OSN.</div>
+                   </div>
+                   <div class="bg-white rounded-2xl shadow p-4 cursor-pointer" onclick="toggleAccordion('acc3')">
+                      <h3 class="font-bold flex justify-between">Ruang Lingkup <span>▼</span></h3>
+                      <div id="acc3-content" class="hidden mt-4 text-slate-600 pl-4 border-l-2 border-slate-200">Kelas 1-3: Penguatan Calistung. Kelas 4-6: Pembinaan OSN Matematika & IPA.</div>
+                   </div>
+                </div>
+             </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getTransparencyPage() {
+      return `
+        <div id="page-transparency" class="page">
+          <div class="pt-24 lg:pt-32 pb-16">
+             <div class="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 py-20 text-center text-white">
+                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4">Transparansi Keuangan</h1>
+             </div>
+             <div class="max-w-7xl mx-auto px-4 py-16">
+                <div class="grid md:grid-cols-3 gap-8 mb-12">
+                   <div class="bg-white p-8 rounded-3xl shadow-lg border-l-4 border-green-500"><p class="text-slate-500 font-bold">Pemasukan</p><p class="text-3xl font-bold text-green-600">Rp 415.000</p></div>
+                   <div class="bg-white p-8 rounded-3xl shadow-lg border-l-4 border-red-500"><p class="text-slate-500 font-bold">Pengeluaran</p><p class="text-3xl font-bold text-red-600">Rp 329.000</p></div>
+                   <div class="bg-white p-8 rounded-3xl shadow-lg border-l-4 border-blue-500"><p class="text-slate-500 font-bold">Saldo Akhir</p><p class="text-3xl font-bold text-blue-600">Rp 86.000</p></div>
+                </div>
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+                   <div class="p-6 bg-slate-100 font-bold">Rincian Iuran (Feb 2026)</div>
+                   <div class="p-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div class="bg-slate-50 p-4 rounded text-center"><p class="text-xs">SDN Sindang I</p><p class="font-bold text-purple-700">Rp 50.000</p></div>
+                      <div class="bg-slate-50 p-4 rounded text-center"><p class="text-xs">SDN Sindang II</p><p class="font-bold text-purple-700">Rp 45.000</p></div>
+                      <div class="bg-slate-50 p-4 rounded text-center"><p class="text-xs">SDN Jatihurip</p><p class="font-bold text-purple-700">Rp 70.000</p></div>
+                      <div class="bg-slate-50 p-4 rounded text-center"><p class="text-xs">SDN Sindang IV</p><p class="font-bold text-purple-700">Rp 110.000</p></div>
+                   </div>
+                </div>
+             </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- SHARING PAGE DENGAN LOGIKA UPLOAD ---
     function getSharingPage() {
       return `
         <div id="page-sharing" class="page">
           <div class="pt-24 lg:pt-32 pb-16">
             <div class="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 py-20 text-center text-white">
               <h1 class="text-4xl lg:text-6xl font-extrabold mb-5">Berbagi File & Materi</h1>
-              <p class="text-xl text-indigo-100">Upload materi ajar. PIN Guru: <strong>${TEACHER_PIN}</strong></p>
+              <p class="text-xl text-indigo-100">Upload materi ajar. PIN: <strong>${TEACHER_PIN}</strong></p>
             </div>
             
             <div class="max-w-7xl mx-auto px-4 py-16">
@@ -564,7 +868,7 @@
                         <input type="text" id="upload-name" placeholder="Nama Guru" class="w-full px-4 py-3 rounded-xl border focus:border-indigo-500 outline-none">
                         <input type="text" id="upload-school" placeholder="Asal Sekolah" class="w-full px-4 py-3 rounded-xl border focus:border-indigo-500 outline-none">
                       </div>
-                      <input type="password" id="upload-pin" placeholder="PIN Guru" class="w-full px-4 py-3 rounded-xl border border-red-200 focus:border-red-500 outline-none">
+                      <input type="password" id="upload-pin" placeholder="Masukkan PIN Guru" class="w-full px-4 py-3 rounded-xl border border-red-200 focus:border-red-500 outline-none">
                       <input type="file" id="upload-file" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
                       <button id="btn-upload" onclick="handleFileUpload()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition shadow-lg">Upload Sekarang</button>
                       <p id="upload-status" class="text-center text-xs text-slate-500 mt-2"></p>
@@ -603,23 +907,42 @@
       `;
     }
 
-    // --- FUNCTION DOCUMENTATION DARI KODE ASLI ANDA ---
-    // (Anda wajib memasukkan fungsi ini agar halaman Dokumentasi tidak error)
-    function initDocumentationPage() {
-       const galleryData = [
-           { category: 'workshop', title: 'Workshop 2024', src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0', alt: 'Workshop' },
-           // ... tambahkan data foto lainnya dari kode asli ...
-       ];
-       // ... logika render galeri foto dari kode asli ...
-       // (Saya sederhanakan di sini, tapi pastikan kode asli Anda dimasukkan)
-       const galleryContainer = document.getElementById('photo-gallery');
-       if(galleryContainer) {
-           galleryContainer.innerHTML = galleryData.map(item => `
-               <div class="aspect-square bg-slate-200 rounded-xl overflow-hidden"><img src="${item.src}" class="w-full h-full object-cover"></div>
-           `).join('');
-       }
+    function getFeedbackPage() {
+      return `
+        <div id="page-feedback" class="page">
+          <div class="pt-24 lg:pt-32 pb-16">
+             <div class="bg-gradient-to-r from-pink-500 via-pink-400 to-pink-500 py-20 text-center text-white">
+                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4">Masukan & Saran</h1>
+             </div>
+             <div class="max-w-5xl mx-auto px-4 py-16 text-center">
+                <div class="bg-white rounded-3xl shadow-2xl p-10">
+                   <h2 class="text-2xl font-bold mb-6">Formulir Masukan</h2>
+                   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdSSd48bMfrtw-BYkS8Nn6H5C2ddJ4_XhSklxhkfqEchVqitg/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Memuat…</iframe>
+                </div>
+             </div>
+          </div>
+        </div>
+      `;
     }
 
-  </script>
+    function getContactPage() {
+      return `
+        <div id="page-contact" class="page">
+          <div class="pt-24 lg:pt-32 pb-16">
+             <div class="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-20 text-center text-white">
+                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4">Hubungi Kami</h1>
+             </div>
+             <div class="max-w-6xl mx-auto px-4 py-16">
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                   <div class="bg-blue-50 p-8 rounded-3xl"><h3 class="font-bold text-xl mb-2">Email</h3><p class="text-blue-600">kkg.gugus3@email.com</p></div>
+                   <div class="bg-green-50 p-8 rounded-3xl"><h3 class="font-bold text-xl mb-2">WhatsApp</h3><p class="text-green-600">+62 812-3456-7890</p></div>
+                   <div class="bg-purple-50 p-8 rounded-3xl"><h3 class="font-bold text-xl mb-2">Alamat</h3><p>Jl. Pendidikan No. 123</p></div>
+                </div>
+             </div>
+          </div>
+        </div>
+      `;
+    }
+</script>
 </body>
 </html>
