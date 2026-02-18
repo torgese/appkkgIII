@@ -220,7 +220,9 @@
     const defaultConfig = {
       hero_title: 'KKG Gugus III',
       hero_subtitle: 'Bersama Membangun Pendidikan Berkualitas',
-      hero_description: 'Selamat datang di aplikasi resmi KKG Gugus III Kec Sumedang Utara.',
+      hero_description: 'Selamat datang di aplikasi resmi KKG Gugus III Kec Sumedang Utara. Wadah kolaborasi dan pengembangan profesional guru-guru Sekolah Dasar untuk menciptakan pembelajaran yang inovatif dan bermakna.',
+      ketua_name: '.',
+      ketua_greeting: 'Assalamualaikum WarMohamad Teguh Hermawan, S.Sahmatullahi Wabarakatuh. Puji syukur kita panjatkan kepada Allah SWT atas segala rahmat dan karunia-Nya. KKG Gugus III hadir sebagai wadah bagi guru-guru Sekolah Dasar untuk saling berbagi pengetahuan, pengalaman, dan praktik terbaik dalam dunia pendidikan. Kami berkomitmen untuk terus meningkatkan kualitas pembelajaran demi masa depan anak-anak bangsa. Mari bersama-sama kita wujudkan pendidikan yang berkualitas, inovatif, dan bermakna bagi generasi penerus Indonesia.',
       contact_email: 'kkg.gugus3@email.com',
       contact_phone: '+62 812-3456-7890',
       contact_address: 'Sekretariat KKG Gugus III<br>Jl. Pendidikan No. 123<br>Kecamatan Cendekia, Indonesia'
@@ -269,9 +271,55 @@
     }
 
     function updatePageConfig() {
-      const title = document.getElementById('hero-title');
-      if(title) title.textContent = defaultConfig.hero_title;
-      // Update elemen lain dinamis jika perlu
+      // Update hero section - PERBAIKAN: Tambah class untuk styling
+      const heroTitle = document.getElementById('hero-title');
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      const heroDescription = document.getElementById('hero-description');
+      
+      if (heroTitle) {
+        heroTitle.textContent = defaultConfig.hero_title;
+        heroTitle.classList.add('hero-title');
+      }
+      
+      if (heroSubtitle) {
+        heroSubtitle.textContent = defaultConfig.hero_subtitle;
+        heroSubtitle.classList.add('hero-subtitle');
+      }
+      
+      if (heroDescription) {
+        heroDescription.textContent = defaultConfig.hero_description;
+        heroDescription.classList.add('hero-description');
+      }
+      
+      // Update contact info
+      const contactEmail = document.getElementById('contact-email-display');
+      const contactPhone = document.getElementById('contact-phone-display');
+      const contactAddress = document.getElementById('contact-address-display');
+      const footerEmail = document.getElementById('footer-email');
+      const footerPhone = document.getElementById('footer-phone');
+      
+      if (contactEmail) contactEmail.textContent = defaultConfig.contact_email;
+      if (contactPhone) contactPhone.textContent = defaultConfig.contact_phone;
+      if (contactAddress) contactAddress.innerHTML = defaultConfig.contact_address.replace(/\n/g, '<br>');
+      
+      // Update footer
+      if (footerEmail) {
+        footerEmail.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          ${defaultConfig.contact_email}
+        `;
+      }
+      
+      if (footerPhone) {
+        footerPhone.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          ${defaultConfig.contact_phone}
+        `;
+      }
     }
 
     // ==================== PAGE ROUTER (PENGATUR HALAMAN) ====================
@@ -313,7 +361,7 @@
       }
     }
 
-    // ==================== LOGIKA BACKEND (UPLOAD & KOMENTAR) ====================
+    // ==================== FUNGSI BACKEND SHARING (UPLOAD & KOMENTAR) ====================
     
     // 1. Ambil Data dari Google Sheet
     async function initSharingPage() {
@@ -486,7 +534,7 @@
         const name = document.getElementById('comment-name').value;
         const school = document.getElementById('comment-school').value;
         const text = document.getElementById('comment-text').value;
-        const btn = document.querySelector('#comment-form button');
+        const btn = document.querySelector('#comment-form button[onclick="submitComment()"]');
 
         if(!name || !school || !text) { alert("Lengkapi data komentar!"); return; }
 
@@ -521,327 +569,1016 @@
       if (form) form.classList.toggle('hidden');
     }
 
-    function toggleAccordion(id) {
-      const content = document.getElementById(id + '-content');
-      const icon = document.getElementById(id + '-icon');
-      if (content.classList.contains('hidden')) {
-        content.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
-      } else {
-        content.classList.add('hidden');
-        icon.style.transform = 'rotate(0deg)';
-      }
-    }
-
-    function openMaps() {
-      const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Sekretariat+KKG+Gugus+III";
-      window.open(mapsUrl, '_blank');
-    }
-
-    function initDocumentationPage() {
-       const galleryData = [
-           { category: 'workshop', title: 'Workshop 2024', src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0', alt: 'Workshop' },
-           { category: 'meeting', title: 'Rapat Koordinasi', src: 'https://images.unsplash.com/photo-1556761175-b413da4baf72', alt: 'Rapat' },
-           { category: 'celebration', title: 'Perayaan HGN', src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87', alt: 'HGN' },
-           { category: 'training', title: 'Pelatihan', src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3', alt: 'Pelatihan' }
-       ];
-       
-       const container = document.getElementById('photo-gallery');
-       if(container) {
-           let html = '';
-           galleryData.forEach(item => {
-               html += `
-               <div class="photo-grid-item aspect-square rounded-3xl overflow-hidden shadow-xl relative group cursor-pointer hover:shadow-2xl transition-all duration-300" 
-                    data-category="${item.category}" onclick="alert('${item.title}')">
-                    <img src="${item.src}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <span class="text-white font-bold">${item.title}</span>
-                    </div>
-               </div>`;
-           });
-           container.innerHTML = html;
-       }
-    }
+    // ==================== FUNGSI-FUNGSI DARI VERSI LAMA (UI KAYA) ====================
     
-    // Fungsi filter gallery sederhana
-    function filterGallery(cat) {
-        const items = document.querySelectorAll('.photo-grid-item');
-        items.forEach(item => {
-            if(cat === 'all' || item.dataset.category === cat) item.style.display = 'block';
-            else item.style.display = 'none';
-        });
-        
-        // Update tombol aktif
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.remove('bg-blue-600', 'text-white');
-            btn.classList.add('bg-slate-100', 'text-slate-600');
-            if(btn.textContent.toLowerCase().includes(cat) || (cat === 'all' && btn.textContent === 'Semua')) {
-                btn.classList.remove('bg-slate-100', 'text-slate-600');
-                btn.classList.add('bg-blue-600', 'text-white');
-            }
-        });
-    }
-
-    // ==================== TEMPLATES (KONTEN HALAMAN) ====================
-    
-    function getHeader() {
-      return `
-        <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-lg shadow-md z-50">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 lg:h-20">
-              <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
-                <div class="w-11 h-11 lg:w-14 lg:h-14 rounded-2xl gradient-hero flex items-center justify-center shadow-lg">
-                  <svg class="w-6 h-6 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                </div>
-                <div class="hidden sm:block">
-                  <span class="font-bold text-xl text-blue-700">KKG Gugus III</span>
-                  <p class="text-xs text-slate-500 font-medium">Kelompok Kerja Guru</p>
-                </div>
-              </div>
-              <div class="hidden lg:flex items-center gap-4 xl:gap-8">
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1 active" onclick="return navigateTo('home')" data-page="home">Beranda</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('about')" data-page="about">Tentang</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('agenda')" data-page="agenda">Agenda</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('documentation')" data-page="documentation">Dokumentasi</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('transparency')" data-page="transparency">Transparansi</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('sharing')" data-page="sharing">Berbagi File</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('feedback')" data-page="feedback">Masukan</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('contact')" data-page="contact">Kontak</a>
-              </div>
-              <button class="lg:hidden p-2 rounded-xl hover:bg-slate-100" onclick="toggleMobileMenu()">
-                <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-              </button>
-            </div>
-          </div>
-          <div id="mobile-menu" class="lg:hidden hidden bg-white border-t shadow-lg">
-            <div class="px-4 py-3 space-y-2">
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('home')">Beranda</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('about')">Tentang</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('agenda')">Agenda</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('documentation')">Dokumentasi</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('transparency')">Transparansi</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('sharing')">Berbagi File</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('feedback')">Masukan</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('contact')">Kontak</a>
-            </div>
-          </div>
-        </nav>
-      `;
-    }
-
-    function getFooter() {
-      return `
-        <footer class="bg-slate-800 text-white">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-              <div>
-                <div class="flex items-center gap-3 mb-6">
-                  <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                  </div>
-                  <span class="font-bold text-xl">KKG Gugus III</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed">Kelompok Kerja Guru Sekolah Dasar yang berkomitmen untuk meningkatkan kualitas pendidikan.</p>
-              </div>
-              <div>
-                <h4 class="font-bold mb-6 text-lg">Menu Cepat</h4>
-                <ul class="space-y-3 text-slate-400">
-                  <li><a href="#" onclick="return navigateTo('home')" class="hover:text-white transition-colors">Beranda</a></li>
-                  <li><a href="#" onclick="return navigateTo('about')" class="hover:text-white transition-colors">Tentang Kami</a></li>
-                  <li><a href="#" onclick="return navigateTo('agenda')" class="hover:text-white transition-colors">Agenda</a></li>
-                  <li><a href="#" onclick="return navigateTo('documentation')" class="hover:text-white transition-colors">Dokumentasi</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 class="font-bold mb-6 text-lg">Informasi</h4>
-                <ul class="space-y-3 text-slate-400">
-                  <li><a href="#" onclick="return navigateTo('transparency')" class="hover:text-white transition-colors">Transparansi</a></li>
-                  <li><a href="#" onclick="return navigateTo('sharing')" class="hover:text-white transition-colors">Berbagi File</a></li>
-                  <li><a href="#" onclick="return navigateTo('feedback')" class="hover:text-white transition-colors">Masukan</a></li>
-                  <li><a href="#" onclick="return navigateTo('contact')" class="hover:text-white transition-colors">Kontak</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 class="font-bold mb-6 text-lg">Kontak</h4>
-                <ul class="space-y-3 text-slate-400">
-                  <li class="flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> kkg.gugus3@email.com</li>
-                  <li class="flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg> +62 812-3456-7890</li>
-                </ul>
-              </div>
-            </div>
-            <div class="border-t border-slate-700 mt-12 pt-10 text-center text-slate-400">
-              <p class="font-medium">© 2025 KKG Gugus III. Seluruh hak cipta dilindungi.</p>
-            </div>
-          </div>
-        </footer>
-      `;
-    }
-
-    // --- HOME PAGE CONTENT ---
+    // ----- Halaman Home -----
     function getHomePage() {
       return `
+        <!-- ==================== HOME PAGE ==================== -->
         <div id="page-home" class="page active">
+          <!-- Hero Section dengan background lebih gelap -->
           <section class="hero-container wave-pattern pt-24 lg:pt-32 pb-20 lg:pb-32 relative overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
+            <div class="absolute inset-0 opacity-10">
+              <div class="absolute top-20 left-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+              <div class="absolute top-40 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+              <div class="text-center max-w-4xl mx-auto">
                 <div class="inline-flex items-center gap-2 px-5 py-2.5 hero-badge rounded-full mb-8 shadow-lg">
                   <span class="w-2.5 h-2.5 bg-yellow-400 rounded-full animate-pulse"></span>
                   <span class="text-white/95 text-sm font-semibold tracking-wide">Kelompok Kerja Guru SD</span>
                 </div>
-                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 text-white">KKG Gugus III</h1>
-                <h2 class="text-xl sm:text-2xl lg:text-4xl font-bold mb-8 text-yellow-200">Bersama Membangun Pendidikan Berkualitas</h2>
-                <p class="text-lg lg:text-xl mb-12 max-w-3xl mx-auto leading-relaxed font-light text-blue-50">Selamat datang di website resmi KKG Gugus III. Wadah kolaborasi dan pengembangan profesional guru-guru Sekolah Dasar untuk menciptakan pembelajaran yang inovatif dan bermakna.</p>
+                <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight">KKG Gugus III</h1>
+                <h2 id="hero-subtitle" class="text-xl sm:text-2xl lg:text-4xl font-bold mb-8 tracking-wide">Bersama Membangun Pendidikan Berkualitas</h2>
+                <p id="hero-description" class="text-lg lg:text-xl mb-12 max-w-3xl mx-auto leading-relaxed font-light">Selamat datang di website resmi KKG Gugus III. Wadah kolaborasi dan pengembangan profesional guru-guru Sekolah Dasar untuk menciptakan pembelajaran yang inovatif dan bermakna.</p>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <button onclick="navigateTo('agenda')" class="btn-primary px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-bold rounded-2xl shadow-2xl">Lihat Agenda</button>
-                  <button onclick="navigateTo('about')" class="btn-primary px-8 py-4 bg-white/25 hover:bg-white/35 backdrop-blur-sm text-white font-bold rounded-2xl border-2 border-white/40">Tentang Kami</button>
+                  <button onclick="navigateTo('agenda')" class="btn-primary w-full sm:w-auto px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-bold rounded-2xl shadow-2xl flex items-center justify-center gap-3 text-base">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    Lihat Agenda
+                  </button>
+                  <button onclick="navigateTo('about')" class="btn-primary w-full sm:w-auto px-8 py-4 bg-white/25 hover:bg-white/35 backdrop-blur-sm text-white font-bold rounded-2xl border-2 border-white/40 flex items-center justify-center gap-3 shadow-xl text-base">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Tentang Kami
+                  </button>
                 </div>
+              </div>
+            </div>
+            <!-- Wave Divider -->
+            <div class="absolute bottom-0 left-0 right-0">
+              <svg viewbox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none" class="w-full h-16 lg:h-24">
+                <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f8fafc"/>
+              </svg>
             </div>
           </section>
-          
-          <section class="py-20 bg-white">
-            <div class="max-w-7xl mx-auto px-4 text-center">
-               <h2 class="text-4xl font-bold text-slate-800 mb-12">KKG Gugus III dalam Angka</h2>
-               <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                  <div class="stat-card p-8 rounded-3xl bg-blue-50 text-blue-700 shadow-md">
-                     <div class="text-5xl font-extrabold mb-2">8</div><div class="font-semibold">Sekolah Anggota</div>
+
+          <!-- Statistics Section -->
+          <section class="py-20 lg:py-28 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-slate-800 mb-4">KKG Gugus III dalam Angka</h2>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Komitmen kami terhadap pengembangan pendidikan tercermin dalam berbagai program dan kegiatan yang telah dilaksanakan</p>
+              </div>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <div class="stat-card gradient-soft-blue rounded-3xl p-8 lg:p-10 text-center card-hover shadow-lg">
+                  <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 rounded-2xl bg-blue-500 flex items-center justify-center shadow-xl">
+                    <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
                   </div>
-                  <div class="stat-card p-8 rounded-3xl bg-yellow-50 text-yellow-700 shadow-md">
-                     <div class="text-5xl font-extrabold mb-2">100+</div><div class="font-semibold">Guru Aktif</div>
+                  <div class="text-4xl lg:text-5xl font-extrabold text-blue-700 mb-2">8</div>
+                  <div class="text-slate-700 font-semibold text-base">Sekolah Anggota</div>
+                </div>
+                <div class="stat-card gradient-soft-yellow rounded-3xl p-8 lg:p-10 text-center card-hover shadow-lg">
+                  <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 rounded-2xl bg-yellow-500 flex items-center justify-center shadow-xl">
+                    <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
                   </div>
-                  <div class="stat-card p-8 rounded-3xl bg-green-50 text-green-700 shadow-md">
-                     <div class="text-5xl font-extrabold mb-2">12</div><div class="font-semibold">Kegiatan/Tahun</div>
+                  <div class="text-4xl lg:text-5xl font-extrabold text-yellow-700 mb-2">100+</div>
+                  <div class="text-slate-700 font-semibold text-base">Guru Aktif</div>
+                </div>
+                <div class="stat-card bg-gradient-to-br from-green-100 to-green-200 rounded-3xl p-8 lg:p-10 text-center card-hover shadow-lg">
+                  <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 rounded-2xl bg-green-500 flex items-center justify-center shadow-xl">
+                    <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    </svg>
                   </div>
-                  <div class="stat-card p-8 rounded-3xl bg-purple-50 text-purple-700 shadow-md">
-                     <div class="text-5xl font-extrabold mb-2">1</div><div class="font-semibold">Visi Bersama</div>
+                  <div class="text-4xl lg:text-5xl font-extrabold text-green-700 mb-2">12</div>
+                  <div class="text-slate-700 font-semibold text-base">Kegiatan/Tahun</div>
+                </div>
+                <div class="stat-card bg-gradient-to-br from-purple-100 to-purple-200 rounded-3xl p-8 lg:p-10 text-center card-hover shadow-lg">
+                  <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 rounded-2xl bg-purple-500 flex items-center justify-center shadow-xl">
+                    <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
                   </div>
-               </div>
+                  <div class="text-4xl lg:text-5xl font-extrabold text-purple-700 mb-2">0,5</div>
+                  <div class="text-slate-700 font-semibold text-base">Periode Berjalan</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Upcoming Agenda Section -->
+          <section class="py-20 lg:py-28 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-12">
+                <div>
+                  <h2 class="text-4xl lg:text-5xl font-bold text-slate-800 mb-3">Agenda Mendatang</h2>
+                  <p class="text-lg text-slate-600">Kegiatan-kegiatan yang akan segera dilaksanakan</p>
+                </div>
+                <button onclick="navigateTo('agenda')" class="mt-6 sm:mt-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg hover:shadow-xl">
+                  Lihat Semua 
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden card-hover">
+                  <div class="h-3 gradient-accent"></div>
+                  <div class="p-8">
+                    <div class="flex items-center gap-3 mb-5">
+                      <div class="px-4 py-2 bg-yellow-100 text-yellow-700 rounded-xl text-sm font-bold">31 Jan 2026</div>
+                      
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Sosialisasi Aplikasi KKG 3 & Materi Refleksi Assesmen</h3>
+                    <p class="text-slate-600 text-sm mb-5 leading-relaxed">Pembekelan Aplikasi serta Refleksi Assesmen .</p>
+                    <div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      </svg>
+                      <span>SDN Jatihurip</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden card-hover">
+                  <div class="h-3 bg-blue-500"></div>
+                  <div class="p-8">
+                    <div class="flex items-center gap-3 mb-5">
+                      <div class="px-4 py-2 bg-blue-100 text-blue-700 rounded-xl text-sm font-bold">12 Feb 2026</div>
+                       <span class="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-bold">Segera</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Pematerian Pengawas Pembina & Sosialisasi Kegiatan Literasi</h3>
+                    <p class="text-slate-600 text-sm mb-5 leading-relaxed">Pemaparan materi TP (Tujuan Pembelajaran) & Sosialisasi Kegiatan Literasi Gugus III.</p>
+                    <div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      </svg>
+                      <span>SDN Jatihurip</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden card-hover">
+                  <div class="h-3 bg-green-500"></div>
+                  <div class="p-8">
+                    <div class="flex items-center gap-3 mb-5">
+                      <div class="px-4 py-2 bg-green-100 text-green-700 rounded-xl text-sm font-bold">14 Mar 2026</div>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Rapat Koordinasi Bulan</h3>
+                    <p class="text-slate-600 text-sm mb-5 leading-relaxed">RPP Mudah dan Membantu.</p>
+                    <div class="flex items-center gap-2 text-slate-500 text-sm font-medium">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      </svg>
+                      <span>SDN Jatihurip</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Documentation Preview Section -->
+          <section class="py-20 lg:py-28 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-12">
+                <div>
+                  <h2 class="text-4xl lg:text-5xl font-bold text-slate-800 mb-3">Galeri Kegiatan</h2>
+                  <p class="text-lg text-slate-600">Momen-momen berharga dari berbagai kegiatan KKG</p>
+                </div>
+                <button onclick="navigateTo('documentation')" class="mt-6 sm:mt-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg hover:shadow-xl">
+                  Lihat Semua 
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="photo-grid-item aspect-square rounded-3xl bg-gradient-to-br from-blue-300 to-blue-400 flex items-center justify-center cursor-pointer overflow-hidden shadow-lg relative group">
+                  <div class="overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-center p-6">
+                    <span class="text-white font-bold text-lg">Workshop 2024</span>
+                  </div>
+                  <svg class="w-16 h-16 text-blue-100" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div class="photo-grid-item aspect-square rounded-3xl bg-gradient-to-br from-yellow-300 to-yellow-400 flex items-center justify-center cursor-pointer overflow-hidden shadow-lg relative group">
+                  <div class="overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-center p-6">
+                    <span class="text-white font-bold text-lg">Rapat Koordinasi</span>
+                  </div>
+                  <svg class="w-16 h-16 text-yellow-100" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div class="photo-grid-item aspect-square rounded-3xl bg-gradient-to-br from-green-300 to-green-400 flex items-center justify-center cursor-pointer overflow-hidden shadow-lg relative group">
+                  <div class="overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-center p-6">
+                    <span class="text-white font-bold text-lg">Pelatihan</span>
+                  </div>
+                  <svg class="w-16 h-16 text-green-100" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                  </svg>
+                </div>
+                <div class="photo-grid-item aspect-square rounded-3xl bg-gradient-to-br from-purple-300 to-purple-400 flex items-center justify-center cursor-pointer overflow-hidden shadow-lg relative group">
+                  <div class="overlay absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end justify-center p-6">
+                    <span class="text-white font-bold text-lg">Perayaan HGN</span>
+                  </div>
+                  <svg class="w-16 h-16 text-purple-100" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+                  </svg>
+                </div>
+              </div>
             </div>
           </section>
         </div>
       `;
     }
 
+    // ----- Halaman About -----
     function getAboutPage() {
       return `
+        <!-- ==================== ABOUT PAGE ==================== -->
         <div id="page-about" class="page">
           <div class="pt-24 lg:pt-32 pb-16">
-            <div class="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 py-20 text-center text-white">
-               <h1 class="text-4xl lg:text-6xl font-extrabold mb-4">Tentang Kami</h1>
-               <p class="text-xl text-blue-100">Mengenal lebih dekat KKG Gugus III</p>
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 py-20">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Tentang Kami</h1>
+                <p class="text-xl text-blue-100 max-w-2xl mx-auto">Mengenal lebih dekat KKG Gugus III dan komitmen kami dalam pengembangan pendidikan</p>
+              </div>
             </div>
-            <div class="max-w-7xl mx-auto px-4 py-16">
-               <div class="bg-white rounded-3xl shadow-xl p-10 mb-16">
-                  <h2 class="text-3xl font-bold text-slate-800 mb-6">Profil</h2>
-                  <p class="text-lg text-slate-600 leading-relaxed">Kelompok Kerja Guru (KKG) Gugus III adalah wadah kegiatan profesional guru Sekolah Dasar yang terdiri dari sejumlah guru dari beberapa sekolah di wilayah tertentu. KKG merupakan salah satu bentuk organisasi profesi yang bertujuan untuk meningkatkan mutu pendidikan di tingkat Sekolah Dasar.</p>
-               </div>
-               <div class="grid lg:grid-cols-2 gap-8 mb-16">
-                  <div class="bg-blue-50 p-10 rounded-3xl">
-                     <h3 class="text-2xl font-bold mb-4">Visi</h3>
-                     <p>Menjadi wadah pengembangan profesional guru yang unggul, inovatif, dan berkolaborasi untuk menciptakan pendidikan Sekolah Dasar yang berkualitas dan bermakna bagi peserta didik.</p>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+              <!-- Description -->
+              <div class="bg-white rounded-3xl shadow-xl p-10 lg:p-16 mb-16">
+                <h2 class="text-3xl font-bold text-slate-800 mb-8">Apa itu KKG Gugus III?</h2>
+                <div class="space-y-6 text-slate-600 text-lg leading-relaxed">
+                  <p>Kelompok Kerja Guru (KKG) Gugus III adalah wadah kegiatan profesional guru Sekolah Dasar yang terdiri dari sejumlah guru dari beberapa sekolah di wilayah tertentu. KKG merupakan salah satu bentuk organisasi profesi yang bertujuan untuk meningkatkan mutu pendidikan di tingkat Sekolah Dasar.</p>
+                  <p>KKG Gugus III beranggotakan 8 Sekolah Dasar dengan total 100+ guru aktif yang berkomitmen untuk terus mengembangkan kompetensi profesional melalui berbagai kegiatan seperti workshop, pelatihan, diskusi pedagogik, dan berbagi praktik terbaik dalam pembelajaran.</p>
+                  <p>Melalui KKG, guru-guru dapat saling bertukar pengalaman, mendiskusikan permasalahan pembelajaran, dan bersama-sama mencari solusi untuk meningkatkan kualitas pendidikan di sekolah masing-masing.</p>
+                </div>
+              </div>
+
+              <!-- Vision & Mission -->
+              <div class="grid lg:grid-cols-2 gap-8 mb-16">
+                <div class="gradient-soft-blue rounded-3xl p-10 shadow-xl">
+                  <div class="w-16 h-16 rounded-2xl bg-blue-500 flex items-center justify-center mb-8 shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
                   </div>
-                  <div class="bg-yellow-50 p-10 rounded-3xl">
-                     <h3 class="text-2xl font-bold mb-4">Misi</h3>
-                     <ul class="list-disc pl-5"><li>Meningkatkan kompetensi pedagogik.</li><li>Berbagi praktik terbaik.</li><li>Mengembangkan inovasi.</li></ul>
+                  <h3 class="text-2xl font-bold text-slate-800 mb-5">Visi</h3>
+                  <p class="text-slate-700 leading-relaxed text-lg">Menjadi wadah pengembangan profesional guru yang unggul, inovatif, dan berkolaborasi untuk menciptakan pendidikan Sekolah Dasar yang berkualitas dan bermakna bagi peserta didik.</p>
+                </div>
+                <div class="gradient-soft-yellow rounded-3xl p-10 shadow-xl">
+                  <div class="w-16 h-16 rounded-2xl bg-yellow-500 flex items-center justify-center mb-8 shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                    </svg>
                   </div>
-               </div>
-               <h2 class="text-3xl font-bold text-slate-800 mb-10 text-center">Struktur Organisasi</h2>
-               <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-                  <div class="p-6 bg-slate-50 rounded-2xl"><h4 class="font-bold">Pembina</h4><p>Dian Permanawati</p></div>
-                  <div class="p-6 bg-blue-50 rounded-2xl"><h4 class="font-bold">Ketua</h4><p>Mohamad Teguh H.</p></div>
-                  <div class="p-6 bg-yellow-50 rounded-2xl"><h4 class="font-bold">Sekretaris</h4><p>Ade Arivin</p></div>
-                  <div class="p-6 bg-green-50 rounded-2xl"><h4 class="font-bold">Bendahara</h4><p>Didin Jaenudin</p></div>
-               </div>
+                  <h3 class="text-2xl font-bold text-slate-800 mb-5">Misi</h3>
+                  <ul class="text-slate-700 space-y-4 text-lg">
+                    <li class="flex items-start gap-3">
+                      <svg class="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Meningkatkan kompetensi pedagogik dan profesional guru</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Memfasilitasi berbagi praktik terbaik antar guru</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Mengembangkan inovasi pembelajaran yang kreatif</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Memperkuat kolaborasi antar sekolah anggota</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Organizational Structure -->
+              <div class="bg-white rounded-3xl shadow-xl p-10 lg:p-16">
+                <h2 class="text-3xl font-bold text-slate-800 mb-12 text-center">Struktur Organisasi</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                  <!-- Pengarah/Pembina -->
+                  <div class="text-center p-8 bg-gradient-to-br from-red-100 to-red-200 rounded-3xl shadow-lg">
+                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-red-300 to-red-400 flex items-center justify-center shadow-xl">
+                      <svg class="w-12 h-12 text-white" fill="currentColor" viewbox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-lg mb-2">Pengarah/Pembina</h4>
+                    <p class="text-slate-700 text-sm mb-1">Dian Permanawati S.Pd.,M.Pd</p>
+                    <p class="text-red-600 text-xs font-semibold mt-2">Pengawas Bina SD Kec. Sumedang Utara</p>
+                  </div>
+                  
+                  <!-- Ketua -->
+                  <div class="text-center p-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-3xl shadow-lg">
+                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-300 to-blue-400 flex items-center justify-center shadow-xl">
+                      <svg class="w-12 h-12 text-white" fill="currentColor" viewbox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-lg mb-2">Ketua</h4>
+                    <p class="text-slate-700 text-sm mb-1">Mohamad Teguh Hermawan, S.S</p>
+                    <p class="text-blue-600 text-xs font-semibold mt-2">SDN Sindang II</p>
+                  </div>
+                  
+                  <!-- Sekretaris -->
+                  <div class="text-center p-8 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-3xl shadow-lg">
+                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-400 flex items-center justify-center shadow-xl">
+                      <svg class="w-12 h-12 text-white" fill="currentColor" viewbox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-lg mb-2">Sekretaris</h4>
+                    <p class="text-slate-700 text-sm mb-1">Ade Arivin, S.Pd.</p>
+                    <p class="text-yellow-600 text-xs font-semibold mt-2">SDN Sindang IV</p>
+                  </div>
+                  
+                  <!-- Bendahara -->
+                  <div class="text-center p-8 bg-gradient-to-br from-purple-100 to-purple-200 rounded-3xl shadow-lg">
+                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-300 to-purple-400 flex items-center justify-center shadow-xl">
+                      <svg class="w-12 h-12 text-white" fill="currentColor" viewbox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-slate-800 text-lg mb-2">Bendahara</h4>
+                    <p class="text-slate-700 text-sm mb-1">Didin Jaenudin, S.Pd.i</p>
+                    <p class="text-purple-600 text-xs font-semibold mt-2">SDN Sindang V</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       `;
     }
 
+    // ----- Halaman Agenda (dengan accordion) -----
     function getAgendaPage() {
       return `
+        <!-- ==================== AGENDA PAGE ==================== -->
         <div id="page-agenda" class="page">
           <div class="pt-24 lg:pt-32 pb-16">
-             <div class="bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 py-20 text-center text-white">
-                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4">Agenda Kegiatan</h1>
-                <p class="text-xl text-yellow-100">Jadwal kegiatan KKG Gugus III</p>
-             </div>
-             <div class="max-w-7xl mx-auto px-4 py-16">
-                <div class="space-y-6 mb-16">
-                   <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-green-500">
-                      <div class="flex flex-col md:flex-row gap-6 items-center">
-                         <div class="text-center p-4 bg-green-100 rounded-2xl min-w-[100px]">
-                            <div class="text-3xl font-bold text-green-700">31</div><div class="text-sm text-green-600 font-bold">Jan 2026</div>
-                         </div>
-                         <div>
-                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Rapat Rutin</span>
-                            <h3 class="text-xl font-bold mt-2">Sosialisasi Aplikasi KKG 3 & Refleksi Assesmen</h3>
-                            <p class="text-slate-600 text-sm mt-1">Lokasi: SDN Jatihurip | Pukul: 10:00 WIB</p>
-                         </div>
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 py-20">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Agenda Kegiatan</h1>
+                <p class="text-xl text-yellow-100 max-w-2xl mx-auto">Jadwal kegiatan dan program KKG Gugus III</p>
+              </div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+              <!-- Upcoming Events -->
+              <div class="mb-20">
+                <h2 class="text-3xl font-bold text-slate-800 mb-10 flex items-center gap-4">
+                  <span class="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center shadow-lg">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </span> 
+                  Agenda Mendatang
+                </h2>
+                
+                <div class="space-y-6">
+                  <!-- Agenda 1 -->
+                  <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-green-500 card-hover">
+                    <div class="flex flex-col lg:flex-row lg:items-center gap-6">
+                      <div class="lg:w-36 flex-shrink-0">
+                        <div class="text-center p-5 bg-green-100 rounded-2xl shadow-md">
+                          <div class="text-3xl font-bold text-green-700">31</div>
+                          <div class="text-sm text-green-600 font-semibold">Jan 2026</div>
+                        </div>
                       </div>
-                   </div>
-                   <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-blue-500">
-                      <div class="flex flex-col md:flex-row gap-6 items-center">
-                         <div class="text-center p-4 bg-blue-100 rounded-2xl min-w-[100px]">
-                            <div class="text-3xl font-bold text-blue-700">12</div><div class="text-sm text-blue-600 font-bold">Feb 2026</div>
-                         </div>
-                         <div>
-                            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">Workshop</span>
-                            <h3 class="text-xl font-bold mt-2">Pematerian Pengawas & Sosialisasi Literasi</h3>
-                            <p class="text-slate-600 text-sm mt-1">Lokasi: SDN Jatihurip | Pukul: 08:00 WIB</p>
-                         </div>
+                      <div class="flex-grow">
+                        <span class="inline-block px-4 py-2 bg-yellow-100 text-yellow-700 rounded-xl text-xs font-bold mb-3">Rapat Rutin</span>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3">Sosialisasi Aplikasi KKG 3 & Materi Refleksi Assesmen</h3>
+                        <p class="text-slate-600 mb-4 leading-relaxed">Pembekelan Aplikasi serta Refleksi Assesmen.</p>
+                        <div class="flex flex-wrap gap-6 text-sm text-slate-500 font-medium">
+                          <span class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg> 
+                            10:00 - 12:00 WIB
+                          </span>
+                          <span class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg> 
+                            SDN JATIHURIP
+                          </span>
+                        </div>
                       </div>
-                   </div>
+                    </div>
+                  </div>
+
+                  <!-- Agenda 2 -->
+                  <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-blue-500 card-hover">
+                    <div class="flex flex-col lg:flex-row lg:items-center gap-6">
+                      <div class="lg:w-36 flex-shrink-0">
+                        <div class="text-center p-5 bg-blue-100 rounded-2xl shadow-md">
+                          <div class="text-3xl font-bold text-blue-700">12</div>
+                          <div class="text-sm text-blue-600 font-semibold">Feb 2026</div>
+                        </div>
+                      </div>
+                      <div class="flex-grow">
+                        <span class="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-xl text-xs font-bold mb-3">Rapat</span>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3">Pematerian Pengawas & Sosialisasi Kegiatan Literasi</h3>
+                        <p class="text-slate-600 mb-4 leading-relaxed">Pemaparan materi TP (Tujuan Pembelajaran) & Sosialisasi Kegiatan Literasi Gugus III.</p>
+                        <div class="flex flex-wrap gap-6 text-sm text-slate-500 font-medium">
+                          <span class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg> 
+                            10:00 - 12:00 WIB
+                          </span>
+                          <span class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg> 
+                            SDN Jatihurip
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Agenda 3 -->
+                  <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-purple-500 card-hover">
+                    <div class="flex flex-col lg:flex-row lg:items-center gap-6">
+                      <div class="lg:w-36 flex-shrink-0">
+                        <div class="text-center p-5 bg-purple-100 rounded-2xl shadow-md">
+                          <div class="text-3xl font-bold text-purple-700">14</div>
+                          <div class="text-sm text-purple-600 font-semibold">Mar 2026</div>
+                        </div>
+                      </div>
+                      <div class="flex-grow">
+                        <span class="inline-block px-4 py-2 bg-purple-100 text-purple-700 rounded-xl text-xs font-bold mb-3">Rapat Koordinasi Bulanan</span>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-3">RPP Mudah dan Membantu.</h3>
+                        <p class="text-slate-600 mb-4 leading-relaxed">Belajar membuat menggunakan AI.</p>
+                        <div class="flex flex-wrap gap-6 text-sm text-slate-500 font-medium">
+                          <span class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg> 
+                            10:00 - 12:00 WIB
+                          </span>
+                          <span class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            </svg> 
+                            SDN Jatihurip
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Program Unggulan -->
+              <div>
+                <h2 class="text-3xl font-bold text-slate-800 mb-10 flex items-center gap-4">
+                  <span class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center shadow-lg">
+                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                  </span> 
+                  Program Unggulan: Literasi, Numerasi & OSN
+                </h2>
+
+                <div class="space-y-4">
+                  <!-- ACCORDION ITEM 1: Latar Belakang -->
+                  <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('accordion-1')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                          <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-slate-800 text-lg">Latar Belakang</h3>
+                          <p class="text-sm text-slate-500">Program disusun berdasarkan kebutuhan nyata: penguatan literasi, numerasi, dan pembinaan OSN.</p>
+                        </div>
+                      </div>
+                      <svg id="accordion-1-icon" class="w-5 h-5 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div id="accordion-1-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
+                      <ul class="list-disc list-outside ml-5 space-y-1 text-sm">
+                        <li>Kemampuan literasi baca tulis dan numerasi siswa masih perlu diperkuat.</li>
+                        <li>Pembinaan OSN belum berjalan secara sistematis dan terstruktur.</li>
+                        <li>Peran orang tua dalam pendampingan belajar di rumah masih belum optimal.</li>
+                        <li>Diperlukan kolaborasi lintas sekolah untuk meningkatkan mutu pendidikan secara bersama.</li>
+                        <li class="font-medium text-slate-700 mt-2">Program ini bukan kegiatan seremonial, melainkan strategi peningkatan mutu berkelanjutan.</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- ACCORDION ITEM 2: Tujuan -->
+                  <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('accordion-2')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-slate-800 text-lg">Tujuan Program</h3>
+                          <p class="text-sm text-slate-500">5 target utama: calistung, OSN, peran guru & orang tua.</p>
+                        </div>
+                      </div>
+                      <svg id="accordion-2-icon" class="w-5 h-5 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div id="accordion-2-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
+                      <ol class="list-decimal list-outside ml-5 space-y-1 text-sm">
+                        <li>Meningkatkan kemampuan dasar membaca, menulis, dan menghitung siswa kelas 1–3.</li>
+                        <li>Meningkatkan kompetensi Matematika dan IPA siswa kelas 4–6.</li>
+                        <li>Mempersiapkan siswa menghadapi OSN tingkat kabupaten secara lebih terarah.</li>
+                        <li>Menguatkan peran guru sebagai pembina dan pendamping belajar.</li>
+                        <li>Mengaktifkan peran orang tua sebagai mitra sekolah dalam mendukung proses belajar anak.</li>
+                      </ol>
+                    </div>
+                  </div>
+
+                  <!-- ACCORDION ITEM 3: Ruang Lingkup -->
+                  <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('accordion-3')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-slate-800 text-lg">Ruang Lingkup</h3>
+                          <p class="text-sm text-slate-500">Kelas 1–3: Calistung. Kelas 4–6: Pembinaan OSN Matematika & IPA.</p>
+                        </div>
+                      </div>
+                      <svg id="accordion-3-icon" class="w-5 h-5 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div id="accordion-3-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
+                      <div class="space-y-4">
+                        <div>
+                          <span class="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold mb-2">📘 Kelas Rendah (1–3)</span>
+                          <p class="text-sm font-medium text-slate-700">Fokus: Penguatan Calistung</p>
+                          <ul class="list-disc list-outside ml-5 text-sm mt-1">
+                            <li>Lomba Membaca, Menulis, Menghitung (individu & tim).</li>
+                            <li>Rubrik penilaian sederhana dan objektif.</li>
+                            <li>Pembinaan lebih penting daripada kemenangan.</li>
+                            <li>Orang tua mendampingi 15 menit/hari & mengisi lembar pendampingan.</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold mb-2">📗 Kelas Tinggi (4–6)</span>
+                          <p class="text-sm font-medium text-slate-700">Fokus: Pembinaan OSN Matematika & IPA</p>
+                          <ul class="list-disc list-outside ml-5 text-sm mt-1">
+                            <li>Seleksi awal → tes diagnostik setara OSN kabupaten.</li>
+                            <li>Pembinaan terstruktur: latihan soal tipe OSN, diskusi strategi.</li>
+                            <li>Simulasi OSN dengan standar lomba resmi.</li>
+                            <li>Kolaboratif antar sekolah, konsisten, dan berkualitas.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ACCORDION ITEM 4: Alur Pelaksanaan -->
+                  <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('accordion-4')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                          <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-slate-800 text-lg">Alur Pelaksanaan</h3>
+                          <p class="text-sm text-slate-500">5 tahap: Sosialisasi → Seleksi → Pendampingan → Pelaksanaan → Evaluasi.</p>
+                        </div>
+                      </div>
+                      <svg id="accordion-4-icon" class="w-5 h-5 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div id="accordion-4-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
+                      <ol class="list-decimal list-outside ml-5 space-y-3 text-sm">
+                        <li><span class="font-semibold">Sosialisasi</span> – Penyampaian tujuan, mekanisme, peran guru & orang tua. Hasil: semua pihak memahami alur.</li>
+                        <li><span class="font-semibold">Seleksi</span> – Kelas 1–3: seleksi internal calistung. Kelas 4–6: tes diagnostik OSN. Hasil: terpilih siswa peserta.</li>
+                        <li><span class="font-semibold">Pendampingan</span> – Latihan terjadwal di sekolah + pendampingan di rumah oleh orang tua. Hasil: peningkatan bertahap.</li>
+                        <li><span class="font-semibold">Pelaksanaan Kegiatan</span> – Lomba Calistung & Simulasi OSN. Hasil: data capaian siswa, pengalaman kompetisi.</li>
+                        <li><span class="font-semibold">Evaluasi dan Tindak Lanjut</span> – Analisis hasil, evaluasi keterlibatan orang tua, refleksi guru, laporan & rekomendasi.</li>
+                      </ol>
+                    </div>
+                  </div>
+
+                  <!-- ACCORDION ITEM 5: Peran dan Tanggung Jawab -->
+                  <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('accordion-5')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center">
+                          <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-slate-800 text-lg">Peran & Tanggung Jawab</h3>
+                          <p class="text-sm text-slate-500">Ketua, pengurus, guru, dan orang tua.</p>
+                        </div>
+                      </div>
+                      <svg id="accordion-5-icon" class="w-5 h-5 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div id="accordion-5-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
+                      <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <p class="font-semibold text-slate-700">Ketua KKG</p>
+                          <ul class="list-disc list-outside ml-5 text-slate-600">
+                            <li>Mengarahkan kebijakan program.</li>
+                            <li>Memimpin evaluasi dan pelaporan.</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <p class="font-semibold text-slate-700">Pengurus KKG</p>
+                          <ul class="list-disc list-outside ml-5 text-slate-600">
+                            <li>Menyusun teknis kegiatan.</li>
+                            <li>Menyediakan bahan dan instrumen penilaian.</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <p class="font-semibold text-slate-700">Guru</p>
+                          <ul class="list-disc list-outside ml-5 text-slate-600">
+                            <li>Melakukan seleksi.</li>
+                            <li>Membina dan mendampingi siswa.</li>
+                            <li>Berkomunikasi dengan orang tua.</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <p class="font-semibold text-slate-700">Orang Tua</p>
+                          <ul class="list-disc list-outside ml-5 text-slate-600">
+                            <li>Mendampingi belajar di rumah.</li>
+                            <li>Memberikan motivasi dan dukungan.</li>
+                            <li>Berpartisipasi aktif dalam proses pembinaan.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ACCORDION ITEM 6: Indikator Keberhasilan -->
+                  <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('accordion-6')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center">
+                          <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-slate-800 text-lg">Indikator Keberhasilan</h3>
+                          <p class="text-sm text-slate-500">5 indikator utama.</p>
+                        </div>
+                      </div>
+                      <svg id="accordion-6-icon" class="w-5 h-5 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div id="accordion-6-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
+                      <ol class="list-decimal list-outside ml-5 space-y-1 text-sm">
+                        <li>Terjadi peningkatan kemampuan literasi dan numerasi siswa.</li>
+                        <li>Siswa kelas tinggi menunjukkan kesiapan menghadapi OSN.</li>
+                        <li>Orang tua terlibat aktif dalam pendampingan belajar.</li>
+                        <li>Terbangun kolaborasi positif antar 8 sekolah.</li>
+                        <li>Guru memiliki pengalaman pembinaan yang lebih terstruktur.</li>
+                      </ol>
+                    </div>
+                  </div>
+
+                  <!-- ACCORDION ITEM 7: Komitmen Bersama -->
+                  <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('accordion-7')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+                          <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h3 class="font-bold text-slate-800 text-lg">Komitmen Bersama</h3>
+                          <p class="text-sm text-slate-500">Program ini tanggung jawab bersama, keberhasilan milik seluruh komunitas KKG.</p>
+                        </div>
+                      </div>
+                      <svg id="accordion-7-icon" class="w-5 h-5 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </button>
+                    <div id="accordion-7-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
+                      <p class="text-sm italic">"Keberhasilan bukan milik satu sekolah, melainkan milik seluruh komunitas KKG. Dengan kolaborasi, konsistensi, dan dukungan semua pihak, program ini menjadi langkah nyata dalam meningkatkan mutu pendidikan dasar."</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ----- Halaman Dokumentasi (dengan galeri) -----
+    function getDocumentationPage() {
+      return `
+        <!-- ==================== DOCUMENTATION PAGE ==================== -->
+        <div id="page-documentation" class="page">
+            <div class="pt-24 lg:pt-32 pb-16">
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-green-600 via-green-500 to-green-600 py-20">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Dokumentasi Kegiatan</h1>
+                        <p class="text-xl text-green-100 max-w-2xl mx-auto">Galeri foto dari berbagai kegiatan KKG Gugus III</p>
+                    </div>
                 </div>
                 
-                <h2 class="text-3xl font-bold text-slate-800 mb-8">Program Unggulan: Literasi, Numerasi & OSN</h2>
-                <div class="space-y-4">
-                   <div class="bg-white rounded-2xl shadow p-4 cursor-pointer" onclick="toggleAccordion('acc1')">
-                      <h3 class="font-bold flex justify-between">Latar Belakang <span>▼</span></h3>
-                      <div id="acc1-content" class="hidden mt-4 text-slate-600 pl-4 border-l-2 border-slate-200">Kemampuan literasi & numerasi perlu diperkuat. Pembinaan OSN belum sistematis.</div>
-                   </div>
-                   <div class="bg-white rounded-2xl shadow p-4 cursor-pointer" onclick="toggleAccordion('acc2')">
-                      <h3 class="font-bold flex justify-between">Tujuan Program <span>▼</span></h3>
-                      <div id="acc2-content" class="hidden mt-4 text-slate-600 pl-4 border-l-2 border-slate-200">Meningkatkan calistung kelas rendah, kompetensi MIPA kelas tinggi, dan persiapan OSN.</div>
-                   </div>
-                   <div class="bg-white rounded-2xl shadow p-4 cursor-pointer" onclick="toggleAccordion('acc3')">
-                      <h3 class="font-bold flex justify-between">Ruang Lingkup <span>▼</span></h3>
-                      <div id="acc3-content" class="hidden mt-4 text-slate-600 pl-4 border-l-2 border-slate-200">Kelas 1-3: Penguatan Calistung. Kelas 4-6: Pembinaan OSN Matematika & IPA.</div>
-                   </div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap justify-center gap-4 mb-16" id="filter-buttons">
+                        <button class="px-6 py-3 bg-blue-600 text-white rounded-full font-bold transition-all shadow-lg text-sm filter-btn active" onclick="filterGallery('all')">Semua</button>
+                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('workshop')">Workshop</button>
+                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('meeting')">Rapat</button>
+                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('training')">Pelatihan</button>
+                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('celebration')">Perayaan</button>
+                    </div>
+                    
+                    <!-- Photo Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="photo-gallery">
+                        <!-- Photos will be loaded here by JavaScript -->
+                    </div>
+                    
+                    <!-- Loading Message -->
+                    <div id="loading-message" class="text-center py-12">
+                        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+                        <p class="text-slate-600">Memuat gambar...</p>
+                    </div>
                 </div>
-             </div>
-          </div>
+            </div>
         </div>
       `;
     }
 
+    // ----- Halaman Transparansi (dengan tabel) -----
     function getTransparencyPage() {
       return `
+        <!-- ==================== TRANSPARENCY PAGE ==================== -->
         <div id="page-transparency" class="page">
           <div class="pt-24 lg:pt-32 pb-16">
-             <div class="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 py-20 text-center text-white">
-                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4">Transparansi Keuangan</h1>
-             </div>
-             <div class="max-w-7xl mx-auto px-4 py-16">
-                <div class="grid md:grid-cols-3 gap-8 mb-12">
-                   <div class="bg-white p-8 rounded-3xl shadow-lg border-l-4 border-green-500"><p class="text-slate-500 font-bold">Pemasukan</p><p class="text-3xl font-bold text-green-600">Rp 415.000</p></div>
-                   <div class="bg-white p-8 rounded-3xl shadow-lg border-l-4 border-red-500"><p class="text-slate-500 font-bold">Pengeluaran</p><p class="text-3xl font-bold text-red-600">Rp 329.000</p></div>
-                   <div class="bg-white p-8 rounded-3xl shadow-lg border-l-4 border-blue-500"><p class="text-slate-500 font-bold">Saldo Akhir</p><p class="text-3xl font-bold text-blue-600">Rp 86.000</p></div>
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 py-20">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Transparansi Keuangan</h1>
+                <p class="text-xl text-purple-100 max-w-2xl mx-auto">Laporan keuangan dan kegiatan KKG Gugus III yang transparan dan akuntabel</p>
+              </div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+              <!-- Summary Cards (hanya data Februari) -->
+              <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-green-500">
+                  <div class="flex items-center gap-5">
+                    <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center shadow-md">
+                      <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm text-slate-500 font-semibold">Total Pemasukan</p>
+                      <p class="text-3xl font-bold text-green-600">Rp 415.000</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
-                   <div class="p-6 bg-slate-100 font-bold">Rincian Iuran (Feb 2026)</div>
-                   <div class="p-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div class="bg-slate-50 p-4 rounded text-center"><p class="text-xs">SDN Sindang I</p><p class="font-bold text-purple-700">Rp 50.000</p></div>
-                      <div class="bg-slate-50 p-4 rounded text-center"><p class="text-xs">SDN Sindang II</p><p class="font-bold text-purple-700">Rp 45.000</p></div>
-                      <div class="bg-slate-50 p-4 rounded text-center"><p class="text-xs">SDN Jatihurip</p><p class="font-bold text-purple-700">Rp 70.000</p></div>
-                      <div class="bg-slate-50 p-4 rounded text-center"><p class="text-xs">SDN Sindang IV</p><p class="font-bold text-purple-700">Rp 110.000</p></div>
-                   </div>
+                
+                <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-red-500">
+                  <div class="flex items-center gap-5">
+                    <div class="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center shadow-md">
+                      <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm text-slate-500 font-semibold">Total Pengeluaran</p>
+                      <p class="text-3xl font-bold text-red-600">Rp 329.000</p>
+                    </div>
+                  </div>
                 </div>
-             </div>
+                
+                <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-blue-500">
+                  <div class="flex items-center gap-5">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center shadow-md">
+                      <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm text-slate-500 font-semibold">Saldo Akhir</p>
+                      <p class="text-3xl font-bold text-blue-600">Rp 86.000</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Financial Report Table -->
+              <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-16">
+                <div class="p-8 border-b bg-gradient-to-r from-purple-50 to-white">
+                  <h2 class="text-2xl font-bold text-slate-800">Laporan Keuangan Semester 2 - 2025/2026</h2>
+                  <p class="text-slate-600 mt-2">Rincian iuran per sekolah dan transparansi sumber dana</p>
+                </div>
+                
+                <!-- Rincian Iuran per Sekolah (Februari 2026) - Grid Simetris -->
+                <div class="p-8 bg-gradient-to-r from-purple-50 to-indigo-50 border-b">
+                  <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                    Rincian Iuran Sekolah Anggota (Februari 2026)
+                  </h3>
+                  <!-- Grid 2 kolom mobile, 4 kolom desktop - semua kotak seragam -->
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100 text-center">
+                      <p class="text-sm text-slate-500">SDN Sindang I</p>
+                      <p class="text-lg font-bold text-purple-700">Rp 50.000</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100 text-center">
+                      <p class="text-sm text-slate-500">SDN Sindang II</p>
+                      <p class="text-lg font-bold text-purple-700">Rp 45.000</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100 text-center">
+                      <p class="text-sm text-slate-500">SDN Sindang III</p>
+                      <p class="text-lg font-bold text-purple-700">Rp -</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100 text-center">
+                      <p class="text-sm text-slate-500">SDN Jatihurip</p>
+                      <p class="text-lg font-bold text-purple-700">Rp 70.000</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100 text-center">
+                      <p class="text-sm text-slate-500">SDN Sindang IV</p>
+                      <p class="text-lg font-bold text-purple-700">Rp 110.000</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100 text-center">
+                      <p class="text-sm text-slate-500">SDN Sindang V</p>
+                      <p class="text-lg font-bold text-purple-700">Rp 25.000</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100 text-center">
+                      <p class="text-sm text-slate-500">SDN Gunung Sari</p>
+                      <p class="text-lg font-bold text-purple-700">Rp 35.000</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100 text-center">
+                      <p class="text-sm text-slate-500">SDN Sukakerta</p>
+                      <p class="text-lg font-bold text-purple-700">Rp 80.000</p>
+                    </div>
+                  </div>
+                  <div class="mt-4 p-3 bg-purple-100 rounded-xl flex justify-between items-center">
+                    <span class="font-bold text-purple-800">Total Iuran Terkumpul:</span>
+                    <span class="font-bold text-xl text-purple-800">Rp 415.000</span>
+                  </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                  <table class="w-full">
+                    <thead class="bg-slate-50">
+                      <tr>
+                        <th class="px-6 py-5 text-left text-sm font-bold text-slate-600 border-b-2 border-purple-200">Tanggal</th>
+                        <th class="px-6 py-5 text-left text-sm font-bold text-slate-600 border-b-2 border-purple-200">Keterangan</th>
+                        <th class="px-6 py-5 text-left text-sm font-bold text-slate-600 border-b-2 border-purple-200">Sumber Dana / Rincian</th>
+                        <th class="px-6 py-5 text-right text-sm font-bold text-slate-600 border-b-2 border-purple-200">Pemasukan</th>
+                        <th class="px-6 py-5 text-right text-sm font-bold text-slate-600 border-b-2 border-purple-200">Pengeluaran</th>
+                        <th class="px-6 py-5 text-right text-sm font-bold text-slate-600 border-b-2 border-purple-200">Saldo</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                      <!-- HANYA BARIS FEBRUARI 2026 YANG DIPERTAHANKAN -->
+                      <tr class="table-row hover:bg-purple-50/50">
+                        <td class="px-6 py-5 text-sm text-slate-600 font-medium align-top">Februari 2026</td>
+                        <td class="px-6 py-5 text-sm text-slate-800 font-semibold align-top">Iuran Anggota Bulan Februari</td>
+                        <td class="px-6 py-5 text-sm align-top">
+                          <div class="space-y-1">
+                            <div class="flex justify-between text-slate-600">
+                              <span>SDN Sindang I</span>
+                              <span class="font-medium">Rp50.000</span>
+                            </div>
+                            <div class="flex justify-between text-slate-600">
+                              <span>SDN Sindang II</span>
+                              <span class="font-medium">Rp45.000</span>
+                            </div>
+                            <div class="flex justify-between text-slate-600">
+                              <span>SDN Sindang III</span>
+                              <span class="font-medium">Rp-</span>
+                            </div>
+                            <div class="flex justify-between text-slate-600">
+                              <span>SDN Jatihurip</span>
+                              <span class="font-medium">Rp70.000</span>
+                            </div>
+                            <div class="flex justify-between text-slate-600">
+                              <span>SDN Sindang IV</span>
+                              <span class="font-medium">Rp110.000</span>
+                            </div>
+                            <div class="flex justify-between text-slate-600">
+                              <span>SDN Sindang V</span>
+                              <span class="font-medium">Rp25.000</span>
+                            </div>
+                            <div class="flex justify-between text-slate-600">
+                              <span>SDN Gunung Sari</span>
+                              <span class="font-medium">Rp35.000</span>
+                            </div>
+                            <div class="flex justify-between text-slate-600">
+                              <span>SDN Sukakerta</span>
+                              <span class="font-medium">Rp80.000</span>
+                            </div>
+                            <div class="mt-2 pt-2 border-t border-dashed border-purple-200 flex justify-between font-bold text-purple-700">
+                              <span>Total Iuran</span>
+                              <span>Rp415.000</span>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="px-6 py-5 text-sm text-right text-green-600 font-semibold align-top">Rp415.000</td>
+                        <td class="px-6 py-5 text-sm text-right text-red-600 font-semibold align-top">Rp329.000</td>
+                        <td class="px-6 py-5 text-sm text-right font-bold text-slate-800 align-top">Rp86.000</td>
+                      </tr>
+                      
+                      <!-- Baris Total (hanya satu baris) -->
+                      <tr class="bg-gradient-to-r from-purple-100 to-indigo-100 font-bold">
+                        <td class="px-6 py-5 text-sm text-slate-800 align-top" colspan="3">TOTAL KESELURUHAN</td>
+                        <td class="px-6 py-5 text-sm text-right text-green-700">Rp415.000</td>
+                        <td class="px-6 py-5 text-sm text-right text-red-700">Rp329.000</td>
+                        <td class="px-6 py-5 text-sm text-right text-blue-700">Rp86.000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <!-- Catatan Kaki -->
+                <div class="p-6 bg-slate-50 border-t">
+                  <div class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-slate-500 mt-0.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <div>
+                      <p class="text-sm text-slate-600 font-medium">Catatan:</p>
+                      <ul class="text-xs text-slate-500 mt-1 space-y-1">
+                        <li>• Iuran anggota bersifat sukarela per bulan</li>
+                        <li>• Total 8 sekolah anggota KKG Gugus III</li>
+                        <li>• Saldo akhir per Februari 2026: Rp86.000</li>
+                        <li>• Laporan keuangan dapat diakses dan diverifikasi oleh seluruh anggota KKG</li>
+                        <li>• Untuk informasi lebih lanjut hubungi bendahara KKG Gugus III</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Activity Report -->
+              <div class="bg-white rounded-3xl shadow-xl p-10">
+                <h2 class="text-2xl font-bold text-slate-800 mb-10">Rekapitulasi Kegiatan</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <div class="text-center p-6 gradient-soft-blue rounded-2xl shadow-md">
+                    <div class="text-4xl font-extrabold text-blue-600 mb-2">1</div>
+                    <div class="text-sm text-slate-700 font-semibold">Total Kegiatan</div>
+                  </div>
+                  <div class="text-center p-6 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl shadow-md">
+                    <div class="text-4xl font-extrabold text-green-600 mb-2">0</div>
+                    <div class="text-sm text-slate-700 font-semibold">Workshop/Pelatihan</div>
+                  </div>
+                  <div class="text-center p-6 gradient-soft-yellow rounded-2xl shadow-md">
+                    <div class="text-4xl font-extrabold text-yellow-600 mb-2">2</div>
+                    <div class="text-sm text-slate-700 font-semibold">Rapat Koordinasi</div>
+                  </div>
+                  <div class="text-center p-6 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl shadow-md">
+                    <div class="text-4xl font-extrabold text-purple-600 mb-2">0</div>
+                    <div class="text-sm text-slate-700 font-semibold">Kegiatan Khusus</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       `;
     }
 
-    // --- SHARING PAGE DENGAN LOGIKA UPLOAD ---
+    // ----- Halaman Sharing (dengan backend) -----
     function getSharingPage() {
       return `
         <div id="page-sharing" class="page">
@@ -878,7 +1615,8 @@
 
               <h2 class="text-2xl font-bold text-slate-800 mb-6">Materi Terbaru</h2>
               <div id="file-gallery" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                 </div>
+                 <!-- akan diisi oleh JavaScript -->
+              </div>
 
               <div class="border-t pt-10">
                  <div class="flex justify-between items-center mb-6">
@@ -899,7 +1637,8 @@
                  </div>
 
                  <div id="comments-list" class="space-y-4">
-                    </div>
+                    <!-- akan diisi oleh JavaScript -->
+                 </div>
               </div>
             </div>
           </div>
@@ -907,42 +1646,493 @@
       `;
     }
 
+    // ----- Halaman Feedback (dengan Google Form) -----
     function getFeedbackPage() {
       return `
+        <!-- ==================== FEEDBACK PAGE ==================== -->
         <div id="page-feedback" class="page">
           <div class="pt-24 lg:pt-32 pb-16">
-             <div class="bg-gradient-to-r from-pink-500 via-pink-400 to-pink-500 py-20 text-center text-white">
-                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4">Masukan & Saran</h1>
-             </div>
-             <div class="max-w-5xl mx-auto px-4 py-16 text-center">
-                <div class="bg-white rounded-3xl shadow-2xl p-10">
-                   <h2 class="text-2xl font-bold mb-6">Formulir Masukan</h2>
-                   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdSSd48bMfrtw-BYkS8Nn6H5C2ddJ4_XhSklxhkfqEchVqitg/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Memuat…</iframe>
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-pink-500 via-pink-400 to-pink-500 py-20">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Masukan & Saran</h1>
+                <p class="text-xl text-pink-100 max-w-2xl mx-auto">Berikan masukan untuk pengembangan KKG Gugus III yang lebih baik</p>
+              </div>
+            </div>
+            
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+              <div class="bg-white rounded-3xl shadow-2xl p-6 lg:p-10">
+                <div class="text-center mb-10">
+                  <div class="w-20 h-20 mx-auto mb-6 rounded-3xl bg-pink-100 flex items-center justify-center shadow-xl">
+                    <svg class="w-10 h-10 text-pink-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                    </svg>
+                  </div>
+                  <h2 class="text-3xl font-bold text-slate-800 mb-4">Formulir Masukan Online</h2>
+                  <p class="text-lg text-slate-600 mb-6 leading-relaxed">Silakan isi formulir di bawah ini untuk memberikan masukan, saran, atau kritik yang membangun bagi KKG Gugus III.</p>
+                  <p class="text-sm text-slate-500">Formulir ini terhubung langsung dengan Google Forms. Data yang Anda kirim akan langsung tercatat.</p>
                 </div>
-             </div>
+                
+                <!-- Google Form Embed -->
+                <div class="mt-8">
+                  <div class="bg-slate-50 rounded-2xl p-4 border-2 border-slate-200">
+                    <div class="mb-6 text-center">
+                      <h3 class="text-xl font-bold text-slate-800 mb-2">Google Form Masukan & Saran</h3>
+                      <p class="text-slate-600">Formulir ini akan terbuka di dalam halaman ini</p>
+                    </div>
+                    
+                    <!-- Google Form Iframe -->
+                    <div class="relative w-full overflow-hidden rounded-xl shadow-lg" style="padding-top: min(1200px, 100%)">
+                      <iframe 
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSdSSd48bMfrtw-BYkS8Nn6H5C2ddJ4_XhSklxhkfqEchVqitg/viewform?embedded=true" 
+                        width="100%" 
+                        height="1200" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0"
+                        class="absolute top-0 left-0 w-full h-full border-0"
+                        title="Google Form Masukan & Saran KKG Gugus III"
+                      >
+                        Memuat…
+                      </iframe>
+                    </div>
+                    
+                    <!-- Alternative Link -->
+                    <div class="mt-8 pt-6 border-t border-slate-200 text-center">
+                      <p class="text-slate-600 mb-4">Jika form di atas tidak muncul, Anda dapat mengaksesnya melalui link berikut:</p>
+                      <a 
+                        href="https://forms.gle/CuFyaYFiL6AnQCb87" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-lg hover:shadow-xl"
+                      >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        Buka Google Form di Tab Baru
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Information Section -->
+                <div class="mt-10 bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-8">
+                  <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                    <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Informasi Penting
+                  </h3>
+                  <ul class="space-y-3 text-slate-700">
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Formulir ini terhubung langsung dengan Google Forms KKG Gugus III</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Data yang Anda kirim akan langsung tercatat dan dapat diakses oleh pengurus KKG</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Masukan Anda akan menjadi bahan evaluasi untuk perbaikan KKG Gugus III ke depannya</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Terima kasih atas kontribusi Anda dalam pengembangan pendidikan di Gugus III</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       `;
     }
 
+    // ----- Halaman Contact -----
     function getContactPage() {
       return `
+        <!-- ==================== CONTACT PAGE ==================== -->
         <div id="page-contact" class="page">
           <div class="pt-24 lg:pt-32 pb-16">
-             <div class="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-20 text-center text-white">
-                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4">Hubungi Kami</h1>
-             </div>
-             <div class="max-w-6xl mx-auto px-4 py-16">
-                <div class="grid md:grid-cols-3 gap-8 text-center">
-                   <div class="bg-blue-50 p-8 rounded-3xl"><h3 class="font-bold text-xl mb-2">Email</h3><p class="text-blue-600">kkg.gugus3@email.com</p></div>
-                   <div class="bg-green-50 p-8 rounded-3xl"><h3 class="font-bold text-xl mb-2">WhatsApp</h3><p class="text-green-600">+62 812-3456-7890</p></div>
-                   <div class="bg-purple-50 p-8 rounded-3xl"><h3 class="font-bold text-xl mb-2">Alamat</h3><p>Jl. Pendidikan No. 123</p></div>
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-20">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Hubungi Kami</h1>
+                <p class="text-xl text-teal-100 max-w-2xl mx-auto">Silakan hubungi kami untuk informasi lebih lanjut</p>
+              </div>
+            </div>
+            
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+              <div class="text-center mb-16">
+                <div class="w-24 h-24 mx-auto mb-8 rounded-3xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-2xl">
+                  <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                  </svg>
                 </div>
-             </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-slate-800 mb-6">Informasi Kontak KKG Gugus III</h2>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Berikut adalah informasi kontak yang dapat digunakan untuk menghubungi pengurus KKG Gugus III</p>
+              </div>
+              
+              <!-- Contact Cards Grid -->
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Email Card -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-8 shadow-xl border-2 border-blue-100 hover:border-blue-200 transition-all duration-300 hover:shadow-2xl">
+                  <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-blue-500 flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-800 mb-3 text-center">Email</h3>
+                  <p class="text-blue-600 font-semibold text-center text-lg mb-4" id="contact-email-display">kkg.gugus3@email.com</p>
+                  <p class="text-slate-600 text-sm text-center">Kirimkan email untuk pertanyaan umum dan informasi</p>
+                  <div class="mt-6 text-center">
+                    <a href="mailto:kkg.gugus3@email.com" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-md">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                      </svg>
+                      Kirim Email
+                    </a>
+                  </div>
+                </div>
+                
+                <!-- Phone Card -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-3xl p-8 shadow-xl border-2 border-green-100 hover:border-green-200 transition-all duration-300 hover:shadow-2xl">
+                  <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-green-500 flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-800 mb-3 text-center">Telepon/WhatsApp</h3>
+                  <p class="text-green-600 font-semibold text-center text-lg mb-4" id="contact-phone-display">+62 812-3456-7890</p>
+                  <p class="text-slate-600 text-sm text-center">Hubungi kami melalui telepon atau WhatsApp</p>
+                  <div class="mt-6 text-center">
+                    <a href="https://wa.me/6281234567890" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-md">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                      </svg>
+                      WhatsApp
+                    </a>
+                  </div>
+                </div>
+                
+                <!-- Address Card -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl p-8 shadow-xl border-2 border-purple-100 hover:border-purple-200 transition-all duration-300 hover:shadow-2xl md:col-span-2 lg:col-span-1">
+                  <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-purple-500 flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-800 mb-3 text-center">Alamat Sekretariat</h3>
+                  <div class="text-slate-700 text-center mb-4">
+                    <p class="font-medium" id="contact-address-display">
+                      Sekretariat KKG Gugus III<br>
+                      Jl. Pendidikan No. 123<br>
+                      Kecamatan Cendekia, Indonesia
+                    </p>
+                  </div>
+                  <p class="text-slate-600 text-sm text-center">Lokasi sekretariat kami untuk pertemuan dan kegiatan</p>
+                  <div class="mt-6 text-center">
+                    <button onclick="openMaps()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-md">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                      </svg>
+                      Buka Maps
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Additional Information -->
+              <div class="grid md:grid-cols-2 gap-8">
+                <!-- Contact Hours -->
+                <div class="bg-white rounded-3xl p-8 shadow-xl border-2 border-slate-100">
+                  <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Jam Kontak
+                  </h3>
+                  <div class="space-y-4">
+                    <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                      <span class="text-slate-700 font-medium">Senin - Jumat</span>
+                      <span class="font-bold text-slate-800">08:00 - 15:00 WIB</span>
+                    </div>
+                    <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                      <span class="text-slate-700 font-medium">Sabtu</span>
+                      <span class="font-bold text-slate-800">08:00 - 12:00 WIB</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-slate-700 font-medium">Minggu & Hari Libur</span>
+                      <span class="font-bold text-slate-800">Tutup</span>
+                    </div>
+                  </div>
+                  <p class="text-sm text-slate-500 mt-6">*Respon email maksimal 1-2 hari kerja</p>
+                </div>
+                
+                <!-- Quick Response -->
+                <div class="bg-gradient-to-br from-teal-50 to-teal-100 rounded-3xl p-8 shadow-xl border-2 border-teal-100">
+                  <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Respon Cepat
+                  </h3>
+                  <p class="text-slate-700 mb-6">Untuk respon yang lebih cepat, gunakan WhatsApp dengan mengklik tombol di kartu Telepon/WhatsApp di atas.</p>
+                  <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                      <svg class="w-5 h-5 text-teal-600" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-sm text-slate-700">Respon WhatsApp dalam beberapa jam</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <svg class="w-5 h-5 text-teal-600" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-sm text-slate-700">Respon email maksimal 2 hari kerja</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <svg class="w-5 h-5 text-teal-600" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-sm text-slate-700">Kunjungan sekretariat sesuai jam kerja</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Map Placeholder -->
+              <div class="mt-16">
+                <h3 class="text-2xl font-bold text-slate-800 mb-8 text-center">Lokasi Sekretariat</h3>
+                <div class="bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl p-12 text-center shadow-xl border-2 border-slate-200">
+                  <div class="w-20 h-20 mx-auto mb-6 text-slate-400">
+                    <svg fill="currentColor" viewbox="0 0 24 24">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
+                    </svg>
+                  </div>
+                  <h4 class="text-xl font-bold text-slate-700 mb-3">Peta Lokasi</h4>
+                  <p class="text-slate-600 mb-6">Lokasi tepat sekretariat KKG Gugus III dapat dilihat pada peta digital</p>
+                  <button onclick="openMaps()" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-700 hover:bg-slate-800 text-white rounded-xl font-semibold transition-colors shadow-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                    </svg>
+                    Lihat di Google Maps
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       `;
     }
+
+    // ==================== FUNGSI-FUNGSI PENDUKUNG (DARI OLD) ====================
+    
+    // Fungsi untuk accordion
+    function toggleAccordion(id) {
+      const content = document.getElementById(id + '-content');
+      const icon = document.getElementById(id + '-icon');
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        content.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // Fungsi untuk membuka Google Maps
+    function openMaps() {
+      const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Sekretariat+KKG+Gugus+III";
+      window.open(mapsUrl, '_blank');
+    }
+
+    // Fungsi untuk inisialisasi halaman dokumentasi (memuat gambar)
+    function initDocumentationPage() {
+        console.log('Initializing Documentation page');
+        
+        // DATA FOTO - Disesuaikan dengan link Google Drive Anda
+        const galleryData = [
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1cLGORklKz-hDueSSNdN0VTdXJNKupwNx&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1qEwBBPXkHPXHMOHjguddAM2lN7o4gmhM&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1PnPxLcN2FpVzvn1aKqPNLMK4NzfShR_w&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1UCVDZPSxEpOiklU2KBzXIlL0itnO0wJ1&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1fijWgcGSpj4-AvKVE6ES1rzq1aFByfzP&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1Ul6SpWxZdg_REzu8dkxDwGnyx2BjPbE2&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1Bs8wo0I8lJpr4nsC6DDhgGi0SvKFt6tP&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1eYgtTwysbcq5VZ1H5IO62XM10KiNittm&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1uUcr-K0zvIQPuwZO93zv04Np7qFJUeIF&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'training', title: 'Pelatihan Pengembangan Guru', src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Pelatihan Guru' },
+            { category: 'meeting', title: 'Rapat Koordinasi Bulanan', src: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Rapat Koordinasi' },
+            { category: 'celebration', title: 'Perayaan Hari Guru Nasional', src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Perayaan HGN' },
+            { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1pnftRzrN5QQqB-2w5aJNObxQMo-a8iao&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+            { category: 'training', title: 'Seminar Pendidikan Karakter', src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Seminar Pendidikan Karakter' },
+            { category: 'meeting', title: 'Diskusi Kurikulum', src: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Diskusi Kurikulum' }
+        ];
+        
+        // Tunggu DOM siap
+        setTimeout(() => {
+            const galleryContainer = document.getElementById('photo-gallery');
+            const loadingMessage = document.getElementById('loading-message');
+            
+            if (!galleryContainer) {
+                console.error('Gallery container not found!');
+                return;
+            }
+            
+            // Sembunyikan loading message
+            if (loadingMessage) {
+                loadingMessage.style.display = 'none';
+            }
+            
+            // Buat HTML untuk setiap gambar
+            let galleryHTML = '';
+            
+            galleryData.forEach((item) => {
+                galleryHTML += `
+                <div class="photo-grid-item aspect-square rounded-3xl overflow-hidden shadow-xl relative group cursor-pointer hover:shadow-2xl transition-all duration-300" 
+                     data-category="${item.category}"
+                     onclick="openImageModal('${item.src}', '${item.title}')">
+                    
+                    <!-- Gambar utama -->
+                    <img src="${item.src}" 
+                         alt="${item.alt}"
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                         loading="lazy"
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/500x500/3B82F6/FFFFFF?text=KKG+Gugus+III';">
+                    
+                    <!-- Overlay info -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full mb-2">${item.category.toUpperCase()}</span>
+                            <h3 class="text-white font-bold text-lg">${item.title}</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Badge kategori -->
+                    <div class="absolute top-4 left-4">
+                        <span class="px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-bold rounded-full">${item.category}</span>
+                    </div>
+                </div>
+                `;
+            });
+            
+            // Masukkan ke gallery
+            galleryContainer.innerHTML = galleryHTML;
+            
+            // Tampilkan semua gambar pertama kali
+            filterGallery('all');
+            
+            console.log('Gallery loaded with', galleryData.length, 'images');
+            
+        }, 500);
+    }
+
+    // Fungsi untuk filter gallery
+    function filterGallery(category) {
+        const galleryItems = document.querySelectorAll('.photo-grid-item');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        // Update active button
+        filterButtons.forEach(btn => {
+            btn.classList.remove('active', 'bg-blue-600', 'text-white');
+            btn.classList.add('bg-slate-100', 'text-slate-600');
+            
+            const btnCategory = btn.textContent.toLowerCase();
+            if (category === 'all' && btn.textContent === 'Semua') {
+                btn.classList.remove('bg-slate-100', 'text-slate-600');
+                btn.classList.add('bg-blue-600', 'text-white', 'active');
+            } else if (btnCategory === category) {
+                btn.classList.remove('bg-slate-100', 'text-slate-600');
+                btn.classList.add('bg-blue-600', 'text-white', 'active');
+            }
+        });
+        
+        // Filter gambar
+        galleryItems.forEach(item => {
+            if (category === 'all' || item.dataset.category === category) {
+                item.style.display = 'block';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'scale(1)';
+                }, 50);
+            } else {
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    item.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    // Fungsi untuk modal gambar
+    function openImageModal(src, title) {
+        // Hapus modal sebelumnya jika ada
+        const existingModal = document.getElementById('image-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Buat modal baru
+        const modalHTML = `
+        <div id="image-modal" class="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center p-4">
+            <div class="relative max-w-6xl w-full max-h-[90vh]">
+                <!-- Tombol tutup -->
+                <button onclick="closeImageModal()" 
+                        class="absolute -top-12 right-0 text-white hover:text-yellow-300 text-3xl z-10 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110 hover:bg-black/70">
+                    ✕
+                </button>
+                
+                <!-- Container gambar -->
+                <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
+                    <!-- Gambar -->
+                    <img src="${src}" 
+                         alt="${title}"
+                         class="max-h-[80vh] w-auto mx-auto object-contain"
+                         onerror="this.src='https://via.placeholder.com/800x600/1E40AF/FFFFFF?text=Gambar+KKG+Gugus+III'">
+                    
+                    <!-- Info gambar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
+                        <h3 class="text-white text-2xl font-bold mb-2">${title}</h3>
+                        <p class="text-white/80 text-sm">KKG Gugus III - Kelompok Kerja Guru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        
+        // Tambahkan ke body
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        // Blok scroll body
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Fungsi tutup modal
+    function closeImageModal() {
+        const modal = document.getElementById('image-modal');
+        if (modal) {
+            modal.remove();
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    // Fungsi header dan footer sudah didefinisikan di awal (dari new)
+    // Tapi kita perlu menambahkan fungsi getHeader dan getFooter yang sudah ada di new
+    // (sudah ada di atas, sebelum getHomePage)
+    // Jadi tidak perlu diubah.
+
 </script>
 </body>
 </html>
