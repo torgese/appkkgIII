@@ -4,57 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KKG Gugus III Kelompok Kerja Guru</title>
-  
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
   <!-- Custom CSS -->
   <style>
     body {
       box-sizing: border-box;
       font-family: 'Outfit', sans-serif;
     }
-
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Poppins', sans-serif;
     }
-    
     /* Gradient Styles */
     .gradient-hero {
       background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
     }
-    
     .gradient-accent {
       background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
     }
-
     .gradient-soft-blue {
       background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
     }
-
     .gradient-soft-yellow {
       background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
     }
-    
     /* Card Hover Effects */
     .card-hover {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
     .card-hover:hover {
       transform: translateY(-8px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.12);
     }
-    
     /* Navigation */
     .nav-link {
       position: relative;
       transition: color 0.3s ease;
     }
-    
     .nav-link::after {
       content: '';
       position: absolute;
@@ -66,32 +54,26 @@
       transition: width 0.3s ease;
       border-radius: 2px;
     }
-    
     .nav-link:hover::after,
     .nav-link.active::after {
       width: 100%;
     }
-    
     /* Photo Grid */
     .photo-grid-item {
       transition: all 0.4s ease;
       overflow: hidden;
     }
-    
     .photo-grid-item:hover {
       transform: scale(1.05);
     }
-
     .photo-grid-item:hover .overlay {
       opacity: 1;
     }
-    
     /* Animations */
     .stat-card {
       animation: fadeInUp 0.8s ease forwards;
       opacity: 0;
     }
-    
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -102,22 +84,18 @@
         transform: translateY(0);
       }
     }
-    
     .stat-card:nth-child(1) { animation-delay: 0.1s; }
     .stat-card:nth-child(2) { animation-delay: 0.2s; }
     .stat-card:nth-child(3) { animation-delay: 0.3s; }
     .stat-card:nth-child(4) { animation-delay: 0.4s; }
-    
     /* Page Transitions */
     .page {
       display: none;
     }
-    
     .page.active {
       display: block;
       animation: pageTransition 0.5s ease;
     }
-
     @keyframes pageTransition {
       from {
         opacity: 0;
@@ -128,60 +106,49 @@
         transform: translateY(0);
       }
     }
-    
     /* Table Styles */
     .table-row {
       transition: background-color 0.2s ease;
     }
-
     .table-row:hover {
       background-color: #f8fafc;
     }
-
     /* Wave Pattern */
     .wave-pattern {
       background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q 25 30, 50 50 T 100 50' stroke='rgba(255,255,255,0.1)' fill='none' stroke-width='1'/%3E%3C/svg%3E");
     }
-
     .overlay {
       transition: opacity 0.3s ease;
       opacity: 0;
     }
-
     /* Button Styles */
     .btn-primary {
       transition: all 0.3s ease;
     }
-
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
     }
-
     /* PERBAIKAN: Text Color untuk Hero Section dengan kontras tinggi */
     .hero-title {
       color: #ffffff !important;
       text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
       -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
     }
-    
     .hero-subtitle {
-      color: #fef08a !important; /* Kuning terang */
+      color: #fef08a !important;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
       font-weight: 700;
     }
-    
     .hero-description {
-      color: #e0f2fe !important; /* Biru muda terang */
+      color: #e0f2fe !important;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
-    
     /* Memastikan background hero cukup gelap */
     .hero-container {
       position: relative;
       background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%) !important;
     }
-    
     /* Badge styling */
     .hero-badge {
       background-color: rgba(255, 255, 255, 0.25);
@@ -194,7 +161,6 @@
   <div id="app-wrapper" class="w-full h-full">
     <!-- Navigation will be loaded here -->
     <div id="header-container"></div>
-    
     <!-- Main Content -->
     <main id="main-content">
       <!-- Page content will be loaded here -->
@@ -202,52 +168,38 @@
         <!-- Home page will be loaded by default -->
       </div>
     </main>
-    
     <!-- Footer will be loaded here -->
     <div id="footer-container"></div>
   </div>
 
   <!-- JavaScript Files -->
-<script>
+  <script>
     // ==================== KONEKSI BACKEND ====================
-    // URL Google Apps Script Anda
     const GAS_URL = "https://script.google.com/macros/s/AKfycbwFuHlTZJm2Tqz8f3BiHOndSdTWOcMdMa_Ru2-gYNCYEEb_f-A4wkTjQ5kolYWTeUIA/exec";
-    
-    // PIN Keamanan (Password untuk Guru saat upload)
-    const TEACHER_PIN = "GUGUS3JAYA"; 
+    const TEACHER_PIN = "GUGUS3UTARA";
 
-    // ==================== KONFIGURASI UMUM ====================
+    // ==================== KONFIGURASI ====================
     const defaultConfig = {
       hero_title: 'KKG Gugus III',
       hero_subtitle: 'Bersama Membangun Pendidikan Berkualitas',
-      hero_description: 'Selamat datang di aplikasi resmi KKG Gugus III Kec Sumedang Utara. Wadah kolaborasi dan pengembangan profesional guru-guru Sekolah Dasar untuk menciptakan pembelajaran yang inovatif dan bermakna.',
+      hero_description: 'Selamat datang di aplikasi resmi KKG Gugus III Kec Sumedang Utara.',
       ketua_name: '.',
-      ketua_greeting: 'Assalamualaikum WarMohamad Teguh Hermawan, S.Sahmatullahi Wabarakatuh. Puji syukur kita panjatkan kepada Allah SWT atas segala rahmat dan karunia-Nya. KKG Gugus III hadir sebagai wadah bagi guru-guru Sekolah Dasar untuk saling berbagi pengetahuan, pengalaman, dan praktik terbaik dalam dunia pendidikan. Kami berkomitmen untuk terus meningkatkan kualitas pembelajaran demi masa depan anak-anak bangsa. Mari bersama-sama kita wujudkan pendidikan yang berkualitas, inovatif, dan bermakna bagi generasi penerus Indonesia.',
+      ketua_greeting: '...',
       contact_email: 'kkg.gugus3@email.com',
       contact_phone: '+62 812-3456-7890',
-      contact_address: 'Sekretariat KKG Gugus III<br>Jl. Pendidikan No. 123<br>Kecamatan Cendekia, Indonesia'
+      contact_address: 'Sekretariat KKG Gugus III<br>Jl. Pendidikan No. 123'
     };
 
     // ==================== FUNGSI NAVIGASI ====================
     function navigateTo(pageId) {
-      // Update styling menu aktif
       document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.remove('active');
         if (link.dataset.page === pageId) link.classList.add('active');
       });
-      
-      // Load konten halaman
       loadPage(pageId);
-      
-      // Tutup menu mobile jika terbuka
       const mobileMenu = document.getElementById('mobile-menu');
-      if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-        toggleMobileMenu();
-      }
-      
-      // Scroll ke atas
+      if (mobileMenu && !mobileMenu.classList.contains('hidden')) toggleMobileMenu();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      return false;
     }
 
     function toggleMobileMenu() {
@@ -257,301 +209,210 @@
 
     function mobileNavigateTo(pageId) {
       navigateTo(pageId);
-      return false;
     }
 
-    function updatePageConfig() {
-      // Update hero section - PERBAIKAN: Tambah class untuk styling
-      const heroTitle = document.getElementById('hero-title');
-      const heroSubtitle = document.getElementById('hero-subtitle');
-      const heroDescription = document.getElementById('hero-description');
-      
-      if (heroTitle) {
-        heroTitle.textContent = defaultConfig.hero_title;
-        heroTitle.classList.add('hero-title');
-      }
-      
-      if (heroSubtitle) {
-        heroSubtitle.textContent = defaultConfig.hero_subtitle;
-        heroSubtitle.classList.add('hero-subtitle');
-      }
-      
-      if (heroDescription) {
-        heroDescription.textContent = defaultConfig.hero_description;
-        heroDescription.classList.add('hero-description');
-      }
-      
-      // Update contact info
-      const contactEmail = document.getElementById('contact-email-display');
-      const contactPhone = document.getElementById('contact-phone-display');
-      const contactAddress = document.getElementById('contact-address-display');
-      const footerEmail = document.getElementById('footer-email');
-      const footerPhone = document.getElementById('footer-phone');
-      
-      if (contactEmail) contactEmail.textContent = defaultConfig.contact_email;
-      if (contactPhone) contactPhone.textContent = defaultConfig.contact_phone;
-      if (contactAddress) contactAddress.innerHTML = defaultConfig.contact_address.replace(/\n/g, '<br>');
-      
-      // Update footer
-      if (footerEmail) {
-        footerEmail.innerHTML = `
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-          </svg>
-          ${defaultConfig.contact_email}
-        `;
-      }
-      
-      if (footerPhone) {
-        footerPhone.innerHTML = `
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-          </svg>
-          ${defaultConfig.contact_phone}
-        `;
-      }
-    }
-
-    // ==================== PAGE ROUTER ====================
+    // ==================== LOAD PAGE (dimodifikasi) ====================
     async function loadPage(pageId) {
-      const content = document.getElementById('page-content');
-      
-      // Reset konten
-      content.innerHTML = ''; 
+      const pageContent = document.getElementById('page-content');
+      if (pageId === 'home') pageContent.innerHTML = getHomePage();
+      else if (pageId === 'about') pageContent.innerHTML = getAboutPage();
+      else if (pageId === 'agenda') pageContent.innerHTML = getAgendaPage();
+      else if (pageId === 'documentation') {
+        pageContent.innerHTML = getDocumentationPage();
+        setTimeout(initDocumentationPage, 100);
+      }
+      else if (pageId === 'transparency') pageContent.innerHTML = getTransparencyPage();
+      else if (pageId === 'sharing') {
+        pageContent.innerHTML = getSharingPage();
+        setTimeout(initSharingPage, 100);
+      }
+      else if (pageId === 'feedback') pageContent.innerHTML = getFeedbackPage();
+      else if (pageId === 'contact') pageContent.innerHTML = getContactPage();
+      else pageContent.innerHTML = '<div class="pt-24 text-center">Halaman tidak ditemukan</div>';
+      updatePageConfig();
 
-      // Routing
-      if(pageId === 'home') {
-          content.innerHTML = getHomePage();
-      } 
-      else if(pageId === 'about') {
-          content.innerHTML = getAboutPage();
-      } 
-      else if(pageId === 'agenda') {
-          content.innerHTML = getAgendaPage();
-      } 
-      else if(pageId === 'documentation') {
-          content.innerHTML = getDocumentationPage();
-          setTimeout(initDocumentationPage, 100);
-      } 
-      else if(pageId === 'transparency') {
-          content.innerHTML = getTransparencyPage();
-      } 
-      else if(pageId === 'sharing') {
-          content.innerHTML = getSharingPage(); // Memuat Form Upload Baru
-          setTimeout(initSharingPage, 100);     // Menarik data dari Server Google
-      } 
-      else if(pageId === 'feedback') {
-          content.innerHTML = getFeedbackPage();
-      } 
-      else if(pageId === 'contact') {
-          content.innerHTML = getContactPage();
-      } 
-      else {
-          content.innerHTML = '<div class="pt-32 text-center text-xl text-red-500">Halaman tidak ditemukan</div>';
+      // === SET ACTIVE CLASS PADA HALAMAN ===
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      const currentPage = document.getElementById('page-' + pageId);
+      if (currentPage) currentPage.classList.add('active');
+    }
+
+    // ==================== FUNGSI BACKEND (BERBAGI FILE) ====================
+    async function initSharingPage() {
+      const fileGallery = document.getElementById('file-gallery');
+      const commentList = document.getElementById('comments-list');
+      fileGallery.innerHTML = '<div class="col-span-3 text-center py-10"><div class="animate-spin inline-block w-8 h-8 border-4 border-blue-500 rounded-full border-t-transparent"></div><p class="mt-2 text-slate-500">Mengambil data dari server...</p></div>';
+      try {
+        const response = await fetch(GAS_URL);
+        const result = await response.json();
+        if (result.status === 'success') {
+          renderFiles(result.data.filter(item => item.tipe === 'FILE'));
+          renderComments(result.data.filter(item => item.tipe === 'KOMENTAR'));
+        } else {
+          alert("Gagal memuat data.");
+        }
+      } catch (error) {
+        console.error(error);
+        fileGallery.innerHTML = '<div class="col-span-3 text-center text-red-500">Gagal terhubung ke server. Coba refresh halaman.</div>';
       }
     }
 
-    // ==================== FUNGSI BACKEND SHARING ====================
-    
-    // 1. Ambil Data dari Google Sheet
-    async function initSharingPage() {
-        const gallery = document.getElementById('file-gallery');
-        const comments = document.getElementById('comments-list');
-        
-        if(!gallery) return;
-
-        // Loading Spinner
-        gallery.innerHTML = '<div class="col-span-3 text-center py-10"><div class="animate-spin inline-block w-8 h-8 border-4 border-blue-500 rounded-full border-t-transparent"></div><p class="mt-2 text-slate-500">Menghubungkan ke Server...</p></div>';
-
-        try {
-            const response = await fetch(GAS_URL);
-            const result = await response.json();
-            
-            if(result.status === 'success') {
-                renderFiles(result.data.filter(item => item.tipe === 'FILE'));
-                renderComments(result.data.filter(item => item.tipe === 'KOMENTAR'));
-            } else {
-                gallery.innerHTML = '<p class="text-center text-red-500 col-span-3">Gagal memuat data.</p>';
-            }
-        } catch (error) {
-            console.error(error);
-            gallery.innerHTML = '<p class="text-center text-red-500 col-span-3">Gagal terhubung. Coba refresh halaman.</p>';
-        }
-    }
-
-    // 2. Tampilkan File
     function renderFiles(files) {
-        const gallery = document.getElementById('file-gallery');
-        if(!gallery) return;
-
-        if(files.length === 0) {
-            gallery.innerHTML = '<div class="col-span-3 text-center py-10 text-slate-500">Belum ada file yang diupload.</div>';
-            return;
-        }
-
-        const icons = {
-            'application/pdf': '<span class="text-red-500 font-bold">PDF</span>',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '<span class="text-blue-500 font-bold">DOCX</span>',
-            'image/jpeg': '<span class="text-purple-500 font-bold">IMG</span>',
-            'image/png': '<span class="text-purple-500 font-bold">IMG</span>',
-            'default': '<span class="text-slate-500 font-bold">FILE</span>'
-        };
-
-        let html = files.map(file => `
-            <div class="bg-slate-50 rounded-2xl p-6 border-2 border-slate-200 hover:border-blue-300 transition-colors shadow-sm hover:shadow-md">
-              <div class="flex items-start gap-4 mb-4">
-                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-md border text-xs">
-                  ${icons[file.meta] || icons['default']}
-                </div>
-                <div class="flex-grow overflow-hidden">
-                  <h4 class="font-bold text-slate-800 mb-1 truncate" title="${file.nama}">${file.nama}</h4> 
-                  <div class="flex flex-col text-xs text-slate-500">
-                    <span class="font-semibold text-blue-600">${file.sekolah}</span>
-                    <span>${file.waktu}</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-200">
-                 <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600 truncate max-w-[100px]">${file.meta}</span>
-                 <a href="${file.konten}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-bold flex items-center gap-1">
-                    Download
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                 </a>
+      const fileGallery = document.getElementById('file-gallery');
+      if (files.length === 0) {
+        fileGallery.innerHTML = '<div class="col-span-3 text-center py-10 text-slate-500">Belum ada file yang diupload.</div>';
+        return;
+      }
+      const icons = {
+        'application/pdf': '<span class="text-red-500 font-bold">PDF</span>',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '<span class="text-blue-500 font-bold">DOCX</span>',
+        'image/jpeg': '<span class="text-purple-500 font-bold">IMG</span>',
+        'default': '<span class="text-slate-500 font-bold">FILE</span>'
+      };
+      let html = files.map(file => `
+        <div class="bg-slate-50 rounded-2xl p-6 border-2 border-slate-200 hover:border-blue-300 transition-colors">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-md border">
+              ${icons[file.meta] || icons['default']}
+            </div>
+            <div class="flex-grow overflow-hidden">
+              <h4 class="font-bold text-slate-800 mb-1 truncate" title="${file.konten}">${file.konten.split('/').pop().split('?')[0] || 'Dokumen'}</h4>
+              <div class="flex flex-col text-xs text-slate-500">
+                <span class="font-semibold text-blue-600">${file.nama}</span>
+                <span>${file.sekolah} • ${file.waktu}</span>
               </div>
             </div>
-        `).join('');
-        gallery.innerHTML = html;
-    }
-
-    // 3. Tampilkan Komentar
-    function renderComments(comments) {
-        const list = document.getElementById('comments-list');
-        if(!list) return;
-
-        if(comments.length === 0) {
-            list.innerHTML = '<div class="text-center py-10 text-slate-500">Belum ada komentar.</div>';
-            return;
-        }
-
-        let html = comments.map(c => `
-          <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-            <div class="flex items-center justify-between mb-2">
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600">${c.nama.charAt(0)}</div>
-                <div>
-                  <h4 class="font-bold text-slate-800 text-sm">${c.nama}</h4>
-                  <p class="text-xs text-slate-500">${c.sekolah}</p>
-                </div>
-              </div>
-              <span class="text-xs text-slate-400">${c.waktu}</span>
-            </div>
-            <p class="text-slate-700 text-sm leading-relaxed">${c.konten}</p>
           </div>
-        `).join('');
-        list.innerHTML = html;
+          <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-200">
+            <span class="text-xs bg-slate-200 px-2 py-1 rounded text-slate-600">${file.meta}</span>
+            <a href="${file.konten}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-bold flex items-center gap-1">
+              Download
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            </a>
+          </div>
+        </div>
+      `).join('');
+      fileGallery.innerHTML = html;
     }
 
-    // 4. Proses Upload
+    function renderComments(comments) {
+      const list = document.getElementById('comments-list');
+      if (comments.length === 0) {
+        list.innerHTML = '<div class="text-center py-10 text-slate-500">Belum ada komentar.</div>';
+        return;
+      }
+      let html = comments.map(c => `
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600">${c.nama.charAt(0)}</div>
+              <div>
+                <h4 class="font-bold text-slate-800 text-sm">${c.nama}</h4>
+                <p class="text-xs text-slate-500">${c.sekolah}</p>
+              </div>
+            </div>
+            <span class="text-xs text-slate-400">${c.waktu}</span>
+          </div>
+          <p class="text-slate-700 text-sm leading-relaxed">${c.konten}</p>
+        </div>
+      `).join('');
+      list.innerHTML = html;
+    }
+
     async function handleFileUpload() {
-        const name = document.getElementById('upload-name').value;
-        const school = document.getElementById('upload-school').value;
-        const pin = document.getElementById('upload-pin').value;
-        const fileInput = document.getElementById('upload-file');
-        const btn = document.getElementById('btn-upload');
-        const statusMsg = document.getElementById('upload-status');
-
-        if(!name || !school || !pin || fileInput.files.length === 0) {
-            alert("Mohon lengkapi semua data!"); return;
-        }
-        if(pin !== TEACHER_PIN) {
-            alert("PIN Guru Salah! Silakan hubungi admin."); return;
-        }
-        const file = fileInput.files[0];
-        if(file.size > 5 * 1024 * 1024) { 
-            alert("Ukuran file maksimal 5MB."); return;
-        }
-
-        btn.disabled = true;
-        btn.innerHTML = 'Sedang Mengupload...';
-        statusMsg.innerText = 'Mohon tunggu, sedang memproses file...';
-
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = async function() {
-            const base64Data = reader.result.split(',')[1];
-            
-            const payload = {
-                action: 'UPLOAD',
-                nama: name,
-                sekolah: school,
-                pin: pin,
-                fileName: file.name,
-                mimeType: file.type,
-                fileData: base64Data,
-                ukuran: (file.size/1024).toFixed(1) + ' KB'
-            };
-
-            try {
-                const response = await fetch(GAS_URL, {
-                    method: "POST",
-                    body: JSON.stringify(payload)
-                });
-                
-                const result = await response.json();
-                
-                if(result.status === 'success') {
-                    alert("Berhasil Upload!");
-                    document.getElementById('upload-name').value = '';
-                    document.getElementById('upload-file').value = '';
-                    document.getElementById('upload-pin').value = '';
-                    initSharingPage(); // Refresh otomatis
-                } else {
-                    alert("Gagal: " + result.message);
-                }
-            } catch (err) {
-                console.error(err);
-                alert("Terjadi kesalahan koneksi.");
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = 'Upload Sekarang';
-                statusMsg.innerText = '';
-            }
+      const name = document.getElementById('upload-name').value;
+      const school = document.getElementById('upload-school').value;
+      const pin = document.getElementById('upload-pin').value;
+      const fileInput = document.getElementById('upload-file');
+      const btn = document.getElementById('btn-upload');
+      const statusMsg = document.getElementById('upload-status');
+      if (!name || !school || !pin || fileInput.files.length === 0) {
+        alert("Mohon lengkapi semua data!");
+        return;
+      }
+      if (pin !== TEACHER_PIN) {
+        alert("PIN Guru Salah!");
+        return;
+      }
+      const file = fileInput.files[0];
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Ukuran file maksimal 5 MB.");
+        return;
+      }
+      btn.disabled = true;
+      btn.innerHTML = 'Sedang Mengupload...';
+      statusMsg.innerText = 'Mohon tunggu, memproses file...';
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async function() {
+        const base64Data = reader.result.split(',')[1];
+        const payload = {
+          action: 'UPLOAD',
+          nama: name,
+          sekolah: school,
+          pin: pin,
+          fileName: file.name,
+          mimeType: file.type,
+          fileData: base64Data,
+          ukuran: (file.size / 1024).toFixed(1) + ' KB'
         };
+        try {
+          statusMsg.innerText = 'Mengirim ke server...';
+          const response = await fetch(GAS_URL, {
+            method: "POST",
+            body: JSON.stringify(payload)
+          });
+          const result = await response.json();
+          if (result.status === 'success') {
+            alert("Berhasil Upload!");
+            document.getElementById('upload-name').value = '';
+            document.getElementById('upload-file').value = '';
+            initSharingPage();
+          } else {
+            alert("Gagal: " + result.message);
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Terjadi kesalahan koneksi.");
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = 'Upload Sekarang';
+          statusMsg.innerText = '';
+        }
+      };
     }
 
-    // 5. Proses Komentar
     async function submitComment() {
-        const name = document.getElementById('comment-name').value;
-        const school = document.getElementById('comment-school').value;
-        const text = document.getElementById('comment-text').value;
-        const btn = document.querySelector('#comment-form button[onclick="submitComment()"]');
-
-        if(!name || !school || !text) { alert("Lengkapi data komentar!"); return; }
-
-        btn.disabled = true;
-        btn.innerText = "Mengirim...";
-
-        const payload = {
-            action: 'KOMENTAR',
-            nama: name,
-            sekolah: school,
-            isi: text
-        };
-
-        try {
-            await fetch(GAS_URL, {
-                method: "POST",
-                body: JSON.stringify(payload)
-            });
-            document.getElementById('comment-text').value = '';
-            toggleCommentForm();
-            initSharingPage(); 
-        } catch(err) {
-            alert("Gagal mengirim komentar.");
-        } finally {
-            btn.disabled = false;
-            btn.innerText = "Kirim";
+      const name = document.getElementById('comment-name').value;
+      const school = document.getElementById('comment-school').value;
+      const text = document.getElementById('comment-text').value;
+      const btn = document.querySelector('#new-comment-form button');
+      if (!name || !school || !text) { alert("Lengkapi data!"); return; }
+      btn.disabled = true;
+      btn.innerHTML = "Mengirim...";
+      const payload = {
+        action: 'KOMENTAR',
+        nama: name,
+        sekolah: school,
+        isi: text
+      };
+      try {
+        const response = await fetch(GAS_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+        if (result.status === 'success') {
+          document.getElementById('comment-text').value = '';
+          toggleCommentForm();
+          initSharingPage();
         }
+      } catch (err) {
+        alert("Gagal mengirim komentar.");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = "Kirim Komentar";
+      }
     }
 
     function toggleCommentForm() {
@@ -559,103 +420,12 @@
       if (form) form.classList.toggle('hidden');
     }
 
-    // ==================== FUNGSI HEADER & FOOTER ====================
-    function getHeader() {
-      return `
-        <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-lg shadow-md z-50">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 lg:h-20">
-              <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
-                <div class="w-11 h-11 lg:w-14 lg:h-14 rounded-2xl gradient-hero flex items-center justify-center shadow-lg">
-                  <svg class="w-6 h-6 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                </div>
-                <div class="hidden sm:block">
-                  <span class="font-bold text-xl text-blue-700">KKG Gugus III</span>
-                  <p class="text-xs text-slate-500 font-medium">Kelompok Kerja Guru</p>
-                </div>
-              </div>
-              <div class="hidden lg:flex items-center gap-4 xl:gap-8">
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1 active" onclick="return navigateTo('home')" data-page="home">Beranda</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('about')" data-page="about">Tentang</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('agenda')" data-page="agenda">Agenda</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('documentation')" data-page="documentation">Dokumentasi</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('transparency')" data-page="transparency">Transparansi</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('sharing')" data-page="sharing">Berbagi File</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('feedback')" data-page="feedback">Masukan</a>
-                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('contact')" data-page="contact">Kontak</a>
-              </div>
-              <button class="lg:hidden p-2 rounded-xl hover:bg-slate-100" onclick="toggleMobileMenu()">
-                <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-              </button>
-            </div>
-          </div>
-          <div id="mobile-menu" class="lg:hidden hidden bg-white border-t shadow-lg">
-            <div class="px-4 py-3 space-y-2">
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('home')">Beranda</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('about')">Tentang</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('agenda')">Agenda</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('documentation')">Dokumentasi</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('transparency')">Transparansi</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('sharing')">Berbagi File</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('feedback')">Masukan</a>
-              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50" onclick="return mobileNavigateTo('contact')">Kontak</a>
-            </div>
-          </div>
-        </nav>
-      `;
+    // ==================== FUNGSI TAMBAHAN (OPEN MAPS) ====================
+    function openMaps() {
+      window.open('https://www.google.com/maps/search/?api=1&query=Sumedang+Utara', '_blank');
     }
 
-    function getFooter() {
-      return `
-        <footer class="bg-slate-800 text-white">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-              <div>
-                <div class="flex items-center gap-3 mb-6">
-                  <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                  </div>
-                  <span class="font-bold text-xl">KKG Gugus III</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed">Kelompok Kerja Guru Sekolah Dasar yang berkomitmen untuk meningkatkan kualitas pendidikan.</p>
-              </div>
-              <div>
-                <h4 class="font-bold mb-6 text-lg">Menu Cepat</h4>
-                <ul class="space-y-3 text-slate-400">
-                  <li><a href="#" onclick="return navigateTo('home')" class="hover:text-white transition-colors">Beranda</a></li>
-                  <li><a href="#" onclick="return navigateTo('about')" class="hover:text-white transition-colors">Tentang Kami</a></li>
-                  <li><a href="#" onclick="return navigateTo('agenda')" class="hover:text-white transition-colors">Agenda</a></li>
-                  <li><a href="#" onclick="return navigateTo('documentation')" class="hover:text-white transition-colors">Dokumentasi</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 class="font-bold mb-6 text-lg">Informasi</h4>
-                <ul class="space-y-3 text-slate-400">
-                  <li><a href="#" onclick="return navigateTo('transparency')" class="hover:text-white transition-colors">Transparansi</a></li>
-                  <li><a href="#" onclick="return navigateTo('sharing')" class="hover:text-white transition-colors">Berbagi File</a></li>
-                  <li><a href="#" onclick="return navigateTo('feedback')" class="hover:text-white transition-colors">Masukan</a></li>
-                  <li><a href="#" onclick="return navigateTo('contact')" class="hover:text-white transition-colors">Kontak</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 class="font-bold mb-6 text-lg">Kontak</h4>
-                <ul class="space-y-3 text-slate-400">
-                  <li id="footer-email" class="flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> kkg.gugus3@email.com</li>
-                  <li id="footer-phone" class="flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg> +62 812-3456-7890</li>
-                </ul>
-              </div>
-            </div>
-            <div class="border-t border-slate-700 mt-12 pt-10 text-center text-slate-400">
-              <p class="font-medium">© 2025 KKG Gugus III. Seluruh hak cipta dilindungi.</p>
-            </div>
-          </div>
-        </footer>
-      `;
-    }
-
-    // ==================== FUNGSI-FUNGSI TEMPLATE HALAMAN ====================
-    
-    // ----- Halaman Home -----
+    // ==================== HOME PAGE ====================
     function getHomePage() {
       return `
         <!-- ==================== HOME PAGE ==================== -->
@@ -698,7 +468,6 @@
               </svg>
             </div>
           </section>
-
           <!-- Statistics Section -->
           <section class="py-20 lg:py-28 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -746,7 +515,6 @@
               </div>
             </div>
           </section>
-
           <!-- Upcoming Agenda Section -->
           <section class="py-20 lg:py-28 bg-slate-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -756,7 +524,7 @@
                   <p class="text-lg text-slate-600">Kegiatan-kegiatan yang akan segera dilaksanakan</p>
                 </div>
                 <button onclick="navigateTo('agenda')" class="mt-6 sm:mt-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg hover:shadow-xl">
-                  Lihat Semua 
+                  Lihat Semua
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
                   </svg>
@@ -768,7 +536,6 @@
                   <div class="p-8">
                     <div class="flex items-center gap-3 mb-5">
                       <div class="px-4 py-2 bg-yellow-100 text-yellow-700 rounded-xl text-sm font-bold">31 Jan 2026</div>
-                      
                     </div>
                     <h3 class="text-xl font-bold text-slate-800 mb-3">Sosialisasi Aplikasi KKG 3 & Materi Refleksi Assesmen</h3>
                     <p class="text-slate-600 text-sm mb-5 leading-relaxed">Pembekelan Aplikasi serta Refleksi Assesmen .</p>
@@ -786,7 +553,7 @@
                   <div class="p-8">
                     <div class="flex items-center gap-3 mb-5">
                       <div class="px-4 py-2 bg-blue-100 text-blue-700 rounded-xl text-sm font-bold">12 Feb 2026</div>
-                       <span class="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-bold">Segera</span>
+                      <span class="px-3 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-bold">Segera</span>
                     </div>
                     <h3 class="text-xl font-bold text-slate-800 mb-3">Pematerian Pengawas Pembina & Sosialisasi Kegiatan Literasi</h3>
                     <p class="text-slate-600 text-sm mb-5 leading-relaxed">Pemaparan materi TP (Tujuan Pembelajaran) & Sosialisasi Kegiatan Literasi Gugus III.</p>
@@ -819,7 +586,6 @@
               </div>
             </div>
           </section>
-
           <!-- Documentation Preview Section -->
           <section class="py-20 lg:py-28 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -829,7 +595,7 @@
                   <p class="text-lg text-slate-600">Momen-momen berharga dari berbagai kegiatan KKG</p>
                 </div>
                 <button onclick="navigateTo('documentation')" class="mt-6 sm:mt-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg hover:shadow-xl">
-                  Lihat Semua 
+                  Lihat Semua
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
                   </svg>
@@ -875,7 +641,7 @@
       `;
     }
 
-    // ----- Halaman About -----
+    // ==================== ABOUT PAGE ====================
     function getAboutPage() {
       return `
         <!-- ==================== ABOUT PAGE ==================== -->
@@ -888,7 +654,6 @@
                 <p class="text-xl text-blue-100 max-w-2xl mx-auto">Mengenal lebih dekat KKG Gugus III dan komitmen kami dalam pengembangan pendidikan</p>
               </div>
             </div>
-            
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
               <!-- Description -->
               <div class="bg-white rounded-3xl shadow-xl p-10 lg:p-16 mb-16">
@@ -899,7 +664,6 @@
                   <p>Melalui KKG, guru-guru dapat saling bertukar pengalaman, mendiskusikan permasalahan pembelajaran, dan bersama-sama mencari solusi untuk meningkatkan kualitas pendidikan di sekolah masing-masing.</p>
                 </div>
               </div>
-
               <!-- Vision & Mission -->
               <div class="grid lg:grid-cols-2 gap-8 mb-16">
                 <div class="gradient-soft-blue rounded-3xl p-10 shadow-xl">
@@ -947,7 +711,6 @@
                   </ul>
                 </div>
               </div>
-
               <!-- Organizational Structure -->
               <div class="bg-white rounded-3xl shadow-xl p-10 lg:p-16">
                 <h2 class="text-3xl font-bold text-slate-800 mb-12 text-center">Struktur Organisasi</h2>
@@ -963,7 +726,6 @@
                     <p class="text-slate-700 text-sm mb-1">Dian Permanawati S.Pd.,M.Pd</p>
                     <p class="text-red-600 text-xs font-semibold mt-2">Pengawas Bina SD Kec. Sumedang Utara</p>
                   </div>
-                  
                   <!-- Ketua -->
                   <div class="text-center p-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-3xl shadow-lg">
                     <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-300 to-blue-400 flex items-center justify-center shadow-xl">
@@ -975,7 +737,6 @@
                     <p class="text-slate-700 text-sm mb-1">Mohamad Teguh Hermawan, S.S</p>
                     <p class="text-blue-600 text-xs font-semibold mt-2">SDN Sindang II</p>
                   </div>
-                  
                   <!-- Sekretaris -->
                   <div class="text-center p-8 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-3xl shadow-lg">
                     <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-400 flex items-center justify-center shadow-xl">
@@ -987,7 +748,6 @@
                     <p class="text-slate-700 text-sm mb-1">Ade Arivin, S.Pd.</p>
                     <p class="text-yellow-600 text-xs font-semibold mt-2">SDN Sindang IV</p>
                   </div>
-                  
                   <!-- Bendahara -->
                   <div class="text-center p-8 bg-gradient-to-br from-purple-100 to-purple-200 rounded-3xl shadow-lg">
                     <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-300 to-purple-400 flex items-center justify-center shadow-xl">
@@ -1007,7 +767,7 @@
       `;
     }
 
-    // ----- Halaman Agenda (dengan accordion) -----
+    // ==================== AGENDA PAGE ====================
     function getAgendaPage() {
       return `
         <!-- ==================== AGENDA PAGE ==================== -->
@@ -1020,7 +780,6 @@
                 <p class="text-xl text-yellow-100 max-w-2xl mx-auto">Jadwal kegiatan dan program KKG Gugus III</p>
               </div>
             </div>
-            
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
               <!-- Upcoming Events -->
               <div class="mb-20">
@@ -1029,10 +788,9 @@
                     <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                  </span> 
+                  </span>
                   Agenda Mendatang
                 </h2>
-                
                 <div class="space-y-6">
                   <!-- Agenda 1 -->
                   <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-green-500 card-hover">
@@ -1051,20 +809,19 @@
                           <span class="flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg> 
+                            </svg>
                             10:00 - 12:00 WIB
                           </span>
                           <span class="flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                            </svg> 
+                            </svg>
                             SDN JATIHURIP
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
-
                   <!-- Agenda 2 -->
                   <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-blue-500 card-hover">
                     <div class="flex flex-col lg:flex-row lg:items-center gap-6">
@@ -1082,20 +839,19 @@
                           <span class="flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg> 
+                            </svg>
                             10:00 - 12:00 WIB
                           </span>
                           <span class="flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                            </svg> 
+                            </svg>
                             SDN Jatihurip
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
-
                   <!-- Agenda 3 -->
                   <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-purple-500 card-hover">
                     <div class="flex flex-col lg:flex-row lg:items-center gap-6">
@@ -1113,13 +869,13 @@
                           <span class="flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg> 
+                            </svg>
                             10:00 - 12:00 WIB
                           </span>
                           <span class="flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                            </svg> 
+                            </svg>
                             SDN Jatihurip
                           </span>
                         </div>
@@ -1128,7 +884,6 @@
                   </div>
                 </div>
               </div>
-
               <!-- Program Unggulan -->
               <div>
                 <h2 class="text-3xl font-bold text-slate-800 mb-10 flex items-center gap-4">
@@ -1136,10 +891,9 @@
                     <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                     </svg>
-                  </span> 
+                  </span>
                   Program Unggulan: Literasi, Numerasi & OSN
                 </h2>
-
                 <div class="space-y-4">
                   <!-- ACCORDION ITEM 1: Latar Belakang -->
                   <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
@@ -1169,7 +923,6 @@
                       </ul>
                     </div>
                   </div>
-
                   <!-- ACCORDION ITEM 2: Tujuan -->
                   <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
                     <button onclick="toggleAccordion('accordion-2')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
@@ -1190,15 +943,14 @@
                     </button>
                     <div id="accordion-2-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
                       <ol class="list-decimal list-outside ml-5 space-y-1 text-sm">
-                        <li>Meningkatkan kemampuan dasar membaca, menulis, dan menghitung siswa kelas 1–3.</li>
-                        <li>Meningkatkan kompetensi Matematika dan IPA siswa kelas 4–6.</li>
+                        <li>Meningkatkan kemampuan dasar membaca, menulis, dan menghitung siswa kelas 1--3.</li>
+                        <li>Meningkatkan kompetensi Matematika dan IPA siswa kelas 4--6.</li>
                         <li>Mempersiapkan siswa menghadapi OSN tingkat kabupaten secara lebih terarah.</li>
                         <li>Menguatkan peran guru sebagai pembina dan pendamping belajar.</li>
                         <li>Mengaktifkan peran orang tua sebagai mitra sekolah dalam mendukung proses belajar anak.</li>
                       </ol>
                     </div>
                   </div>
-
                   <!-- ACCORDION ITEM 3: Ruang Lingkup -->
                   <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
                     <button onclick="toggleAccordion('accordion-3')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
@@ -1210,7 +962,7 @@
                         </div>
                         <div>
                           <h3 class="font-bold text-slate-800 text-lg">Ruang Lingkup</h3>
-                          <p class="text-sm text-slate-500">Kelas 1–3: Calistung. Kelas 4–6: Pembinaan OSN Matematika & IPA.</p>
+                          <p class="text-sm text-slate-500">Kelas 1--3: Calistung. Kelas 4--6: Pembinaan OSN Matematika & IPA.</p>
                         </div>
                       </div>
                       <svg id="accordion-3-icon" class="w-5 h-5 text-slate-500 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
@@ -1220,7 +972,7 @@
                     <div id="accordion-3-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
                       <div class="space-y-4">
                         <div>
-                          <span class="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold mb-2">📘 Kelas Rendah (1–3)</span>
+                          <span class="inline-block px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold mb-2">📘 Kelas Rendah (1--3)</span>
                           <p class="text-sm font-medium text-slate-700">Fokus: Penguatan Calistung</p>
                           <ul class="list-disc list-outside ml-5 text-sm mt-1">
                             <li>Lomba Membaca, Menulis, Menghitung (individu & tim).</li>
@@ -1230,7 +982,7 @@
                           </ul>
                         </div>
                         <div>
-                          <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold mb-2">📗 Kelas Tinggi (4–6)</span>
+                          <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold mb-2">📗 Kelas Tinggi (4--6)</span>
                           <p class="text-sm font-medium text-slate-700">Fokus: Pembinaan OSN Matematika & IPA</p>
                           <ul class="list-disc list-outside ml-5 text-sm mt-1">
                             <li>Seleksi awal → tes diagnostik setara OSN kabupaten.</li>
@@ -1242,7 +994,6 @@
                       </div>
                     </div>
                   </div>
-
                   <!-- ACCORDION ITEM 4: Alur Pelaksanaan -->
                   <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
                     <button onclick="toggleAccordion('accordion-4')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
@@ -1263,15 +1014,14 @@
                     </button>
                     <div id="accordion-4-content" class="hidden px-6 pb-6 text-slate-600 border-t border-slate-100 pt-4">
                       <ol class="list-decimal list-outside ml-5 space-y-3 text-sm">
-                        <li><span class="font-semibold">Sosialisasi</span> – Penyampaian tujuan, mekanisme, peran guru & orang tua. Hasil: semua pihak memahami alur.</li>
-                        <li><span class="font-semibold">Seleksi</span> – Kelas 1–3: seleksi internal calistung. Kelas 4–6: tes diagnostik OSN. Hasil: terpilih siswa peserta.</li>
-                        <li><span class="font-semibold">Pendampingan</span> – Latihan terjadwal di sekolah + pendampingan di rumah oleh orang tua. Hasil: peningkatan bertahap.</li>
-                        <li><span class="font-semibold">Pelaksanaan Kegiatan</span> – Lomba Calistung & Simulasi OSN. Hasil: data capaian siswa, pengalaman kompetisi.</li>
-                        <li><span class="font-semibold">Evaluasi dan Tindak Lanjut</span> – Analisis hasil, evaluasi keterlibatan orang tua, refleksi guru, laporan & rekomendasi.</li>
+                        <li><span class="font-semibold">Sosialisasi</span> -- Penyampaian tujuan, mekanisme, peran guru & orang tua. Hasil: semua pihak memahami alur.</li>
+                        <li><span class="font-semibold">Seleksi</span> -- Kelas 1--3: seleksi internal calistung. Kelas 4--6: tes diagnostik OSN. Hasil: terpilih siswa peserta.</li>
+                        <li><span class="font-semibold">Pendampingan</span> -- Latihan terjadwal di sekolah + pendampingan di rumah oleh orang tua. Hasil: peningkatan bertahap.</li>
+                        <li><span class="font-semibold">Pelaksanaan Kegiatan</span> -- Lomba Calistung & Simulasi OSN. Hasil: data capaian siswa, pengalaman kompetisi.</li>
+                        <li><span class="font-semibold">Evaluasi dan Tindak Lanjut</span> -- Analisis hasil, evaluasi keterlibatan orang tua, refleksi guru, laporan & rekomendasi.</li>
                       </ol>
                     </div>
                   </div>
-
                   <!-- ACCORDION ITEM 5: Peran dan Tanggung Jawab -->
                   <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
                     <button onclick="toggleAccordion('accordion-5')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
@@ -1325,7 +1075,6 @@
                       </div>
                     </div>
                   </div>
-
                   <!-- ACCORDION ITEM 6: Indikator Keberhasilan -->
                   <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
                     <button onclick="toggleAccordion('accordion-6')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
@@ -1354,7 +1103,6 @@
                       </ol>
                     </div>
                   </div>
-
                   <!-- ACCORDION ITEM 7: Komitmen Bersama -->
                   <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
                     <button onclick="toggleAccordion('accordion-7')" class="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors">
@@ -1385,47 +1133,57 @@
       `;
     }
 
-    // ----- Halaman Dokumentasi (dengan galeri) -----
+    // Global function untuk accordion
+    function toggleAccordion(id) {
+      const content = document.getElementById(id + '-content');
+      const icon = document.getElementById(id + '-icon');
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        content.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // ==================== DOCUMENTATION PAGE ====================
     function getDocumentationPage() {
       return `
         <!-- ==================== DOCUMENTATION PAGE ==================== -->
         <div id="page-documentation" class="page">
-            <div class="pt-24 lg:pt-32 pb-16">
-                <!-- Header -->
-                <div class="bg-gradient-to-r from-green-600 via-green-500 to-green-600 py-20">
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Dokumentasi Kegiatan</h1>
-                        <p class="text-xl text-green-100 max-w-2xl mx-auto">Galeri foto dari berbagai kegiatan KKG Gugus III</p>
-                    </div>
-                </div>
-                
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-                    <!-- Filter Tabs -->
-                    <div class="flex flex-wrap justify-center gap-4 mb-16" id="filter-buttons">
-                        <button class="px-6 py-3 bg-blue-600 text-white rounded-full font-bold transition-all shadow-lg text-sm filter-btn active" onclick="filterGallery('all')">Semua</button>
-                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('workshop')">Workshop</button>
-                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('meeting')">Rapat</button>
-                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('training')">Pelatihan</button>
-                        <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('celebration')">Perayaan</button>
-                    </div>
-                    
-                    <!-- Photo Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="photo-gallery">
-                        <!-- Photos will be loaded here by JavaScript -->
-                    </div>
-                    
-                    <!-- Loading Message -->
-                    <div id="loading-message" class="text-center py-12">
-                        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
-                        <p class="text-slate-600">Memuat gambar...</p>
-                    </div>
-                </div>
+          <div class="pt-24 lg:pt-32 pb-16">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-green-600 via-green-500 to-green-600 py-20">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Dokumentasi Kegiatan</h1>
+                <p class="text-xl text-green-100 max-w-2xl mx-auto">Galeri foto dari berbagai kegiatan KKG Gugus III</p>
+              </div>
             </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+              <!-- Filter Tabs -->
+              <div class="flex flex-wrap justify-center gap-4 mb-16" id="filter-buttons">
+                <button class="px-6 py-3 bg-blue-600 text-white rounded-full font-bold transition-all shadow-lg text-sm filter-btn active" onclick="filterGallery('all')">Semua</button>
+                <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('workshop')">Workshop</button>
+                <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('meeting')">Rapat</button>
+                <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('training')">Pelatihan</button>
+                <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full font-bold transition-all text-sm filter-btn" onclick="filterGallery('celebration')">Perayaan</button>
+              </div>
+              <!-- Photo Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="photo-gallery">
+                <!-- Photos will be loaded here by JavaScript -->
+              </div>
+              <!-- Loading Message -->
+              <div id="loading-message" class="text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+                <p class="text-slate-600">Memuat gambar...</p>
+              </div>
+            </div>
+          </div>
         </div>
       `;
     }
 
-    // ----- Halaman Transparansi (dengan tabel) -----
+    // ==================== TRANSPARENCY PAGE ====================
     function getTransparencyPage() {
       return `
         <!-- ==================== TRANSPARENCY PAGE ==================== -->
@@ -1438,9 +1196,8 @@
                 <p class="text-xl text-purple-100 max-w-2xl mx-auto">Laporan keuangan dan kegiatan KKG Gugus III yang transparan dan akuntabel</p>
               </div>
             </div>
-            
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-              <!-- Summary Cards (hanya data Februari) -->
+              <!-- Summary Cards -->
               <div class="grid md:grid-cols-3 gap-8 mb-16">
                 <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-green-500">
                   <div class="flex items-center gap-5">
@@ -1455,7 +1212,6 @@
                     </div>
                   </div>
                 </div>
-                
                 <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-red-500">
                   <div class="flex items-center gap-5">
                     <div class="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center shadow-md">
@@ -1469,7 +1225,6 @@
                     </div>
                   </div>
                 </div>
-                
                 <div class="bg-white rounded-3xl shadow-xl p-8 border-l-4 border-blue-500">
                   <div class="flex items-center gap-5">
                     <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center shadow-md">
@@ -1484,15 +1239,13 @@
                   </div>
                 </div>
               </div>
-
               <!-- Financial Report Table -->
               <div class="bg-white rounded-3xl shadow-xl overflow-hidden mb-16">
                 <div class="p-8 border-b bg-gradient-to-r from-purple-50 to-white">
                   <h2 class="text-2xl font-bold text-slate-800">Laporan Keuangan Semester 2 - 2025/2026</h2>
                   <p class="text-slate-600 mt-2">Rincian iuran per sekolah dan transparansi sumber dana</p>
                 </div>
-                
-                <!-- Rincian Iuran per Sekolah (Februari 2026) - Grid Simetris -->
+                <!-- Rincian Iuran per Sekolah -->
                 <div class="p-8 bg-gradient-to-r from-purple-50 to-indigo-50 border-b">
                   <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                     <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
@@ -1500,7 +1253,6 @@
                     </svg>
                     Rincian Iuran Sekolah Anggota (Februari 2026)
                   </h3>
-                  <!-- Grid 2 kolom mobile, 4 kolom desktop - semua kotak seragam -->
                   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100 text-center">
                       <p class="text-sm text-slate-500">SDN Sindang I</p>
@@ -1540,7 +1292,6 @@
                     <span class="font-bold text-xl text-purple-800">Rp 415.000</span>
                   </div>
                 </div>
-                
                 <div class="overflow-x-auto">
                   <table class="w-full">
                     <thead class="bg-slate-50">
@@ -1554,44 +1305,19 @@
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
-                      <!-- HANYA BARIS FEBRUARI 2026 YANG DIPERTAHANKAN -->
                       <tr class="table-row hover:bg-purple-50/50">
                         <td class="px-6 py-5 text-sm text-slate-600 font-medium align-top">Februari 2026</td>
                         <td class="px-6 py-5 text-sm text-slate-800 font-semibold align-top">Iuran Anggota Bulan Februari</td>
                         <td class="px-6 py-5 text-sm align-top">
                           <div class="space-y-1">
-                            <div class="flex justify-between text-slate-600">
-                              <span>SDN Sindang I</span>
-                              <span class="font-medium">Rp50.000</span>
-                            </div>
-                            <div class="flex justify-between text-slate-600">
-                              <span>SDN Sindang II</span>
-                              <span class="font-medium">Rp45.000</span>
-                            </div>
-                            <div class="flex justify-between text-slate-600">
-                              <span>SDN Sindang III</span>
-                              <span class="font-medium">Rp-</span>
-                            </div>
-                            <div class="flex justify-between text-slate-600">
-                              <span>SDN Jatihurip</span>
-                              <span class="font-medium">Rp70.000</span>
-                            </div>
-                            <div class="flex justify-between text-slate-600">
-                              <span>SDN Sindang IV</span>
-                              <span class="font-medium">Rp110.000</span>
-                            </div>
-                            <div class="flex justify-between text-slate-600">
-                              <span>SDN Sindang V</span>
-                              <span class="font-medium">Rp25.000</span>
-                            </div>
-                            <div class="flex justify-between text-slate-600">
-                              <span>SDN Gunung Sari</span>
-                              <span class="font-medium">Rp35.000</span>
-                            </div>
-                            <div class="flex justify-between text-slate-600">
-                              <span>SDN Sukakerta</span>
-                              <span class="font-medium">Rp80.000</span>
-                            </div>
+                            <div class="flex justify-between text-slate-600"><span>SDN Sindang I</span><span class="font-medium">Rp50.000</span></div>
+                            <div class="flex justify-between text-slate-600"><span>SDN Sindang II</span><span class="font-medium">Rp45.000</span></div>
+                            <div class="flex justify-between text-slate-600"><span>SDN Sindang III</span><span class="font-medium">Rp-</span></div>
+                            <div class="flex justify-between text-slate-600"><span>SDN Jatihurip</span><span class="font-medium">Rp70.000</span></div>
+                            <div class="flex justify-between text-slate-600"><span>SDN Sindang IV</span><span class="font-medium">Rp110.000</span></div>
+                            <div class="flex justify-between text-slate-600"><span>SDN Sindang V</span><span class="font-medium">Rp25.000</span></div>
+                            <div class="flex justify-between text-slate-600"><span>SDN Gunung Sari</span><span class="font-medium">Rp35.000</span></div>
+                            <div class="flex justify-between text-slate-600"><span>SDN Sukakerta</span><span class="font-medium">Rp80.000</span></div>
                             <div class="mt-2 pt-2 border-t border-dashed border-purple-200 flex justify-between font-bold text-purple-700">
                               <span>Total Iuran</span>
                               <span>Rp415.000</span>
@@ -1602,8 +1328,6 @@
                         <td class="px-6 py-5 text-sm text-right text-red-600 font-semibold align-top">Rp329.000</td>
                         <td class="px-6 py-5 text-sm text-right font-bold text-slate-800 align-top">Rp86.000</td>
                       </tr>
-                      
-                      <!-- Baris Total (hanya satu baris) -->
                       <tr class="bg-gradient-to-r from-purple-100 to-indigo-100 font-bold">
                         <td class="px-6 py-5 text-sm text-slate-800 align-top" colspan="3">TOTAL KESELURUHAN</td>
                         <td class="px-6 py-5 text-sm text-right text-green-700">Rp415.000</td>
@@ -1613,7 +1337,6 @@
                     </tbody>
                   </table>
                 </div>
-                
                 <!-- Catatan Kaki -->
                 <div class="p-6 bg-slate-50 border-t">
                   <div class="flex items-start gap-3">
@@ -1633,8 +1356,31 @@
                   </div>
                 </div>
               </div>
-
               <!-- Activity Report -->
+              <div class="mt-12 pt-8 border-t border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-6">Distribusi Penggunaan Dana</h3>
+                <div class="space-y-4">
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span class="font-medium text-slate-700">Konsumsi Rapat</span>
+                      <span class="font-bold text-slate-800">Rp329.000 (67,23%)</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2.5">
+                      <div class="bg-blue-600 h-2.5 rounded-full" style="width: 67%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span class="font-medium text-slate-700">Kebersihan Tempat</span>
+                      <span class="font-bold text-slate-800">Rp 50.000 (12,05%)</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2.5">
+                      <div class="bg-green-600 h-2.5 rounded-full" style="width: 12%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Rekapitulasi Kegiatan -->
               <div class="bg-white rounded-3xl shadow-xl p-10">
                 <h2 class="text-2xl font-bold text-slate-800 mb-10">Rekapitulasi Kegiatan</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -1662,75 +1408,7 @@
       `;
     }
 
-    // ----- Halaman Sharing (dengan backend) -----
-    function getSharingPage() {
-      return `
-        <div id="page-sharing" class="page">
-          <div class="pt-24 lg:pt-32 pb-16">
-            <div class="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 py-20 text-center text-white">
-              <h1 class="text-4xl lg:text-6xl font-extrabold mb-5">Berbagi File & Materi</h1>
-              <p class="text-xl text-indigo-100">Upload materi ajar. PIN: <strong>${TEACHER_PIN}</strong></p>
-            </div>
-            
-            <div class="max-w-7xl mx-auto px-4 py-16">
-              <div class="bg-white rounded-3xl shadow-xl p-8 mb-16 border-2 border-indigo-50">
-                <h2 class="text-2xl font-bold text-slate-800 mb-6 text-center">Upload File Baru</h2>
-                <div class="grid md:grid-cols-2 gap-8">
-                   <div class="bg-indigo-50 p-6 rounded-2xl">
-                      <h3 class="font-bold text-indigo-800 mb-2">Aturan Upload</h3>
-                      <ul class="text-sm text-slate-700 space-y-2 list-disc ml-4">
-                        <li>File maksimal <strong>5 MB</strong>.</li>
-                        <li>Format: PDF, Word, Excel, Gambar.</li>
-                        <li>Wajib PIN Guru.</li>
-                      </ul>
-                   </div>
-                   <div class="space-y-4">
-                      <div class="grid grid-cols-2 gap-4">
-                        <input type="text" id="upload-name" placeholder="Nama Guru" class="w-full px-4 py-3 rounded-xl border focus:border-indigo-500 outline-none">
-                        <input type="text" id="upload-school" placeholder="Asal Sekolah" class="w-full px-4 py-3 rounded-xl border focus:border-indigo-500 outline-none">
-                      </div>
-                      <input type="password" id="upload-pin" placeholder="Masukkan PIN Guru" class="w-full px-4 py-3 rounded-xl border border-red-200 focus:border-red-500 outline-none">
-                      <input type="file" id="upload-file" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                      <button id="btn-upload" onclick="handleFileUpload()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition shadow-lg">Upload Sekarang</button>
-                      <p id="upload-status" class="text-center text-xs text-slate-500 mt-2"></p>
-                   </div>
-                </div>
-              </div>
-
-              <h2 class="text-2xl font-bold text-slate-800 mb-6">Materi Terbaru</h2>
-              <div id="file-gallery" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                 <!-- akan diisi oleh JavaScript -->
-              </div>
-
-              <div class="border-t pt-10">
-                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-slate-800">Diskusi</h2>
-                    <button onclick="toggleCommentForm()" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-bold hover:bg-blue-200">Tulis Komentar</button>
-                 </div>
-                 
-                 <div id="comment-form" class="hidden bg-slate-50 p-6 rounded-2xl mb-8 border">
-                    <div class="grid md:grid-cols-2 gap-4 mb-4">
-                       <input type="text" id="comment-name" placeholder="Nama Lengkap" class="px-4 py-2 rounded-lg border w-full">
-                       <input type="text" id="comment-school" placeholder="Sekolah" class="px-4 py-2 rounded-lg border w-full">
-                    </div>
-                    <textarea id="comment-text" rows="3" placeholder="Tulis pesan..." class="w-full px-4 py-2 rounded-lg border mb-4"></textarea>
-                    <div class="flex gap-2">
-                       <button onclick="submitComment()" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-bold">Kirim</button>
-                       <button onclick="toggleCommentForm()" class="px-6 py-2 bg-slate-200 text-slate-600 rounded-lg font-bold">Batal</button>
-                    </div>
-                 </div>
-
-                 <div id="comments-list" class="space-y-4">
-                    <!-- akan diisi oleh JavaScript -->
-                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    // ----- Halaman Feedback (dengan Google Form) -----
+    // ==================== FEEDBACK PAGE ====================
     function getFeedbackPage() {
       return `
         <!-- ==================== FEEDBACK PAGE ==================== -->
@@ -1743,7 +1421,6 @@
                 <p class="text-xl text-pink-100 max-w-2xl mx-auto">Berikan masukan untuk pengembangan KKG Gugus III yang lebih baik</p>
               </div>
             </div>
-            
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
               <div class="bg-white rounded-3xl shadow-2xl p-6 lg:p-10">
                 <div class="text-center mb-10">
@@ -1756,7 +1433,6 @@
                   <p class="text-lg text-slate-600 mb-6 leading-relaxed">Silakan isi formulir di bawah ini untuk memberikan masukan, saran, atau kritik yang membangun bagi KKG Gugus III.</p>
                   <p class="text-sm text-slate-500">Formulir ini terhubung langsung dengan Google Forms. Data yang Anda kirim akan langsung tercatat.</p>
                 </div>
-                
                 <!-- Google Form Embed -->
                 <div class="mt-8">
                   <div class="bg-slate-50 rounded-2xl p-4 border-2 border-slate-200">
@@ -1764,32 +1440,16 @@
                       <h3 class="text-xl font-bold text-slate-800 mb-2">Google Form Masukan & Saran</h3>
                       <p class="text-slate-600">Formulir ini akan terbuka di dalam halaman ini</p>
                     </div>
-                    
                     <!-- Google Form Iframe -->
                     <div class="relative w-full overflow-hidden rounded-xl shadow-lg" style="padding-top: min(1200px, 100%)">
-                      <iframe 
-                        src="https://docs.google.com/forms/d/e/1FAIpQLSdSSd48bMfrtw-BYkS8Nn6H5C2ddJ4_XhSklxhkfqEchVqitg/viewform?embedded=true" 
-                        width="100%" 
-                        height="1200" 
-                        frameborder="0" 
-                        marginheight="0" 
-                        marginwidth="0"
-                        class="absolute top-0 left-0 w-full h-full border-0"
-                        title="Google Form Masukan & Saran KKG Gugus III"
-                      >
-                        Memuat…
+                      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdSSd48bMfrtw-BYkS8Nn6H5C2ddJ4_XhSklxhkfqEchVqitg/viewform?embedded=true" width="100%" height="1200" frameborder="0" marginheight="0" marginwidth="0" class="absolute top-0 left-0 w-full h-full border-0" title="Google Form Masukan & Saran KKG Gugus III">
+                        Memuat...
                       </iframe>
                     </div>
-                    
                     <!-- Alternative Link -->
                     <div class="mt-8 pt-6 border-t border-slate-200 text-center">
                       <p class="text-slate-600 mb-4">Jika form di atas tidak muncul, Anda dapat mengaksesnya melalui link berikut:</p>
-                      <a 
-                        href="https://forms.gle/CuFyaYFiL6AnQCb87" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-lg hover:shadow-xl"
-                      >
+                      <a href="https://forms.gle/CuFyaYFiL6AnQCb87" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-lg hover:shadow-xl">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                         </svg>
@@ -1797,4 +1457,593 @@
                       </a>
                     </div>
                   </div>
-                </div
+                </div>
+                <!-- Information Section -->
+                <div class="mt-10 bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-8">
+                  <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-3">
+                    <svg class="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Informasi Penting
+                  </h3>
+                  <ul class="space-y-3 text-slate-700">
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Formulir ini terhubung langsung dengan Google Forms KKG Gugus III</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Data yang Anda kirim akan langsung tercatat dan dapat diakses oleh pengurus KKG</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Masukan Anda akan menjadi bahan evaluasi untuk perbaikan KKG Gugus III ke depannya</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>Terima kasih atas kontribusi Anda dalam pengembangan pendidikan di Gugus III</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==================== CONTACT PAGE ====================
+    function getContactPage() {
+      return `
+        <!-- ==================== CONTACT PAGE ==================== -->
+        <div id="page-contact" class="page">
+          <div class="pt-24 lg:pt-32 pb-16">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-20">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Hubungi Kami</h1>
+                <p class="text-xl text-teal-100 max-w-2xl mx-auto">Silakan hubungi kami untuk informasi lebih lanjut</p>
+              </div>
+            </div>
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+              <div class="text-center mb-16">
+                <div class="w-24 h-24 mx-auto mb-8 rounded-3xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-2xl">
+                  <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                  </svg>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-slate-800 mb-6">Informasi Kontak KKG Gugus III</h2>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Berikut adalah informasi kontak yang dapat digunakan untuk menghubungi pengurus KKG Gugus III</p>
+              </div>
+              <!-- Contact Cards Grid -->
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Email Card -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-8 shadow-xl border-2 border-blue-100 hover:border-blue-200 transition-all duration-300 hover:shadow-2xl">
+                  <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-blue-500 flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-800 mb-3 text-center">Email</h3>
+                  <p class="text-blue-600 font-semibold text-center text-lg mb-4" id="contact-email-display">kkg.gugus3@email.com</p>
+                  <p class="text-slate-600 text-sm text-center">Kirimkan email untuk pertanyaan umum dan informasi</p>
+                  <div class="mt-6 text-center">
+                    <a href="mailto:kkg.gugus3@email.com" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-md">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                      </svg>
+                      Kirim Email
+                    </a>
+                  </div>
+                </div>
+                <!-- Phone Card -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-3xl p-8 shadow-xl border-2 border-green-100 hover:border-green-200 transition-all duration-300 hover:shadow-2xl">
+                  <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-green-500 flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-800 mb-3 text-center">Telepon/WhatsApp</h3>
+                  <p class="text-green-600 font-semibold text-center text-lg mb-4" id="contact-phone-display">+62 812-3456-7890</p>
+                  <p class="text-slate-600 text-sm text-center">Hubungi kami melalui telepon atau WhatsApp</p>
+                  <div class="mt-6 text-center">
+                    <a href="https://wa.me/6281234567890" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-md">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                      </svg>
+                      WhatsApp
+                    </a>
+                  </div>
+                </div>
+                <!-- Address Card -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl p-8 shadow-xl border-2 border-purple-100 hover:border-purple-200 transition-all duration-300 hover:shadow-2xl md:col-span-2 lg:col-span-1">
+                  <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-purple-500 flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-800 mb-3 text-center">Alamat Sekretariat</h3>
+                  <div class="text-slate-700 text-center mb-4">
+                    <p class="font-medium" id="contact-address-display">
+                      Sekretariat KKG Gugus III<br>
+                      Jl. Pendidikan No. 123<br>
+                      Kecamatan Cendekia, Indonesia
+                    </p>
+                  </div>
+                  <p class="text-slate-600 text-sm text-center">Lokasi sekretariat kami untuk pertemuan dan kegiatan</p>
+                  <div class="mt-6 text-center">
+                    <button onclick="openMaps()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-sm font-semibold transition-colors shadow-md">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                      </svg>
+                      Buka Maps
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Additional Information -->
+              <div class="grid md:grid-cols-2 gap-8">
+                <!-- Contact Hours -->
+                <div class="bg-white rounded-3xl p-8 shadow-xl border-2 border-slate-100">
+                  <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Jam Kontak
+                  </h3>
+                  <div class="space-y-4">
+                    <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                      <span class="text-slate-700 font-medium">Senin - Jumat</span>
+                      <span class="font-bold text-slate-800">08:00 - 15:00 WIB</span>
+                    </div>
+                    <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                      <span class="text-slate-700 font-medium">Sabtu</span>
+                      <span class="font-bold text-slate-800">08:00 - 12:00 WIB</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-slate-700 font-medium">Minggu & Hari Libur</span>
+                      <span class="font-bold text-slate-800">Tutup</span>
+                    </div>
+                  </div>
+                  <p class="text-sm text-slate-500 mt-6">*Respon email maksimal 1-2 hari kerja</p>
+                </div>
+                <!-- Quick Response -->
+                <div class="bg-gradient-to-br from-teal-50 to-teal-100 rounded-3xl p-8 shadow-xl border-2 border-teal-100">
+                  <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                    <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Respon Cepat
+                  </h3>
+                  <p class="text-slate-700 mb-6">Untuk respon yang lebih cepat, gunakan WhatsApp dengan mengklik tombol di kartu Telepon/WhatsApp di atas.</p>
+                  <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                      <svg class="w-5 h-5 text-teal-600" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-sm text-slate-700">Respon WhatsApp dalam beberapa jam</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <svg class="w-5 h-5 text-teal-600" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-sm text-slate-700">Respon email maksimal 2 hari kerja</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                      <svg class="w-5 h-5 text-teal-600" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-sm text-slate-700">Kunjungan sekretariat sesuai jam kerja</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Map Placeholder -->
+              <div class="mt-16">
+                <h3 class="text-2xl font-bold text-slate-800 mb-8 text-center">Lokasi Sekretariat</h3>
+                <div class="bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl p-12 text-center shadow-xl border-2 border-slate-200">
+                  <div class="w-20 h-20 mx-auto mb-6 text-slate-400">
+                    <svg fill="currentColor" viewbox="0 0 24 24">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
+                    </svg>
+                  </div>
+                  <h4 class="text-xl font-bold text-slate-700 mb-3">Peta Lokasi</h4>
+                  <p class="text-slate-600 mb-6">Lokasi tepat sekretariat KKG Gugus III dapat dilihat pada peta digital</p>
+                  <button onclick="openMaps()" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-700 hover:bg-slate-800 text-white rounded-xl font-semibold transition-colors shadow-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                    </svg>
+                    Lihat di Google Maps
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getHeader() {
+      return `
+        <!-- Navigation -->
+        <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-lg shadow-md z-50">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+              <!-- Logo -->
+              <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+                <div class="w-11 h-11 lg:w-14 lg:h-14 rounded-2xl gradient-hero flex items-center justify-center shadow-lg">
+                  <svg class="w-6 h-6 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                  </svg>
+                </div>
+                <div class="hidden sm:block">
+                  <span id="nav-logo-text" class="font-bold text-xl text-blue-700">KKG Gugus III</span>
+                  <p class="text-xs text-slate-500 font-medium">Kelompok Kerja Guru</p>
+                </div>
+              </div>
+              <!-- Desktop Navigation -->
+              <div class="hidden lg:flex items-center gap-4 xl:gap-8">
+                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1 active" onclick="return navigateTo('home')" data-page="home">Beranda</a>
+                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('about')" data-page="about">Tentang</a>
+                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('agenda')" data-page="agenda">Agenda</a>
+                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('documentation')" data-page="documentation">Dokumentasi</a>
+                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('transparency')" data-page="transparency">Transparansi</a>
+                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('sharing')" data-page="sharing">Berbagi File</a>
+                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('feedback')" data-page="feedback">Masukan</a>
+                <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm xl:text-base px-2 py-1" onclick="return navigateTo('contact')" data-page="contact">Kontak</a>
+              </div>
+              <!-- Mobile Menu Button -->
+              <button class="lg:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors" onclick="toggleMobileMenu()">
+                <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <!-- Mobile Menu -->
+          <div id="mobile-menu" class="lg:hidden hidden bg-white border-t shadow-lg">
+            <div class="px-4 py-3 space-y-2">
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="return mobileNavigateTo('home')">Beranda</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="return mobileNavigateTo('about')">Tentang</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="return mobileNavigateTo('agenda')">Agenda</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="return mobileNavigateTo('documentation')">Dokumentasi</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="return mobileNavigateTo('transparency')">Transparansi</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="return mobileNavigateTo('sharing')">Berbagi File</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="return mobileNavigateTo('feedback')">Masukan</a>
+              <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="return mobileNavigateTo('contact')">Kontak</a>
+            </div>
+          </div>
+        </nav>
+      `;
+    }
+
+    function getFooter() {
+      return `
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="bg-slate-800 text-white">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+              <!-- About -->
+              <div>
+                <div class="flex items-center gap-3 mb-6">
+                  <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                  </div>
+                  <span class="font-bold text-xl">KKG Gugus III</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed">Kelompok Kerja Guru Sekolah Dasar yang berkomitmen untuk meningkatkan kualitas pendidikan.</p>
+              </div>
+              <!-- Quick Links -->
+              <div>
+                <h4 class="font-bold mb-6 text-lg">Menu Cepat</h4>
+                <ul class="space-y-3 text-slate-400">
+                  <li><a href="#" onclick="return navigateTo('home')" class="hover:text-white transition-colors">Beranda</a></li>
+                  <li><a href="#" onclick="return navigateTo('about')" class="hover:text-white transition-colors">Tentang Kami</a></li>
+                  <li><a href="#" onclick="return navigateTo('agenda')" class="hover:text-white transition-colors">Agenda</a></li>
+                  <li><a href="#" onclick="return navigateTo('documentation')" class="hover:text-white transition-colors">Dokumentasi</a></li>
+                </ul>
+              </div>
+              <!-- More Links -->
+              <div>
+                <h4 class="font-bold mb-6 text-lg">Informasi</h4>
+                <ul class="space-y-3 text-slate-400">
+                  <li><a href="#" onclick="return navigateTo('transparency')" class="hover:text-white transition-colors">Transparansi</a></li>
+                  <li><a href="#" onclick="return navigateTo('sharing')" class="hover:text-white transition-colors">Berbagi File</a></li>
+                  <li><a href="#" onclick="return navigateTo('feedback')" class="hover:text-white transition-colors">Masukan</a></li>
+                  <li><a href="#" onclick="return navigateTo('contact')" class="hover:text-white transition-colors">Kontak</a></li>
+                </ul>
+              </div>
+              <!-- Contact -->
+              <div>
+                <h4 class="font-bold mb-6 text-lg">Kontak</h4>
+                <ul class="space-y-3 text-slate-400">
+                  <li id="footer-email" class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    kkg.gugus3@email.com
+                  </li>
+                  <li id="footer-phone" class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                    +62 812-3456-7890
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="border-t border-slate-700 mt-12 pt-10 text-center text-slate-400">
+              <p class="font-medium">© 2025 KKG Gugus III. Seluruh hak cipta dilindungi.</p>
+            </div>
+          </div>
+        </footer>
+      `;
+    }
+
+    function updatePageConfig() {
+      const heroTitle = document.getElementById('hero-title');
+      const heroSubtitle = document.getElementById('hero-subtitle');
+      const heroDescription = document.getElementById('hero-description');
+      if (heroTitle) {
+        heroTitle.textContent = defaultConfig.hero_title;
+        heroTitle.classList.add('hero-title');
+      }
+      if (heroSubtitle) {
+        heroSubtitle.textContent = defaultConfig.hero_subtitle;
+        heroSubtitle.classList.add('hero-subtitle');
+      }
+      if (heroDescription) {
+        heroDescription.textContent = defaultConfig.hero_description;
+        heroDescription.classList.add('hero-description');
+      }
+      const contactEmail = document.getElementById('contact-email-display');
+      const contactPhone = document.getElementById('contact-phone-display');
+      const contactAddress = document.getElementById('contact-address-display');
+      const footerEmail = document.getElementById('footer-email');
+      const footerPhone = document.getElementById('footer-phone');
+      if (contactEmail) contactEmail.textContent = defaultConfig.contact_email;
+      if (contactPhone) contactPhone.textContent = defaultConfig.contact_phone;
+      if (contactAddress) contactAddress.innerHTML = defaultConfig.contact_address.replace(/\n/g, '<br>');
+      if (footerEmail) {
+        footerEmail.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          ${defaultConfig.contact_email}
+        `;
+      }
+      if (footerPhone) {
+        footerPhone.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          ${defaultConfig.contact_phone}
+        `;
+      }
+    }
+
+    // ==================== PAGE-SPECIFIC FUNCTIONS ====================
+    function initDocumentationPage() {
+      console.log('Initializing Documentation page');
+      // DATA FOTO - Disesuaikan dengan link Google Drive Anda
+      const galleryData = [
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1cLGORklKz-hDueSSNdN0VTdXJNKupwNx&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1qEwBBPXkHPXHMOHjguddAM2lN7o4gmhM&sz=w1000', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1PnPxLcN2FpVzvn1aKqPNLMK4NzfShR_w', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1UCVDZPSxEpOiklU2KBzXIlL0itnO0wJ1', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1fijWgcGSpj4-AvKVE6ES1rzq1aFByfzP', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1Ul6SpWxZdg_REzu8dkxDwGnyx2BjPbE2', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1Bs8wo0I8lJpr4nsC6DDhgGi0SvKFt6tP', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1eYgtTwysbcq5VZ1H5IO62XM10KiNittm', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1uUcr-K0zvIQPuwZO93zv04Np7qFJUeIF', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'training', title: 'Pelatihan Pengembangan Guru', src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Pelatihan Guru' },
+        { category: 'meeting', title: 'Rapat Koordinasi Bulanan', src: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Rapat Koordinasi' },
+        { category: 'celebration', title: 'Perayaan Hari Guru Nasional', src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Perayaan HGN' },
+        { category: 'workshop', title: 'Januari 2026 - Sosialisasi Aplikasi KKG & Materi Refleksi Assesmen', src: 'https://drive.google.com/thumbnail?id=1pnftRzrN5QQqB-2w5aJNObxQMo-a8iao', alt: 'Kegiatan Sosialisasi Aplikasi KKG 3 & Assemen Refleksi' },
+        { category: 'training', title: 'Seminar Pendidikan Karakter', src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Seminar Pendidikan Karakter' },
+        { category: 'meeting', title: 'Diskusi Kurikulum', src: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', alt: 'Diskusi Kurikulum' }
+      ];
+
+      setTimeout(() => {
+        const galleryContainer = document.getElementById('photo-gallery');
+        const loadingMessage = document.getElementById('loading-message');
+        if (!galleryContainer) {
+          console.error('Gallery container not found!');
+          return;
+        }
+        if (loadingMessage) {
+          loadingMessage.style.display = 'none';
+        }
+        let galleryHTML = '';
+        galleryData.forEach((item) => {
+          galleryHTML += `
+            <div class="photo-grid-item aspect-square rounded-3xl overflow-hidden shadow-xl relative group cursor-pointer hover:shadow-2xl transition-all duration-300" data-category="${item.category}" onclick="openImageModal('${item.src}', '${item.title}')">
+              <img src="${item.src}" alt="${item.alt}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/500x500/3B82F6/FFFFFF?text=KKG+Gugus+III';">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <div>
+                  <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full mb-2">${item.category.toUpperCase()}</span>
+                  <h3 class="text-white font-bold text-lg">${item.title}</h3>
+                </div>
+              </div>
+              <div class="absolute top-4 left-4">
+                <span class="px-3 py-1 bg-black/60 backdrop-blur-sm text-white text-xs font-bold rounded-full">${item.category}</span>
+              </div>
+            </div>
+          `;
+        });
+        galleryContainer.innerHTML = galleryHTML;
+        filterGallery('all');
+        console.log('Gallery loaded with', galleryData.length, 'images');
+      }, 500);
+    }
+
+    // Fungsi untuk filter gallery
+    function filterGallery(category) {
+      const galleryItems = document.querySelectorAll('.photo-grid-item');
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active', 'bg-blue-600', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-600');
+        const btnCategory = btn.textContent.toLowerCase();
+        if (category === 'all' && btn.textContent === 'Semua') {
+          btn.classList.remove('bg-slate-100', 'text-slate-600');
+          btn.classList.add('bg-blue-600', 'text-white', 'active');
+        } else if (btnCategory === category) {
+          btn.classList.remove('bg-slate-100', 'text-slate-600');
+          btn.classList.add('bg-blue-600', 'text-white', 'active');
+        }
+      });
+      galleryItems.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.style.display = 'block';
+          setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'scale(1)';
+          }, 50);
+        } else {
+          item.style.opacity = '0';
+          item.style.transform = 'scale(0.8)';
+          setTimeout(() => {
+            item.style.display = 'none';
+          }, 300);
+        }
+      });
+    }
+
+    // Fungsi untuk modal gambar
+    function openImageModal(src, title) {
+      const existingModal = document.getElementById('image-modal');
+      if (existingModal) {
+        existingModal.remove();
+      }
+      const modalHTML = `
+        <div id="image-modal" class="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center p-4">
+          <div class="relative max-w-6xl w-full max-h-[90vh]">
+            <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white hover:text-yellow-300 text-3xl z-10 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110 hover:bg-black/70">
+              ✕
+            </button>
+            <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
+              <img src="${src}" alt="${title}" class="max-h-[80vh] w-auto mx-auto object-contain" onerror="this.src='https://via.placeholder.com/800x600/1E40AF/FFFFFF?text=Gambar+KKG+Gugus+III'">
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
+                <h3 class="text-white text-2xl font-bold mb-2">${title}</h3>
+                <p class="text-white/80 text-sm">KKG Gugus III - Kelompok Kerja Guru</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('image-modal');
+      if (modal) {
+        modal.remove();
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    function initTransparencyPage() {
+      console.log('Initializing Transparency page');
+    }
+
+    function initFeedbackPage() {
+      console.log('Initializing Feedback page');
+    }
+
+    function initContactPage() {
+      console.log('Initializing Contact page');
+    }
+
+    // ==================== VERSI BARU SHARING PAGE ====================
+    function getSharingPage() {
+      return `
+        <div id="page-sharing" class="page">
+          <div class="pt-24 lg:pt-32 pb-16">
+            <div class="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 py-20">
+              <div class="max-w-7xl mx-auto px-4 text-center">
+                <h1 class="text-4xl lg:text-6xl font-extrabold text-white mb-5">Berbagi File & Materi</h1>
+                <p class="text-xl text-indigo-100">Upload materi ajar dengan PIN Guru: <strong>${TEACHER_PIN}</strong></p>
+              </div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 py-16">
+              <!-- Form Upload Baru -->
+              <div class="bg-white rounded-3xl shadow-xl p-8 mb-16 border-2 border-indigo-50">
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 text-center">Upload File Baru</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                  <div class="bg-indigo-50 p-6 rounded-2xl">
+                    <h3 class="font-bold text-indigo-800 mb-2">Peraturan Upload</h3>
+                    <ul class="text-sm text-slate-700 space-y-2 list-disc ml-4">
+                      <li>Pastikan file bermanfaat untuk KKG.</li>
+                      <li>Maksimal ukuran file <strong>5 MB</strong>.</li>
+                      <li>Format: PDF, Word, Excel, PowerPoint, Gambar.</li>
+                      <li>Wajib memasukkan <strong>PIN GURU</strong>.</li>
+                    </ul>
+                  </div>
+                  <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                      <input type="text" id="upload-name" placeholder="Nama Guru" class="w-full px-4 py-3 rounded-xl border focus:border-indigo-500 outline-none">
+                      <input type="text" id="upload-school" placeholder="Asal Sekolah" class="w-full px-4 py-3 rounded-xl border focus:border-indigo-500 outline-none">
+                    </div>
+                    <input type="password" id="upload-pin" placeholder="PIN Guru" class="w-full px-4 py-3 rounded-xl border border-red-200 focus:border-red-500 outline-none">
+                    <div class="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:bg-slate-50 transition">
+                      <input type="file" id="upload-file" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    </div>
+                    <button id="btn-upload" onclick="handleFileUpload()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition shadow-lg">Upload Sekarang</button>
+                    <p id="upload-status" class="text-center text-xs text-slate-500 mt-2"></p>
+                  </div>
+                </div>
+              </div>
+              <h2 class="text-2xl font-bold text-slate-800 mb-6">Materi Terbaru</h2>
+              <div id="file-gallery" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                <!-- Akan diisi oleh JavaScript -->
+              </div>
+              <!-- Bagian Diskusi -->
+              <div class="border-t pt-10">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-bold text-slate-800">Diskusi</h2>
+                  <button onclick="toggleCommentForm()" class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-bold hover:bg-blue-200">Tulis Komentar</button>
+                </div>
+                <div id="comment-form" class="hidden bg-slate-50 p-6 rounded-2xl mb-8 border">
+                  <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <input type="text" id="comment-name" placeholder="Nama Lengkap" class="px-4 py-2 rounded-lg border">
+                    <input type="text" id="comment-school" placeholder="Sekolah" class="px-4 py-2 rounded-lg border">
+                  </div>
+                  <textarea id="comment-text" rows="3" placeholder="Tulis pesan..." class="w-full px-4 py-2 rounded-lg border mb-4"></textarea>
+                  <div class="flex gap-2">
+                    <button onclick="submitComment()" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-bold">Kirim</button>
+                    <button onclick="toggleCommentForm()" class="px-6 py-2 bg-slate-200 text-slate-600 rounded-lg font-bold">Batal</button>
+                  </div>
+                </div>
+                <div id="comments-list" class="space-y-4">
+                  <!-- Akan diisi oleh JavaScript -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==================== INISIALISASI ====================
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Website initialized');
+      document.getElementById('header-container').innerHTML = getHeader();
+      document.getElementById('footer-container').innerHTML = getFooter();
+      loadPage('home');
+    });
+  </script>
+</body>
+</html>
